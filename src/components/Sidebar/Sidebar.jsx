@@ -6,7 +6,16 @@ import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import WeekendIcon from '@mui/icons-material/Weekend';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
+import Messaging from './Messaging/Messaging';
+import Queue from './Queue/Queue';
+import Rooms from './Rooms/Rooms';
+import Notifications from './Notifications/Notifications';
 import '../../css/Sidebar.css'
+
+const MESSAGING = 0;
+const MUSIC_QUEUE = 1;
+const VIRTUAL_ROOMS = 2;
+const NOTIFICATIONS = 3;
 
 
 const Sidebar = () => {
@@ -15,15 +24,35 @@ const Sidebar = () => {
     const chooseTabs = (index) => {
         setTab(index)
     }
+    
+    const getComponent = () => {
+        switch(tab) {
+            case MESSAGING:
+                return <Messaging/>
+            case MUSIC_QUEUE:
+                return <Queue/>
+            case VIRTUAL_ROOMS:
+                return <Rooms/>
+            case NOTIFICATIONS:
+                return <Notifications/>
+            default: 
+                return <Messaging/>
+        }
+    }
+   
+    
 
     return (
         <div className="sidebar">
-            <ButtonGroup className="button-group" variant="contained" aria-label="outlined primary button group">
-                <Button className={tab === 0 ? "active-tab" : "tab"} onClick={() => chooseTabs(0)}><ChatIcon/></Button>
-                <Button className={tab === 1 ? "active-tab" : "tab"} onClick={() => chooseTabs(1)}><QueueMusicIcon/></Button>
-                <Button className={tab === 2 ? "active-tab" : "tab"} onClick={() => chooseTabs(2)}><WeekendIcon/></Button>
-                <Button className={tab === 3 ? "active-tab" : "tab"} onClick={() => chooseTabs(3)}><NotificationsIcon/></Button>
+            <ButtonGroup className="tab-group" variant="contained" aria-label="outlined primary button group">
+                <Button className={tab === MESSAGING ? "active-tab" : "tab"} onClick={() => chooseTabs(MESSAGING)}><ChatIcon/></Button>
+                <Button className={tab === MUSIC_QUEUE ? "active-tab" : "tab"} onClick={() => chooseTabs(MUSIC_QUEUE)}><QueueMusicIcon/></Button>
+                <Button className={tab === VIRTUAL_ROOMS ? "active-tab" : "tab"} onClick={() => chooseTabs(VIRTUAL_ROOMS)}><WeekendIcon/></Button>
+                <Button className={tab === NOTIFICATIONS ? "active-tab" : "tab"} onClick={() => chooseTabs(NOTIFICATIONS)}><NotificationsIcon/></Button>
             </ButtonGroup>
+            <div className="content">
+               {getComponent()}
+            </div>
         </div>
     )
 }

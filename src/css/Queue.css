@@ -1,0 +1,34 @@
+#queue-component {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: repeat(1,1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-areas:
+        "list"
+        "list"
+        "list"
+        "list"
+        "list"
+        "list"
+        "list"
+        "list"
+        "list"
+        "send";
+}
+
+.queue-list {
+    height: 100%;
+}
+
+.list {
+    position: relative;
+    grid-area: list;
+    height: 100%;
+}
+
+.send {
+    position: relative;
+    grid-area: send;
+    height: 100%;
+}
