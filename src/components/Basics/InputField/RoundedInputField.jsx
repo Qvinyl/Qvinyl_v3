@@ -1,12 +1,10 @@
-import * as React from 'react';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-
 const RoundedTextField = styled(TextField)({
     '& .MuiOutlinedInput-root': {
-        border: '1px solid #e2e2e1',
         overflow: 'hidden',
-        borderRadius: 50,
+        borderRadius: 25,
+        color: '#ACACAC',
         '& fieldset': {
             borderColor: '#ACACAC',
         },
@@ -15,9 +13,18 @@ const RoundedTextField = styled(TextField)({
         },
         '&.Mui-focused fieldset': {
             borderColor: '#ACACAC',
-        }
+        },
+        margin: "10px",
+    },
+    '& .MuiInputLabel-root' : {
+        color: '#ACACAC',
+        top: "10px",
+        left: "12px",
+        borderWidth: 2,
+        '&.Mui-focused': {
+            color: '#ACACAC',
+        },
     }
-    
 });
   
 export default RoundedTextField;
