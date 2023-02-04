@@ -1,7 +1,7 @@
 import { Component } from "react";
 import '../../css/Player.css'
 
-const Player = () => {
+const PlayerOverlay = () => {
     return (
         <div className="player">
             Player
@@ -9,4 +9,4 @@ const Player = () => {
     )
 }
 
-export default Player;
+export default PlayerOverlay;
