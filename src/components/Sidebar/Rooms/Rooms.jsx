@@ -4,9 +4,9 @@ import '../../../css/Room.css'
 
 const Rooms = () => {
     return (
-        <div className="content rooms" id="room-component">
+        <div className="ccontent-container rooms" id="queue-component">
             <div className="input-field send" >
-                <RoundedInputField label="Search Rooms..." />
+                <RoundedInputField label="Search Rooms..." multiline maxRows={4} />
             </div>
         </div>
     )

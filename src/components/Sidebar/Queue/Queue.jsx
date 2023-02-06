@@ -7,7 +7,7 @@ const Queue = () => {
         <div className="content-container queue" id="queue-component">
             <QueueList/>
             <div className="input-field send" >
-                <RoundedInputField label="Search/Paste from Youtube" multiline maxRows={4} />
+                <RoundedInputField label="Search/Paste from Youtube" multiline maxRows={4}  />
             </div>
         </div>
     )

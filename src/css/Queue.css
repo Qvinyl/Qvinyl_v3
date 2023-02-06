@@ -5,6 +5,7 @@
     grid-template-columns: repeat(1,1fr);
     grid-template-rows: repeat(1, 1fr);
     grid-template-areas:
+        "queue-tabs"
         "list"
         "send";
 }
@@ -14,17 +15,14 @@
 }
 
 .item {
-    /* height: 100px; */
     width: 100%;
-    background-color: aqua;
+    display: flex;
 }
-
 
 .list {
     position: relative;
     grid-area: list;
     height: 100%;
-    background-color: antiquewhite;
     overflow-y: scroll;
 }
 
@@ -32,4 +30,25 @@
     position: relative;
     grid-area: send;
     height: 100%;
+    background-image: linear-gradient(to bottom, #5B5B5B, #3E3E3E)
+}
+
+.thumbnail-container {
+    width: 40%;
+}
+
+.thumbnail {
+    height: 75px;
+}
+
+.text-container {
+    margin-left: 20px;
+    width: 60%;
+    color: white;
+    margin: auto;
+    margin-left: 20px;
+}
+
+.queued-text {
+    font-size: 12px;
 }
