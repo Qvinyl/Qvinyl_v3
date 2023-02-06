@@ -10,8 +10,10 @@
         "send";
 }
 
-.queue-list {
+.queue-tabs {
+    grid-area: queue-tabs;
     height: 100%;
+    color: white;
 }
 
 .item {
