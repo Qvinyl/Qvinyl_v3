@@ -5,7 +5,7 @@ import '../../../css/Queue.css'
 const Queue = () => {
     return (
         <div className="content-container queue" id="queue-component">
-            <QueueList className="items"/>
+            <QueueList/>
             <div className="input-field send" >
                 <RoundedInputField label="Search/Paste from Youtube" multiline maxRows={4} />
             </div>

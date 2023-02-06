@@ -6,14 +6,6 @@
     grid-template-rows: repeat(1, 1fr);
     grid-template-areas:
         "list"
-        "list"
-        "list"
-        "list"
-        "list"
-        "list"
-        "list"
-        "list"
-        "list"
         "send";
 }
 
@@ -21,10 +13,19 @@
     height: 100%;
 }
 
+.item {
+    /* height: 100px; */
+    width: 100%;
+    background-color: aqua;
+}
+
+
 .list {
     position: relative;
     grid-area: list;
     height: 100%;
+    background-color: antiquewhite;
+    overflow-y: scroll;
 }
 
 .send {

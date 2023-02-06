@@ -43,8 +43,8 @@ const Sidebar = () => {
     
 
     return (
-        <div className="sidebar">
-            <ButtonGroup className="tab-group" variant="contained" aria-label="outlined primary button group">
+        <div className="sidebar" id="sidebar-component">
+            <ButtonGroup className="tab-group tabs" variant="contained" aria-label="outlined primary button group">
                 <Button className={tab === MESSAGING ? "active-tab" : "tab"} onClick={() => chooseTabs(MESSAGING)}><ChatIcon/></Button>
                 <Button className={tab === MUSIC_QUEUE ? "active-tab" : "tab"} onClick={() => chooseTabs(MUSIC_QUEUE)}><QueueMusicIcon/></Button>
                 <Button className={tab === VIRTUAL_ROOMS ? "active-tab" : "tab"} onClick={() => chooseTabs(VIRTUAL_ROOMS)}><WeekendIcon/></Button>
