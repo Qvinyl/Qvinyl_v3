@@ -45,10 +45,18 @@ const Sidebar = () => {
     return (
         <div className="sidebar" id="sidebar-component">
             <ButtonGroup className="tab-group tabs" variant="contained" aria-label="outlined primary button group">
-                <Button className={tab === MESSAGING ? "active-tab" : "tab"} onClick={() => chooseTabs(MESSAGING)}><ChatIcon/></Button>
-                <Button className={tab === MUSIC_QUEUE ? "active-tab" : "tab"} onClick={() => chooseTabs(MUSIC_QUEUE)}><QueueMusicIcon/></Button>
-                <Button className={tab === VIRTUAL_ROOMS ? "active-tab" : "tab"} onClick={() => chooseTabs(VIRTUAL_ROOMS)}><WeekendIcon/></Button>
-                <Button className={tab === NOTIFICATIONS ? "active-tab" : "tab"} onClick={() => chooseTabs(NOTIFICATIONS)}><NotificationsIcon/></Button>
+                <Button className={tab === MESSAGING ? "active-tab" : "tab"} onClick={() => chooseTabs(MESSAGING)}>
+                    <ChatIcon className={tab === MESSAGING ? "active" : "inactive"}/>
+                </Button>
+                <Button className={tab === MUSIC_QUEUE ? "active-tab" : "tab"} onClick={() => chooseTabs(MUSIC_QUEUE)}>
+                    <QueueMusicIcon className={tab === MUSIC_QUEUE ? "active" : "inactive"}/>
+                </Button>
+                <Button className={tab === VIRTUAL_ROOMS ? "active-tab" : "tab"} onClick={() => chooseTabs(VIRTUAL_ROOMS)}>
+                    <WeekendIcon className={tab === VIRTUAL_ROOMS ? "active" : "inactive"}/>
+                </Button>
+                <Button className={tab === NOTIFICATIONS ? "active-tab" : "tab"} onClick={() => chooseTabs(NOTIFICATIONS)}>
+                    <NotificationsIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
+                </Button>
             </ButtonGroup>
             <div className="content">
                {getComponent()}

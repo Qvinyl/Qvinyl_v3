@@ -1,10 +1,11 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    background-color: #5B5B5B;
+    /* background-color: #5B5B5B; */
+    background-color: black;
     width: 20%;
-    max-width: 300px;
-    min-width: 350px;
+    max-width: 350px;
+    min-width: 300px;
     height: 100%;
 }
 
@@ -16,15 +17,26 @@
 }
 
 .tab {
-    background-color: #8C8C8C !important;
+    background-color: black !important;
+    border-bottom: 1px solid #8C8C8C !important;
+    /* background-color: #8C8C8C !important; */
     border-color: #8C8C8C !important;
     width: 100%;
 }
 
 .active-tab {
-    background-color: #5B5B5B !important;
+    background-color: black !important;
     border-color: #8C8C8C !important;
+    border-bottom: 1px solid #1976d2 !important;
     width: 100%;
+}
+
+.active {
+    color: #1976d2;
+}
+
+.inactive {
+    color: white;
 }
 
 .content-container {

@@ -1,5 +1,6 @@
 import React from 'react';
 import QueueList from './QueueList';
+import LastPlayedList from './LastPlayedList';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
@@ -8,13 +9,6 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import '../../../css/Queue.css'
-
-function a11yProps(index) {
-    return {
-      id: `full-width-tab-${index}`,
-      'aria-controls': `full-width-tabpanel-${index}`,
-    };
-}
 
 const Queue = () => {
     const theme = useTheme();
@@ -52,7 +46,7 @@ const Queue = () => {
                     <QueueList/>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <QueueList/>
+                    <LastPlayedList/>
                 </TabPanel>
             </SwipeableViews>
             <div className="input-field send" >

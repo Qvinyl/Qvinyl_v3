@@ -15,15 +15,18 @@ const RoundedTextField = styled(TextField)({
             borderColor: '#ACACAC',
         },
         margin: "10px",
-        padding: '10px 10px 10px 16px',
+        paddingRight: '10px',
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        PaddingLeft: '16px',
     },
     '& .MuiInputLabel-root' : {
         color: '#ACACAC',
-        top: "7px",
-        left: "12px",
+        top: "8px",
+        left: "10px",
         borderWidth: 2,
         '&.Mui-focused': {
-            color: '#ACACAC',
+            color: '#1976d2',
         },
     }
 });
