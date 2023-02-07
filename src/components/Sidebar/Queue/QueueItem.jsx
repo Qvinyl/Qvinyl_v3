@@ -20,7 +20,6 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed}) => {
                 { 
                     wasPlayed ? 
                     <RequeuedButton>Requeue +</RequeuedButton>
-                    // <Button size="small" variant="contained">Requeue +</Button>
                     : 
                     <div className="queued-text">Queued By {queuedBy}</div> 
                 }
