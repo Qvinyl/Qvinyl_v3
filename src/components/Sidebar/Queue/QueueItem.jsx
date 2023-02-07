@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@mui/material/Button';
 import RequeuedButton from '../../Basics/Button/RequeuedButton';
 import '../../../css/Queue.css';
 
@@ -8,7 +7,7 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed}) => {
     return (
         <div className="item">
             <div className="thumbnail-container">
-                <img src={thumbnail} className="thumbnail"/>
+                <img src={thumbnail} alt="thumbnail" className="thumbnail"/>
             </div>
             <div className="text-container">
                 <div>

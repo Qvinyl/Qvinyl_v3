@@ -1,0 +1,20 @@
+.room-navigation {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #2b2b2b;
+}
+
+.room-search-container {
+    margin-right: 5ox !important;
+    width: 100% !important;
+}
+
+.add-room-container {
+    margin: auto;
+    padding: 10px;
+}
+
+.add {
+    color: #ACACAC;
+}
