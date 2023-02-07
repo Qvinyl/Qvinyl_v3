@@ -6,10 +6,8 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
-
-const QueueList = () => {
-    const queue = [
-    ]
+const LastPlayedList = () => {
+    const queue = []
 
     return (
         <div className="list">
@@ -18,11 +16,11 @@ const QueueList = () => {
                     {
                         queue.map((item) =>
                             <TableRow>
-                                <TableCell borderLine>
+                                <TableCell>
                                     <QueueItem
                                         thumbnail={item.thumbnail}
                                         title={item.title}
-                                        queuedBy={item.queuedBy}
+                                        wasPlayed={true}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -34,4 +32,4 @@ const QueueList = () => {
     )
 }
 
-export default QueueList;
+export default LastPlayedList;
