@@ -1,22 +1,19 @@
 import React from 'react';
-import RoundedInputField from '../../Basics/InputField/RoundedInputField'
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
 import RoomList from './RoomList';
-import AddButton from '../../Basics/Button/AddButton';
-import AddIcon from '@mui/icons-material/Add';
+import Add from '../../Basics/Button/AddButton';
+import AddRoom from './AddRoom';
+
 
 import '../../../css/Room.css'
 
 const Rooms = () => {
     return (
-        <div className="content-container rooms" id="queue-component">
-            <div className="room-navigation">
-                <div className="room-search-container">
-                    <RoundedInputField label="Search Your Rooms..." multiline maxRows={2}/>  
-                </div>
-                <div className="add-room-container">
-                    <AddButton> <AddIcon className="add"/> </AddButton>
-                </div>
-            </div>
+        <div className="content-container rooms">
+            <AddRoom/>
             <RoomList/>
         </div>
     )

@@ -1,13 +1,5 @@
 .room-navigation {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
     background-color: #2b2b2b;
-}
-
-.room-search-container {
-    margin-right: 5ox !important;
-    width: 100% !important;
 }
 
 .add-room-container {
@@ -17,4 +9,33 @@
 
 .add {
     color: #ACACAC;
+}
+
+.option-container {
+    margin: auto;
+}
+
+.room-option-container {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.option-container :hover {
+    color: #1976d2 !important;
+}
+
+.option-text {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.icon {
+    margin-top: 4px;
+    margin-left: auto;
+}
+
+.room-item {
+    padding: 16px;
+    font-size: 16px;
 }

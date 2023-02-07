@@ -18,7 +18,7 @@ const QueueList = () => {
                     {
                         queue.map((item) =>
                             <TableRow>
-                                <TableCell borderLine>
+                                <TableCell>
                                     <QueueItem
                                         thumbnail={item.thumbnail}
                                         title={item.title}
