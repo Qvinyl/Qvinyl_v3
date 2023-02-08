@@ -1,9 +1,9 @@
 import React from 'react';
 
-const RoomItem = ({roomId, name}) => {
+const RoomItem = ({roomId, roomName}) => {
     return (
         <div className="text-color-light room-item">
-            {name}
+            {roomName}
         </div>
     )
 }
