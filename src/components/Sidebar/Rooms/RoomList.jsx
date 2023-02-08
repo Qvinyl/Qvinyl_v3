@@ -11,12 +11,12 @@ const RoomList = () => {
     const rooms = [
         {
             roomId: "1234198237490801",
-            name: "GYM JAMZ",
+            roomName: "GYM JAMZ",
             isAdmin: true
         },
         {
             roomId: "129837401928",
-            name: "Baby Shark",
+            roomName: "Baby Shark",
             isAdmin: false
         },
 
@@ -29,10 +29,10 @@ const RoomList = () => {
                     {
                         rooms.map((item) =>
                             <TableRow>
-                                <TableCell>
+                                <TableCell className="table-cell">
                                     <Room 
                                         roomId={item.roomId}
-                                        name={item.name}
+                                        roomName={item.roomName}
                                         isAdmin={item.isAdmin}
                                     />
                                 </TableCell>

@@ -1,4 +1,4 @@
-import React from 'react';
+import {React} from 'react';
 import RoomAccordion from '../../Basics/Accordian/RoomAccordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -9,22 +9,28 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RoomOption from './RoomOption';
 
-const AdminRoomItem = ({roomId, name}) => {
+const AdminRoomItem = ({roomId, roomName}) => {
+    // const [expanded, setExpanded] = useState(false);
+
+    // const handleOnChange = (isExpanded) => {
+    //     setExpanded(isExpanded);
+    // }
+
     return (
         <div>
             <RoomAccordion disableGutters>
-                    <AccordionSummary 
-                        expandIcon={<ExpandMore className="add"/>}>
-                        <Typography>
-                            {name}
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <RoomOption option="Invite People" icon={<PersonAddIcon className="icon"/>}/>
-                        <RoomOption option="Rename Room" icon={<EditIcon className="icon"/>}/>
-                        <RoomOption option="Delete Room" icon={<DeleteOutlineIcon className="icon"/>}/>
-                    </AccordionDetails>
-                </RoomAccordion>
+                <AccordionSummary 
+                    expandIcon={<ExpandMore className="add"/>}>
+                    <Typography>
+                        {roomName}
+                    </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <RoomOption option="Invite People" icon={<PersonAddIcon className="icon"/>}/>
+                    <RoomOption option="Rename Room" icon={<EditIcon className="icon"/>}/>
+                    <RoomOption option="Delete Room" icon={<DeleteOutlineIcon className="icon"/>}/>
+                </AccordionDetails>
+            </RoomAccordion>
         </div>
     )
 }

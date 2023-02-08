@@ -4,7 +4,7 @@ import RoomItem from './RoomItem';
 
 import '../../../css/Room.css';
 
-const Room = ({roomId, name, isAdmin}) => {
+const Room = ({roomId, roomName, isAdmin}) => {
 
     return (
         <div>
@@ -12,11 +12,11 @@ const Room = ({roomId, name, isAdmin}) => {
                 isAdmin ? 
                 <AdminRoomItem 
                     roomId={roomId}
-                    name={name}/>
+                    roomName={roomName}/>
                 :
                 <RoomItem
                     roomId={roomId}
-                    name={name}/>
+                    roomName={roomName}/>
             }
         </div>  
         

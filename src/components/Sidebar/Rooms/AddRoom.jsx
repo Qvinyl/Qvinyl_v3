@@ -3,7 +3,6 @@ import CustomAccordion from '../../Basics/Accordian/CustomAccordion'
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import ExpandMore from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import Button from '@mui/material/Button';
@@ -18,10 +17,10 @@ const AddRoom = () => {
     };
 
     return (
-        <div className="room-navigation">
+        <div className="room-navigation component-tab">
             <CustomAccordion disableGutters expanded={expanded}>
                 <AccordionSummary
-                    expandIcon={<AddIcon className="add" onClick={() => handleChange(true)}/>}>
+                    expandIcon={<AddIcon className="add" onClick={() => handleChange(!expanded)}/>}>
                     <Typography>
                         <div className="room-search-container" >
                             <RoundedInputField label="Search Your Rooms..." multiline maxRows={2} onClick={() => handleChange(false)}/>  

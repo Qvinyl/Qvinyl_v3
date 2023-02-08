@@ -25,7 +25,7 @@ const Queue = () => {
 
     return (
         <div className="content-container queue" id="queue-component">
-            <div className="queue-tabs">
+            <div className="queue-tabs component-tab">
                 <Tabs
                     value={value}
                     onChange={handleChange}
@@ -33,8 +33,8 @@ const Queue = () => {
                     textColor="inherit"
                     variant="fullWidth"
                     >
-                    <Tab label="Queue"/>
-                    <Tab label="Last 25 Played"/>
+                    <Tab label="Queue" />
+                    <Tab label="Last 25 Played" />
                 </Tabs>
             </div>
             <SwipeableViews

@@ -4,6 +4,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import ChatIcon from '@mui/icons-material/Chat';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import WeekendIcon from '@mui/icons-material/Weekend';
+import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import Messaging from './Messaging/Messaging';
@@ -43,7 +44,7 @@ const Sidebar = () => {
     
 
     return (
-        <div className="sidebar" id="sidebar-component">
+        <div className="sidebar">
             <ButtonGroup className="tab-group tabs" variant="contained" aria-label="outlined primary button group">
                 <Button className={tab === MESSAGING ? "active-tab" : "tab"} onClick={() => chooseTabs(MESSAGING)}>
                     <ChatIcon className={tab === MESSAGING ? "active" : "inactive"}/>
@@ -55,7 +56,7 @@ const Sidebar = () => {
                     <WeekendIcon className={tab === VIRTUAL_ROOMS ? "active" : "inactive"}/>
                 </Button>
                 <Button className={tab === NOTIFICATIONS ? "active-tab" : "tab"} onClick={() => chooseTabs(NOTIFICATIONS)}>
-                    <NotificationsIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
+                    <PersonIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
                 </Button>
             </ButtonGroup>
             <div className="content">

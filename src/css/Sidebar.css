@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     background-color: black;
-    width: 20%;
-    max-width: 350px;
-    min-width: 300px;
+    width: 100%;
+    max-width: 340px;
+    min-width: 250px;
     height: 100%;
 }
 
@@ -68,5 +68,24 @@
 }
 
 .text-color-light {
-    color: #ACACAC
+    color: #ACACAC !important;
+    font-size: 16px !important;
+}
+
+.center {
+    margin: auto;
+}
+
+.accept-button {
+    background-color: #1976d2 !important;
+}
+
+.cancel-button {
+    background-color: #8C8C8C !important;
+}
+
+.component-tab {
+    background-color: #2b2b2b !important;
+    /* min-height: 48px !important;
+    max-height: 48px !important; */
 }

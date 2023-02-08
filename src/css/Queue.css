@@ -15,9 +15,11 @@
 .item {
     width: 100%;
     display: flex;
+    justify-content: space-between;
 }
 
 .list {
+    padding: 0px 16px 0px 16px;
     display: sticky;
     position: relative;
     height: 100%;
@@ -32,7 +34,6 @@
 
 .thumbnail-container {
     margin: auto;
-    width: 45%;
 }
 
 .thumbnail {
@@ -40,11 +41,10 @@
 }
 
 .text-container {
+    padding: 16px;
     margin-left: 20px;
-    width: 55%;
     color: white;
     margin: auto;
-    margin-left: 20px;
 }
 
 .queued-text {
@@ -53,4 +53,8 @@
 
 .queued-button {
     width: 100%;
+}
+
+.table-cell {
+    padding: 16px 0px 16px 0px !important;
 }

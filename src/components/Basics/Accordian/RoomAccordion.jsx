@@ -18,7 +18,6 @@ const RoomAccordion = styled(Accordion)({
     '& .MuiAccordionDetails-root': {
         backgroundColor: 'inherit',
         color: '#ACACAC',
-        // padding: "10px",
     },
 })
 
