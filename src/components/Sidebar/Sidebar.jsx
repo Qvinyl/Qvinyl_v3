@@ -19,7 +19,7 @@ const NOTIFICATIONS = 3;
 
 
 const Sidebar = () => {
-    const [tab, setTab] = useState(0)
+    const [tab, setTab] = useState(2)
 
     const chooseTabs = (index) => {
         setTab(index)

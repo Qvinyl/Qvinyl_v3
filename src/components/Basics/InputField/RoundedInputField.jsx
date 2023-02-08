@@ -16,13 +16,13 @@ const RoundedTextField = styled(TextField)({
         },
         margin: "10px",
         paddingRight: '16px',
-        paddingTop: '10px',
-        paddingBottom: '10px',
+        paddingTop: '5px',
+        paddingBottom: '5px',
         paddingLeft: '16px',
     },
     '& .MuiInputLabel-root' : {
         color: '#ACACAC',
-        top: "5px",
+        top: "0px",
         left: "10px",
         borderWidth: 2,
         '&.Mui-focused': {
@@ -30,7 +30,10 @@ const RoundedTextField = styled(TextField)({
             top: "10px",
         },
     },
-    marginTop: "auto"
+    '& .MuiInputLabel-shrink' : {
+        top: "10px",
+    },
+    width: "100%",
 });
   
 export default RoundedTextField;

@@ -1,14 +1,25 @@
 import React from 'react';
 import '../../../css/Queue.css'
-import QueueItem from './QueueItem';
+import Room from './Room';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
 
-const QueueList = () => {
-    const queue = [
+const RoomList = () => {
+    const rooms = [
+        {
+            roomId: "1234198237490801",
+            name: "GYM JAMZ",
+            isAdmin: true
+        },
+        {
+            roomId: "129837401928",
+            name: "Baby Shark",
+            isAdmin: false
+        },
+
     ]
 
     return (
@@ -16,13 +27,13 @@ const QueueList = () => {
             <Table>
                 <TableBody>
                     {
-                        queue.map((item) =>
+                        rooms.map((item) =>
                             <TableRow>
                                 <TableCell>
-                                    <QueueItem
-                                        thumbnail={item.thumbnail}
-                                        title={item.title}
-                                        queuedBy={item.queuedBy}
+                                    <Room 
+                                        roomId={item.roomId}
+                                        name={item.name}
+                                        isAdmin={item.isAdmin}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -34,4 +45,4 @@ const QueueList = () => {
     )
 }
 
-export default QueueList;
+export default RoomList;

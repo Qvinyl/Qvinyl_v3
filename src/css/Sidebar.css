@@ -66,3 +66,7 @@
     height: 100%;
     overflow: hidden;
 }
+
+.text-color-light {
+    color: #ACACAC
+}

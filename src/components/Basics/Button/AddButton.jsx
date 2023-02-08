@@ -1,16 +1,17 @@
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-const RequeuedButton = styled(Button)({
+const AddButton = styled(Button)({
   boxShadow: 'none',
   textTransform: 'none',
   fontSize: 12,
-  padding: '6px 12px',
-  border: '1px #5B5B5B solid',
-  backgroundColor: '#5B5B5B',
+  border: '1px #ACACAC solid',
+  backgroundColor: 'transparent',
   color: 'white',
+  minWidth: '2px',
+  borderRadius: 50,
   lineHeight: 1.5,
-  width: '100%',
+  padding: 3,
   fontFamily: [
     '-apple-system',
     'BlinkMacSystemFont',
@@ -35,4 +36,4 @@ const RequeuedButton = styled(Button)({
   },
 });
 
-export default RequeuedButton;
+export default AddButton;
