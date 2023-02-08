@@ -1,6 +1,7 @@
 .player {
     width: 100vw;
     display: flex;
+    background-color: #EBEBEB;
 }
 
 .media-controls {
