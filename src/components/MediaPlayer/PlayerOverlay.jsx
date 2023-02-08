@@ -1,9 +1,9 @@
 import '../../css/Player.css'
-
+import MediaControls from './MediaControls';
 const PlayerOverlay = () => {
     return (
         <div className="player">
-            Player
+            <MediaControls/>
         </div>
     )
 }

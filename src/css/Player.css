@@ -2,3 +2,14 @@
     width: 100vw;
     display: flex;
 }
+
+.media-controls {
+    width: 100%;
+    margin-top: auto;
+}
+
+.media-button-container {
+    cursor: pointer;
+    color: #8C8C8C !important;
+    width: 50px;
+}
