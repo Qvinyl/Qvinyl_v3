@@ -29,28 +29,28 @@ const MediaControls = () => {
             <Table>
                 <TableBody>
                     <TableRow>
-                        <TableCell className="media-button-container">
+                        <TableCell className="media-button-container media-container">
                             {
                                 playback ? <PlayArrowIcon onClick={() => handleOnPlayback(false)}/> : <PauseIcon onClick={() => handleOnPlayback(true)}/>
                             }  
                         </TableCell>
-                        <TableCell className="media-button-container">
+                        <TableCell className="media-button-container media-container ">
                             <SkipNextIcon/>
                         </TableCell>
-                        <TableCell className="media-button-container">
+                        <TableCell className="media-button-container media-container ">
                             <VolumeUpIcon/>
                         </TableCell>
-                        <TableCell className="media-button-container">
-                            <Button>
+                        <TableCell className="media-button-extended-container media-container ">
+                            <Button className="request-control-button" variant="contained">
                                 Request Control
                             </Button>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="media-container">
                             <div className="text-color-light">
                                 Title of the Song of Video that is playing
                             </div>
                         </TableCell>
-                        <TableCell className="media-button-container">
+                        <TableCell className="media-button-container media-container ">
                             {
                                 fullScreen ? <FullscreenExitIcon onClick={() => handleOnFullScreen(false)}/> : <FullscreenIcon onClick={() => handleOnFullScreen(true)}/>
                             }  
