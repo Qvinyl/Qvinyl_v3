@@ -21,18 +21,14 @@ const AddRoom = () => {
             <CustomAccordion disableGutters expanded={expanded}>
                 <AccordionSummary
                     expandIcon={<AddIcon className="add" onClick={() => handleChange(!expanded)}/>}>
-                    <Typography>
-                        <div className="room-search-container" >
-                            <RoundedInputField label="Search Your Rooms..." multiline maxRows={2} onClick={() => handleChange(false)}/>  
-                        </div>
-                    </Typography>
+                    <div className="room-search-container" >
+                        <RoundedInputField label="Search Your Rooms..." multiline maxRows={2} onClick={() => handleChange(false)}/>  
+                    </div>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        <CustomTextField fullWidth id="standard-basic" label="Room Name..." variant="standard" />
-                        <Button> Add Room </Button>
-                        <Button onClick={() => handleChange(false)}> Cancel </Button>
-                    </Typography>
+                    <CustomTextField fullWidth id="standard-basic" label="Room Name..." variant="standard" />
+                    <Button> Add Room </Button>
+                    <Button onClick={() => handleChange(false)}> Cancel </Button>
                 </AccordionDetails>
             </CustomAccordion>
         </div>

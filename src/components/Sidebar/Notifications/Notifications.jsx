@@ -21,8 +21,10 @@ const Notification = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
-                        <div>DarkMode</div>
-                        <div>Logout</div>
+                        DarkMode
+                    </Typography>
+                    <Typography>
+                        Logout
                     </Typography>
                 </AccordionDetails>
             </Accordion>
