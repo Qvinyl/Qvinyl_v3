@@ -13,6 +13,7 @@
 }
 
 .tab-group {
+    border-radius: none !important;
     width: 100%;
     height: 5%;
     max-height: 50px;
@@ -20,6 +21,7 @@
 }
 
 .tab {
+    border-radius: 0px !important;
     background-color: black !important;
     border-bottom: 1px solid #8C8C8C !important;
     border-color: #8C8C8C !important;
@@ -27,6 +29,7 @@
 }
 
 .active-tab {
+    border-radius: 0px !important;
     background-color: black !important;
     border-color: #8C8C8C !important;
     border-bottom: 1px solid #1976d2 !important;

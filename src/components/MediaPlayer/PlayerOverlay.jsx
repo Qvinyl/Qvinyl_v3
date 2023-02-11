@@ -4,8 +4,10 @@ import Player from './Player';
 const PlayerOverlay = () => {
     return (
         <div className="player">
-            <Player/>
-            <MediaControls/>
+            <div className="player-wrapper">
+                <Player/>
+                <MediaControls/>
+            </div>
         </div>
     )
 }

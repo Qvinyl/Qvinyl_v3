@@ -1,13 +1,18 @@
 .player {
     width: 100%;
     display: flex;
-    /* background-color: #EBEBEB; */
+    position: relative;
+}
+
+.player-wrapper {
+    height: 100%;
+    width: 100%;
 }
 
 .media-controls {
+    position: absolute;
     width: 100%;
     bottom: 0;
-    position: absolute;
 }
 
 .media-button-container {
