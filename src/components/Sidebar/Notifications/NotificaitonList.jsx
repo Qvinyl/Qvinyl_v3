@@ -21,6 +21,36 @@ const NotificationList = () => {
             roomId: "345890730",
             inviter: "Nicholas Cheung",
             roomName: "Lofi Study",
+        },
+        {
+            roomId: "123o47o21389740981",
+            inviter: "Joshua Cheung",
+            roomName: "Gym Jamz",
+        },
+        {
+            roomId: "438702934857",
+            inviter: "Curtis Cheung",
+            roomName: "Music Box",
+        },
+        {
+            roomId: "345890730",
+            inviter: "Nicholas Cheung",
+            roomName: "Lofi Study",
+        },
+        {
+            roomId: "123o47o21389740981",
+            inviter: "Joshua Cheung",
+            roomName: "Gym Jamz",
+        },
+        {
+            roomId: "438702934857",
+            inviter: "Curtis Cheung",
+            roomName: "Music Box",
+        },
+        {
+            roomId: "345890730",
+            inviter: "Nicholas Cheung",
+            roomName: "Lofi Study",
         }
     ]
     
@@ -31,7 +61,7 @@ const NotificationList = () => {
                     {
                         notifications.map((item) =>
                             <TableRow>
-                                <TableCell>
+                                <TableCell className="table-cell">
                                     <NotificationItem
                                         roomId={item.roomId}
                                         roomName={item.roomName}

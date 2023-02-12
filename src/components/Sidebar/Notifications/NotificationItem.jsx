@@ -10,10 +10,10 @@ const NotificationItem = ({roomId, roomName, inviter}) => {
                 <b>{inviter}</b> has invited to <b>{roomName}</b>
             </div>
             <div className="button-container">
-                <Button variant="contained">
+                <Button variant="contained" size="small">
                     Join Room
                 </Button>
-                <Button className="cancel-button" variant="contained">
+                <Button className="cancel-button" variant="contained" size="small">
                     Cancel
                 </Button>
             </div>
