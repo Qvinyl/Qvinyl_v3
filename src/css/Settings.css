@@ -1,0 +1,19 @@
+.setting-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    margin: auto;
+}
+
+.setting-icon {
+    margin-left: 10%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+}
+
+.setting-text {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+}

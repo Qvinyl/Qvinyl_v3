@@ -10,7 +10,7 @@ import SidebarLip from './SidebarLip';
 import Messaging from './Messaging/Messaging';
 import Queue from './Queue/Queue';
 import Rooms from './Rooms/Rooms';
-import Notifications from './Notifications/Notifications';
+import Profile from './UserProfile/Profile';
 
 import '../../css/Sidebar.css'
 
@@ -36,7 +36,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip}) => {
             case VIRTUAL_ROOMS:
                 return <Rooms/>
             case NOTIFICATIONS:
-                return <Notifications/>
+                return <Profile/>
             default: 
                 return <Messaging/>
         }

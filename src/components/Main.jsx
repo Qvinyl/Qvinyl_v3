@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PlayerOverlay from './MediaPlayer/PlayerOverlay';
-import SidebarLip from './Sidebar/SidebarLip';
 import '../css/Sidebar.css';
 import Sidebar from './Sidebar/Sidebar';
 
