@@ -1,8 +1,8 @@
 import React from 'react';
-
+import '../../../css/Messaging.css';
 const Messaging = () => {
     return (
-        <div className="content messaging">
+        <div className="content-container messaging">
 
         </div>
     )
