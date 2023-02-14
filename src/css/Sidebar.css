@@ -10,6 +10,7 @@
     flex-direction: column;
     background-color: black;
     width: 100%;
+    border-left: 2px solid rgb(37, 37, 37, 0.5)
 }
 
 .tab-group {
@@ -23,15 +24,14 @@
 .tab {
     border-radius: 0px !important;
     background-color: black !important;
-    border-bottom: 1px solid #8C8C8C !important;
-    border-color: #8C8C8C !important;
+    border: 1px solid rgb(37, 37, 37, 0.5) !important;
     width: 100%;
 }
 
 .active-tab {
     border-radius: 0px !important;
     background-color: black !important;
-    border-color: #8C8C8C !important;
+    border: 1px solid rgb(37, 37, 37, 0.5) !important;
     border-bottom: 1px solid #1976d2 !important;
     width: 100%;
 }
@@ -41,7 +41,7 @@
 }
 
 .inactive {
-    color: white;
+    color: #ACACAC;
 }
 
 .content-container {
@@ -95,8 +95,6 @@
 
 .component-tab {
     background-color: #2b2b2b !important;
-    /* min-height: 48px !important;
-    max-height: 48px !important; */
 }
 
 .sidebar-lip {
