@@ -81,7 +81,7 @@ const LastPlayedList = () => {
     ]
 
     return (
-        <div className="list">
+        <div className="queue list">
             <Table>
                 <TableBody>
                     {

@@ -18,12 +18,15 @@
     justify-content: space-between;
 }
 
+.queue {
+    overflow-y: hidden !important;
+}
+
 .list {
     padding: 0px 16px 0px 16px;
-    display: sticky;
     position: relative;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: overlay;
 }
 
 .send {
@@ -44,12 +47,17 @@
 .text-container {
     padding: 16px;
     margin-left: 20px;
-    color: white;
-    margin: auto;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-.queued-text {
-    font-size: 12px;
+.title-text {
+    font-size: 14px !important;
+}
+
+.queued-by-text {
+    font-size: 12px !important;
 }
 
 .queued-button {

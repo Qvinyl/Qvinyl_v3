@@ -41,7 +41,6 @@ const Queue = () => {
                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                 index={value}
                 onChangeIndex={handleChangeIndex}>
-
                 <TabPanel value={value} index={0} dir={theme.direction}>
                     <QueueList/>
                 </TabPanel>

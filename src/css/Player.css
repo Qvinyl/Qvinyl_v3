@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     position: relative;
+    overflow: hidden;
 }
 
 .player-wrapper {
