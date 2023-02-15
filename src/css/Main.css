@@ -30,22 +30,22 @@
     flex-direction: row;
     position: relative;
     overflow: hidden;
-    width: 100%;
-    max-width: 360px;
-    min-width: 250px;
-    transition: 0.6s;}
+    width: 25%;
+    min-width: 350px;
+    transition: 0.6s;
+    margin-left: -20px;
+}
 
 .sidebar-wrapper-close {
-    max-width: 20px;
     transition: 0.6s;
     overflow: hidden;
-
+    margin-left: -25%;
+    width: 25%;
 }
 
 .slide {
     width: 100%;
     position: relative;
-    width: 100%;
     right: calc(-100% + 20px);
     height: 100%;
     transition: 0.6s;
@@ -55,4 +55,16 @@
     width: 100%;
     transition: 0.6s;
     right: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(37, 37, 37);
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
 }

@@ -10,7 +10,7 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed}) => {
                 <img src={thumbnail} alt="thumbnail" className="thumbnail"/>
             </div>
             <div className="text-container">
-                <div>
+                <div className="title-text text-color-light">
                     <b>
                         {title}
                     </b>
@@ -20,7 +20,7 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed}) => {
                     wasPlayed ? 
                     <RequeuedButton>Requeue +</RequeuedButton>
                     : 
-                    <div className="queued-text">Queued By {queuedBy}</div> 
+                    <div className="queued-by-text text-color-light">Queued By {queuedBy}</div> 
                 }
             </div>
         </div>

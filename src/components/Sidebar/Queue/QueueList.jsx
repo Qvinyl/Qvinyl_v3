@@ -82,7 +82,7 @@ const QueueList = () => {
     ]
 
     return (
-        <div className="list">
+        <div className="queue list">
             <Table>
                 <TableBody>
                     {
