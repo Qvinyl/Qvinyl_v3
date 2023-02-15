@@ -26,7 +26,7 @@ const MediaControls = () => {
 
     return (
         <div className="media-controls">
-            <Table>
+            <Table className="media-table">
                 <TableBody>
                     <TableRow>
                         <TableCell className="media-button-container media-container">
