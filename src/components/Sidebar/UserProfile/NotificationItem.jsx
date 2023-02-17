@@ -14,7 +14,7 @@ const NotificationItem = ({roomId, roomName, inviter}) => {
                     Join Room
                 </Button>
                 <Button className="cancel-button" variant="contained" size="small">
-                    Cancel
+                    Decline
                 </Button>
             </div>
         </div>

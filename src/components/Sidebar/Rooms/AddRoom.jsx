@@ -7,7 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import Button from '@mui/material/Button';
 import CustomTextField from '../../Basics/InputField/CustomTextField'
-
+import '../../../css/Room.css';
 
 const AddRoom = () => {
     const [expanded, setExpanded] = useState(false);
@@ -27,8 +27,10 @@ const AddRoom = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <CustomTextField fullWidth id="standard-basic" label="Room Name..." variant="standard" />
-                    <Button> Add Room </Button>
-                    <Button onClick={() => handleChange(false)}> Cancel </Button>
+                    <div className="button-container">
+                        <Button variant="contained" size="small"> Add Room </Button>
+                        <Button className="cancel-button" variant="contained" size="small" onClick={() => handleChange(false)}> Cancel </Button>
+                    </div>
                 </AccordionDetails>
             </CustomAccordion>
         </div>
