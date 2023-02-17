@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 const RoundedTextField = styled(TextField)({
     '& .MuiOutlinedInput-root': {
         overflow: 'hidden',
-        borderRadius: 25,
+        borderRadius: 15,
         color: '#ACACAC',
         '& fieldset': {
             borderColor: '#ACACAC',
@@ -27,11 +27,11 @@ const RoundedTextField = styled(TextField)({
         borderWidth: 2,
         '&.Mui-focused': {
             color: '#1976d2',
-            top: "10px",
+            top: "8px",
         },
     },
     '& .MuiInputLabel-shrink' : {
-        top: "10px",
+        top: "8px",
     },
     width: "100%",
 });
