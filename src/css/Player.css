@@ -19,7 +19,35 @@
 .media-button-container {
     cursor: pointer;
     color: #8C8C8C !important;
-    width: 20px;
+    width: 50px;
+}
+
+.volume-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.slider {
+    width: 0px !important;
+    bottom: 2px;
+    margin-left: 10px;
+    transition: 0.5s;
+}
+
+.volume-button-container:hover .slider:hover {
+    bottom: 1px;
+    transition: 0.5s;
+    width: 125px !important;
+}
+
+.slider:active {
+    width: 125px !important;
+} 
+
+.volume-button-container {
+    cursor: pointer;
+    color: #8C8C8C !important;
+    width: 0%;
 }
 
 .media-button-extended-container {
