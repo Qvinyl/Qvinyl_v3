@@ -10,7 +10,6 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import Slider from '@mui/material/Slider';
 
 
 const MediaControls = () => {
@@ -38,18 +37,8 @@ const MediaControls = () => {
                         <TableCell className="media-button-container media-container ">
                             <SkipNextIcon/>
                         </TableCell>
-                        <TableCell className="volume-button-container media-container ">
-                            <div className="volume-container">
-                                <VolumeUpIcon/>
-                                <Slider
-                                    className="slider"
-                                    size="small"
-                                    defaultValue={100}
-                                    aria-label="Small"
-                                    valueLabelDisplay="auto"
-                                />
-                            </div>
-                            
+                        <TableCell className="media-button-container media-container ">
+                            <VolumeUpIcon/>
                         </TableCell>
                         <TableCell className="media-button-extended-container media-container ">
                             <Button className="request-control-button" variant="contained">
