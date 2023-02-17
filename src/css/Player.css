@@ -34,8 +34,42 @@
 .media-button-container {
     cursor: pointer;
     color: #8C8C8C !important;
+<<<<<<< HEAD
     width: 20px;
     margin-top: auto;
+=======
+    width: 50px;
+}
+
+.volume-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.slider {
+    width: 0px !important;
+    bottom: 2px;
+    margin-left: 10px;
+    transition: 0.5s;
+}
+
+.volume-button-container:hover .slider:hover {
+    bottom: 1px;
+    transition: 0.5s;
+    width: 125px !important;
+}
+
+.slider:active {
+    width: 125px !important;
+} 
+
+.volume-button-container {
+    cursor: pointer;
+    color: #8C8C8C !important;
+    width: 0%;
+    max-width: 150px;
+    width: 20px;
+>>>>>>> 66d7b08 (WIP)
 }
 
 .media-button-extended-container {
