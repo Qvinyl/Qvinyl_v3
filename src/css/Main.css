@@ -31,16 +31,19 @@
     position: relative;
     overflow: hidden;
     width: 28%;
-    min-width: 350px;
-    transition: 0.6s;
+    /* min-width: 350px; */
+    width: 450px;
+    transition: 0.4s;
     margin-left: -20px;
 }
 
 .sidebar-wrapper-close {
-    transition: 0.6s;
+    transition: 0.4s;
     overflow: hidden;
-    margin-left: -28%;
-    width: 28%;
+    margin-left: -350px;
+    width: 350px;
+    /* margin-left: -28%; */
+    /* width: 28%; */
 }
 
 .slide {
@@ -48,12 +51,12 @@
     position: relative;
     right: calc(-100% + 20px);
     height: 100%;
-    transition: 0.6s;
+    transition: 0.4s;
 }
 
 .sidebar-wrapper .slide {
     width: 100%;
-    transition: 0.6s;
+    transition: 0.4s;
     right: 0;
 }
 

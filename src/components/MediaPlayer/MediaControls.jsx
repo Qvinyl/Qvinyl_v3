@@ -11,6 +11,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import Slider from '@mui/material/Slider';
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 const MediaControls = () => {
@@ -27,6 +28,9 @@ const MediaControls = () => {
 
     return (
         <div className="media-controls">
+            <div className="progress-bar">
+                <LinearProgress  variant="determinate" value={70} />
+            </div>
             <Table className="media-table">
                 <TableBody>
                     <TableRow>

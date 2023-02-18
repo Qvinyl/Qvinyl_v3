@@ -11,17 +11,24 @@
 }
 
 .media-controls {
-    opacity: 0;
+    opacity: 1;
     position: absolute;
     width: 100%;
     bottom: 0;
     margin: auto;
     transition: 0.6s;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.progress-bar {
+    margin-top: auto;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .media-table {
-    position: absolute;
     bottom: 0;
     background-image: linear-gradient(transparent, #424242, rgb(30, 30, 30));;
 }
@@ -34,10 +41,6 @@
 .media-button-container {
     cursor: pointer;
     color: #8C8C8C !important;
-<<<<<<< HEAD
-    width: 20px;
-    margin-top: auto;
-=======
     width: 50px;
 }
 
@@ -69,7 +72,6 @@
     width: 0%;
     max-width: 150px;
     width: 20px;
->>>>>>> 66d7b08 (WIP)
 }
 
 .media-button-extended-container {
