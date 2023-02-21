@@ -1,4 +1,4 @@
-import React from 'react';
+import {useRef, useEffect, useState} from 'react';
 import QueueList from './QueueList';
 import LastPlayedList from './LastPlayedList';
 import PropTypes from 'prop-types';
@@ -12,8 +12,12 @@ import '../../../css/Queue.css'
 
 const Queue = () => {
     const theme = useTheme();
+    const [value, setValue] = useState(0);
+    const inputReference = useRef(null);
 
-    const [value, setValue] = React.useState(0);
+    useEffect(() => {
+        inputReference.current.focus();
+    }, []);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -48,8 +52,12 @@ const Queue = () => {
                     <LastPlayedList/>
                 </TabPanel>
             </SwipeableViews>
+
             <div className="input-field send" >
-                <RoundedInputField label="Search/Paste from Youtube" multiline maxRows={4}  />
+                <RoundedInputField 
+                    inputRef={inputReference}
+                    label="Search/Paste from Youtube" 
+                    multiline maxRows={4}  />
             </div>
         </div>
     )
@@ -76,7 +84,7 @@ function TabPanel(props) {
     );
   }
   
-  TabPanel.propTypes = {
+TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,

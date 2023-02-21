@@ -33,7 +33,6 @@
     width: 28%;
     min-width: 350px;
     max-width: 350px;
-    /* width: 450px; */
     transition: 0.4s;
     margin-left: -20px;
 }
@@ -44,8 +43,6 @@
     margin-left: -350px;
     width: 350px;
     max-width: 350px;
-    /* margin-left: -28%; */
-    /* width: 28%; */
 }
 
 .slide {
