@@ -11,7 +11,7 @@
 }
 
 .media-controls {
-    opacity: 1;
+    opacity: 0;
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -30,7 +30,7 @@
 
 .media-table {
     bottom: 0;
-    background-image: linear-gradient(transparent, #424242, rgb(30, 30, 30));;
+    background-image: linear-gradient(transparent, black);
 }
 
 .media-controls:hover {
@@ -51,12 +51,12 @@
 
 .slider {
     width: 0px !important;
-    bottom: 2px;
-    margin-left: 10px;
     transition: 0.5s;
+    margin: auto auto auto 10px;
+    display: flex;
 }
 
-.volume-button-container:hover .slider:hover {
+.volume-container:hover .slider {
     bottom: 1px;
     transition: 0.5s;
     width: 125px !important;
@@ -69,9 +69,8 @@
 .volume-button-container {
     cursor: pointer;
     color: #8C8C8C !important;
-    width: 0%;
     max-width: 150px;
-    width: 20px;
+    width: 40px;
 }
 
 .media-button-extended-container {
@@ -86,4 +85,16 @@
 
 .media-container {
     border-bottom: none !important;
+}
+
+.volume-icon {
+    margin-top: auto !important;
+    margin-right: auto !important;
+    margin-bottom: auto !important;
+    display: flex !important;
+}
+
+.icon {
+    margin: auto !important;
+    display: flex !important;
 }
