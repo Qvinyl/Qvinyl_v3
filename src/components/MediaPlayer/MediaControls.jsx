@@ -38,17 +38,17 @@ const MediaControls = () => {
                             {
                                 playback ? 
                                 <PlayArrowIcon 
-                                    className="icon" 
+                                    className="player-icon" 
                                     onClick={() => handleOnPlayback(false)}/> 
                                 : 
                                 <PauseIcon 
-                                    className="icon" 
+                                    className="player-icon" 
                                     onClick={() => handleOnPlayback(true)}/>
                             }  
                         </TableCell>
                         <TableCell className="media-button-container media-container ">
                             <div>
-                                <SkipNextIcon className="icon"/>
+                                <SkipNextIcon className="player-icon"/>
                             </div>
                         </TableCell>
                         <TableCell className="volume-button-container media-container">
@@ -65,7 +65,7 @@ const MediaControls = () => {
                             
                         </TableCell>
                         <TableCell className="media-button-extended-container media-container ">
-                            <Button className="request-control-button icon" variant="contained">
+                            <Button className="request-control-button player-icon" variant="contained">
                                 Request Control
                             </Button>
                         </TableCell>
@@ -78,11 +78,11 @@ const MediaControls = () => {
                             {
                                 fullScreen ?
                                 <FullscreenExitIcon 
-                                    className="icon" 
+                                    className="player-icon" 
                                     onClick={() => handleOnFullScreen(false)}/> 
                                 : 
                                 <FullscreenIcon 
-                                    className="icon" 
+                                    className="player-icon" 
                                     onClick={() => handleOnFullScreen(true)}/>
                             }  
                         </TableCell>
