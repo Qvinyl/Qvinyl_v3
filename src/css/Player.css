@@ -18,12 +18,19 @@
     margin: auto;
     transition: 0.6s;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.progress-bar {
+    margin-top: auto;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .media-table {
-    position: absolute;
     bottom: 0;
-    background-image: linear-gradient(transparent, #424242, rgb(30, 30, 30));;
+    background-image: linear-gradient(transparent, black);
 }
 
 .media-controls:hover {
@@ -34,8 +41,36 @@
 .media-button-container {
     cursor: pointer;
     color: #8C8C8C !important;
-    width: 20px;
-    margin-top: auto;
+    width: 50px;
+}
+
+.volume-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.slider {
+    width: 0px !important;
+    transition: 0.5s;
+    margin: auto auto auto 10px;
+    display: flex;
+}
+
+.volume-container:hover .slider {
+    bottom: 1px;
+    transition: 0.5s;
+    width: 125px !important;
+}
+
+.slider:active {
+    width: 125px !important;
+} 
+
+.volume-button-container {
+    cursor: pointer;
+    color: #8C8C8C !important;
+    max-width: 150px;
+    width: 40px;
 }
 
 .media-button-extended-container {
@@ -50,4 +85,16 @@
 
 .media-container {
     border-bottom: none !important;
+}
+
+.volume-icon {
+    margin-top: auto !important;
+    margin-right: auto !important;
+    margin-bottom: auto !important;
+    display: flex !important;
+}
+
+.icon {
+    margin: auto !important;
+    display: flex !important;
 }

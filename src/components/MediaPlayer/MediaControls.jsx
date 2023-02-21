@@ -10,6 +10,8 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import Slider from '@mui/material/Slider';
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 const MediaControls = () => {
@@ -26,22 +28,44 @@ const MediaControls = () => {
 
     return (
         <div className="media-controls">
+            <div className="progress-bar">
+                <LinearProgress variant="determinate" value={80} />
+            </div>
             <Table className="media-table">
                 <TableBody>
                     <TableRow>
                         <TableCell className="media-button-container media-container">
                             {
-                                playback ? <PlayArrowIcon onClick={() => handleOnPlayback(false)}/> : <PauseIcon onClick={() => handleOnPlayback(true)}/>
+                                playback ? 
+                                <PlayArrowIcon 
+                                    className="icon" 
+                                    onClick={() => handleOnPlayback(false)}/> 
+                                : 
+                                <PauseIcon 
+                                    className="icon" 
+                                    onClick={() => handleOnPlayback(true)}/>
                             }  
                         </TableCell>
                         <TableCell className="media-button-container media-container ">
-                            <SkipNextIcon/>
+                            <div>
+                                <SkipNextIcon className="icon"/>
+                            </div>
                         </TableCell>
-                        <TableCell className="media-button-container media-container ">
-                            <VolumeUpIcon/>
+                        <TableCell className="volume-button-container media-container">
+                            <div className="volume-container">
+                                <VolumeUpIcon className="volume-icon"/>
+                                <Slider
+                                    className="slider"
+                                    size="small"
+                                    defaultValue={100}
+                                    aria-label="Small"
+                                    valueLabelDisplay="auto"
+                                />
+                            </div>
+                            
                         </TableCell>
                         <TableCell className="media-button-extended-container media-container ">
-                            <Button className="request-control-button" variant="contained">
+                            <Button className="request-control-button icon" variant="contained">
                                 Request Control
                             </Button>
                         </TableCell>
@@ -52,7 +76,14 @@ const MediaControls = () => {
                         </TableCell>
                         <TableCell className="media-button-container media-container ">
                             {
-                                fullScreen ? <FullscreenExitIcon onClick={() => handleOnFullScreen(false)}/> : <FullscreenIcon onClick={() => handleOnFullScreen(true)}/>
+                                fullScreen ?
+                                <FullscreenExitIcon 
+                                    className="icon" 
+                                    onClick={() => handleOnFullScreen(false)}/> 
+                                : 
+                                <FullscreenIcon 
+                                    className="icon" 
+                                    onClick={() => handleOnFullScreen(true)}/>
                             }  
                         </TableCell>
                     </TableRow>
