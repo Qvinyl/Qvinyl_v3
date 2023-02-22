@@ -1,4 +1,4 @@
-import {useRef, useEffect, useState} from 'react';
+import {useState} from 'react';
 import QueueList from './QueueList';
 import LastPlayedList from './LastPlayedList';
 import SwipeableViews from 'react-swipeable-views';

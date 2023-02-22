@@ -21,7 +21,7 @@ const NOTIFICATIONS = 3;
 
 
 const Sidebar = ({isOpen, handleOnClickSidebarLip}) => {
-    const [tab, setTab] = useState(1)
+    const [tab, setTab] = useState(0)
 
     const chooseTabs = (index) => {
         setTab(index)

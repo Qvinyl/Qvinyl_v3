@@ -1,11 +1,11 @@
-import Reach from 'react';
-import '../../../css/Queue.css'
 import QueueItem from './QueueItem';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { Button } from '@mui/material';
+
+import '../../../css/Queue.css'
 
 const ContentSearch = ({searchTerm, closeSearch}) => {
     const searchList = [

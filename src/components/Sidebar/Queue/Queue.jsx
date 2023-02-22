@@ -22,7 +22,6 @@ const Queue = () => {
     };
 
     const setSeachInput = (event) => {
-        const searchTerm = event.target.searchedTerm;
         const newValue = event.target.value;
         setSearchInput({ searchTerm: newValue });
         console.log(searchInput);
