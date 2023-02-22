@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-const RequeuedButton = styled(Button)({
+const QueuedButton = styled(Button)({
   boxShadow: 'none',
   textTransform: 'none',
   fontSize: 12,
@@ -35,4 +35,4 @@ const RequeuedButton = styled(Button)({
   },
 });
 
-export default RequeuedButton;
+export default QueuedButton;
