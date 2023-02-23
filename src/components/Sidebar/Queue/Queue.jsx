@@ -1,91 +1,68 @@
 import {useRef, useEffect, useState} from 'react';
-import QueueList from './QueueList';
-import LastPlayedList from './LastPlayedList';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { useTheme } from '@mui/material/styles';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
+
+import ContentSearch from './ContentSearch';
+import PlaylistQueue from './PlaylistQueue';
+import FormControl from '@mui/material/FormControl';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import '../../../css/Queue.css'
 
 const Queue = () => {
-    const theme = useTheme();
-    const [value, setValue] = useState(0);
+   
+    const [searching, setSearching] = useState(false);
+    const [searchInput, setSearchInput] = useState("");
     const inputReference = useRef(null);
 
     useEffect(() => {
         inputReference.current.focus();
     }, []);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setSearching(true)
     };
 
-    const handleChangeIndex = (index) => {
-        setValue(index);
-    };
+    const setSeachInput = (event) => {
+        const newValue = event.target.value;
+        setSearchInput({ searchTerm: newValue });
+        console.log(searchInput);
+    }
+
+    const keyPress = (e) => {
+        if(e.keyCode === 13){
+           console.log(e.target.value);
+           handleSubmit(e);
+        }
+    }
+
+    const closeSearch = (isSearching) => {
+        setSearching(isSearching);
+    }
 
     return (
-        <div className="content-container queue" id="queue-component">
-            <div className="queue-tabs component-tab">
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="inherit"
-                    variant="fullWidth"
-                    >
-                    <Tab label="Queue" />
-                    <Tab label="Last 25 Played" />
-                </Tabs>
+        <div className="content-container queue">
+            <div className={searching ? "playlist-close" : "playlist-open"}>
+                <PlaylistQueue/>
             </div>
-            <SwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={value}
-                onChangeIndex={handleChangeIndex}>
-                <TabPanel value={value} index={0} dir={theme.direction}>
-                    <QueueList/>
-                </TabPanel>
-                <TabPanel value={value} index={1} dir={theme.direction}>
-                    <LastPlayedList/>
-                </TabPanel>
-            </SwipeableViews>
-
-            <div className="input-field send" >
-                <RoundedInputField 
-                    inputRef={inputReference}
-                    label="Search/Paste from Youtube" 
-                    multiline maxRows={4}  />
+            <div className={searching ? "search-list-container" : "search-list-container-closed"}>
+                <ContentSearch
+                    closeSearch={closeSearch}
+                />
+            </div>
+            <div className="input-field send">
+                <FormControl onSubmit={handleSubmit}>
+                    <RoundedInputField 
+                        onKeyDown={keyPress}
+                        onChange={setSeachInput}
+                        searchedTerm="searchedTerm" 
+                        type="text"
+                        inputRef={inputReference}
+                        label="Search/Paste from Youtube" 
+                        multiline maxRows={4}
+                        />
+                </FormControl>
             </div>
         </div>
     )
 }
 
 export default Queue;
-
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`full-width-tabpanel-${index}`}
-        aria-labelledby={`full-width-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-            <Typography>{children}</Typography>
-        )}
-      </div>
-    );
-  }
-  
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-};

@@ -24,11 +24,6 @@ const Main = () => {
                     />
                 </div>
             </div>
-            
-
-            {/* {
-                sidebar && <Sidebar className="sidebar-close "/>
-            } */}
         </div>
     )
 }

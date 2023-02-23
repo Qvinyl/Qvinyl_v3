@@ -1,5 +1,5 @@
 import React from 'react';
-import RequeuedButton from '../../Basics/Button/RequeuedButton';
+import QueuedButton from '../../Basics/Button/QueuedButton';
 import '../../../css/Queue.css';
 
 const QueueItem = ({thumbnail, title, queuedBy, wasPlayed}) => {
@@ -16,11 +16,18 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed}) => {
                     </b>
                 </div>
                 <br/>
-                { 
-                    wasPlayed ? 
-                    <RequeuedButton>Requeue +</RequeuedButton>
-                    : 
-                    <div className="queued-by-text text-color-light">Queued By {queuedBy}</div> 
+                {
+                    queuedBy ?
+                        <div className="queued-by-text text-color-light">Queued By {queuedBy}</div> 
+                    :
+                    <div>
+                    { 
+                        wasPlayed ? 
+                        <QueuedButton>Requeue +</QueuedButton>
+                        : 
+                        <QueuedButton>Queue +</QueuedButton>
+                    }
+                    </div>
                 }
             </div>
         </div>
