@@ -5,8 +5,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import Switch from '@mui/material/Switch';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
+// import Switch from '@mui/material/Switch';
+// import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Setting from './Setting';
 

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import PlayerOverlay from './MediaPlayer/PlayerOverlay';
-import '../css/Sidebar.css';
 import Sidebar from './Sidebar/Sidebar';
-
+import '../css/Sidebar.css';
 import '../css/Main.css';
 
 const Main = () => {
