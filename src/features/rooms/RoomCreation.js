@@ -20,10 +20,29 @@ async function addRoomToFireStore(roomkey) {
     }
 }
 
-export async function createVirtualRoom() {
-    var roomkey = null;
-     
-    addRoomToFireStore()
-    return "Hello World!"
+export async function createVirtualRoom(roomname) {
+    var createRoomEndpoint = "http://localhost:3000/rooms"
+    fetch(createRoomEndpoint, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify ({
+            admin_id: 1, 
+            room_name: roomname,
+        })
+    })
+    .then(response => response.text())
+    .then(contents => {
+        let roomObj = JSON.parse(contents);
+        let roomkey = roomObj.roomkey
+        addRoomToFireStore(roomkey)
+    })
+    .catch((error) => {
+        console.error(error)
+        return false;
+    });
+    return true;
 }
 

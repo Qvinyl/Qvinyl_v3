@@ -30,7 +30,7 @@ const AddRoom = () => {
 
     const createRoom = () => {   
         if (!isBlank(roomName)) {
-            // createVirtualRoom();
+            createVirtualRoom(roomName);
             handleChange(false);
         } 
         else {
