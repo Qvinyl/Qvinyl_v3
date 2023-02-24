@@ -19,12 +19,12 @@ const Queue = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         setSearching(true)
+        setSearchInput("");
     };
 
     const setSeachInput = (event) => {
         const newValue = event.target.value;
-        setSearchInput({ searchTerm: newValue });
-        console.log(searchInput);
+        setSearchInput(newValue);
     }
 
     const keyPress = (e) => {
@@ -51,6 +51,7 @@ const Queue = () => {
             <div className="input-field send">
                 <FormControl onSubmit={handleSubmit}>
                     <RoundedInputField 
+                        value={searchInput}
                         onKeyDown={keyPress}
                         onChange={setSeachInput}
                         searchedTerm="searchedTerm" 
