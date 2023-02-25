@@ -1,15 +1,21 @@
 import {useRef, useEffect, useState} from 'react';
 
-import ContentSearch from './ContentSearch';
+import SearchList from './SearchList';
 import PlaylistQueue from './PlaylistQueue';
 import FormControl from '@mui/material/FormControl';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField'
+import LinearProgress from '@mui/material/LinearProgress';
+import {searchYouTube} from '../../../features/queue/YoutubeSearch';
+
 import '../../../css/Queue.css'
 
 const Queue = () => {
    
     const [searching, setSearching] = useState(false);
-    const [searchInput, setSearchInput] = useState("");
+    const [searchTerm, setSearchInput] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const inputReference = useRef(null);
 
     useEffect(() => {
@@ -18,7 +24,7 @@ const Queue = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setSearching(true)
+        setLoading(true)
         setSearchInput("");
     };
 
@@ -29,9 +35,20 @@ const Queue = () => {
 
     const keyPress = (e) => {
         if(e.keyCode === 13){
-           console.log(e.target.value);
            handleSubmit(e);
+           searchContent(searchTerm)
         }
+    }
+
+    const searchContent = async (searchTerm) => {
+        searchYouTube(searchTerm).then(results => {
+            setLoading(true)
+            if (results) {
+                setLoading(false)
+                setSearching(true)
+            }
+            setSearchResults(results);
+        })
     }
 
     const closeSearch = (isSearching) => {
@@ -44,14 +61,18 @@ const Queue = () => {
                 <PlaylistQueue/>
             </div>
             <div className={searching ? "search-list-container" : "search-list-container-closed"}>
-                <ContentSearch
+                <SearchList
+                    searchResults={searchResults}
                     closeSearch={closeSearch}
                 />
             </div>
+            {
+                loading && <LinearProgress/>
+            }
             <div className="input-field send">
                 <FormControl onSubmit={handleSubmit}>
                     <RoundedInputField 
-                        value={searchInput}
+                        value={searchTerm}
                         onKeyDown={keyPress}
                         onChange={setSeachInput}
                         searchedTerm="searchedTerm" 
