@@ -43,6 +43,6 @@ export async function createVirtualRoom(user_id, roomname) {
     //     console.error(error)
     //     return false;
     // });
-    return false;
+    return true;
 }
 
