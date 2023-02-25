@@ -14,17 +14,25 @@ import Slider from '@mui/material/Slider';
 import LinearProgress from '@mui/material/LinearProgress';
 
 
-const MediaControls = () => {
-
+const MediaControls = ({setVolumeLevel, setPlaybackState, volume}) => {
     const [playback, setPlayback] = useState(false)
     const [fullScreen, setFullScreen] = useState(false)
+
     const handleOnPlayback = (isPlaying) => {
+        setPlaybackState(isPlaying)
         setPlayback(isPlaying)
     }
 
     const handleOnFullScreen = (isFullScreen) => {
         setFullScreen(isFullScreen)
     }
+
+    const handleVolumeOnChange = (event) => {
+        event.preventDefault();
+        var level = event.target.value;
+        setVolumeLevel(level/100);
+    }
+   
 
     return (
         <div className="media-controls">
@@ -37,13 +45,15 @@ const MediaControls = () => {
                         <TableCell className="media-button-container media-container">
                             {
                                 playback ? 
-                                <PlayArrowIcon 
-                                    className="player-icon" 
-                                    onClick={() => handleOnPlayback(false)}/> 
-                                : 
                                 <PauseIcon 
                                     className="player-icon" 
-                                    onClick={() => handleOnPlayback(true)}/>
+                                    onClick={() => handleOnPlayback(true)}
+                                />
+                                : 
+                                <PlayArrowIcon 
+                                    className="player-icon" 
+                                    onClick={() => handleOnPlayback(false)}
+                                /> 
                             }  
                         </TableCell>
                         <TableCell className="media-button-container media-container ">
@@ -57,7 +67,8 @@ const MediaControls = () => {
                                 <Slider
                                     className="slider"
                                     size="small"
-                                    defaultValue={100}
+                                    onChange={handleVolumeOnChange}
+                                    value={100}
                                     aria-label="Small"
                                     valueLabelDisplay="auto"
                                 />

@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 
-const Player = () => {
+const Player = ({playback, volume}) => {
     return (
         <ReactPlayer 
-            // playing={true}
+            playing={playback}
+            volume={volume}
             width="100%"
             height="100%"
             url="https://www.youtube.com/watch?v=KSnckWDCE9I"
