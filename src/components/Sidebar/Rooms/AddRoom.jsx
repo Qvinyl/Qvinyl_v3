@@ -7,16 +7,18 @@ import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import Button from '@mui/material/Button';
 import CustomTextField from '../../Basics/InputField/CustomTextField'
 import {createVirtualRoom} from '../../../features/rooms/RoomCreation';
+import SnackBar from '../../Basics/SnackBar/SnackBar';
 
 const AddRoom = () => {
     const [expanded, setExpanded] = useState(false);
     const [roomName, setRoomName] = useState("");
+    const [successful, setSuccess] = useState(true);
+    const [snackbar, setSnackBar] = useState(false);
     const inputReference = useRef(null);
 
     useEffect(() => {
         inputReference.current.focus();
     }, []);
-    
 
     const setRoomNameInput = (event) => {
         const newValue = event.target.value;
@@ -28,14 +30,35 @@ const AddRoom = () => {
         setRoomName("");
     };
 
-    const createRoom = () => {   
+    const handleSnackBarOpen = (isOpen) => {
+        setSnackBar(isOpen);
+    }
+
+    const handleSnackBarClose = (isOpen) => {
+        setSnackBar(isOpen);
+    }
+
+    const roomCreation = () => {   
         if (!isBlank(roomName)) {
-            createVirtualRoom(roomName);
-            handleChange(false);
+            createRoom();
         } 
         else {
             console.log("Room name is blank");
         }
+    }
+
+    const createRoom = () => {
+        createVirtualRoom(roomName).then(results => {
+            let isSuccessful = results;
+            if (isSuccessful) {
+                handleChange(false);
+                setSuccess(true);
+            }
+            else {
+                setSuccess(false);
+            }
+        });
+        handleSnackBarOpen(true)
     }
 
     const isBlank = (str) => {
@@ -63,10 +86,16 @@ const AddRoom = () => {
                         onChange={setRoomNameInput} 
                         fullWidth label="Room Name" variant="standard" 
                     />
-                    <Button onClick={() => createRoom()}> Add Room </Button>
+                    <Button onClick={() => roomCreation()}> Add Room </Button>
                     <Button onClick={() => handleChange(!expanded)}> Cancel </Button>
                 </AccordionDetails>
             </CustomAccordion>
+            {
+                successful ? 
+                <SnackBar open={snackbar} handleSnackBarClose={handleSnackBarClose} isSuccessful={successful} message={"Successfully created room"}/>
+                :
+                <SnackBar open={snackbar} handleSnackBarClose={handleSnackBarClose} isSuccessful={successful} message={"Room creation unsuccessful"}/>
+            }
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import {React} from 'react';
+import {React, useState} from 'react';
 import RoomAccordion from '../../Basics/Accordian/RoomAccordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -10,17 +10,17 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RoomOption from './RoomOption';
 
 const AdminRoomItem = ({roomId, roomName}) => {
-    // const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(false);
 
-    // const handleOnChange = (isExpanded) => {
-    //     setExpanded(isExpanded);
-    // }
+    const handleChange = (isExpanded) => {
+        setExpanded(isExpanded);
+    }
 
     return (
         <div>
-            <RoomAccordion disableGutters>
+            <RoomAccordion disableGutters expanded={expanded}>
                 <AccordionSummary 
-                    expandIcon={<ExpandMore className="add"/>}>
+                    expandIcon={<ExpandMore className="add" onClick={() => handleChange(!expanded)}/>}>
                     <Typography>
                         {roomName}
                     </Typography>
