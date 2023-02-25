@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useRef} from 'react';
 import MediaControls from './MediaControls';
 import Player from './Player';
 import '../../css/Player.css'
@@ -7,6 +7,7 @@ const PlayerOverlay = () => {
     const [muted, setMute] = useState(false);
     const [playback, setPlayback] = useState(true);
     const [progress, setProgress] = useState();
+    const playerRef = useRef()
     
     const setVolumeLevel = (level) => {
         setVolume(level);
@@ -28,6 +29,7 @@ const PlayerOverlay = () => {
         <div className="player">
             <div className="player-wrapper">
                 <Player
+                    playerRef={playerRef}
                     setProgressValue={setProgressValue}
                     muted={muted}
                     playback={playback}

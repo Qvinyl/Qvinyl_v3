@@ -1,14 +1,15 @@
-import {useState} from 'react';
+import React from 'react';
 import ReactPlayer from 'react-player';
 
-const Player = ({playback, volume, muted, setProgressValue}) => {
-   
+const Player = ({playback, volume, muted, setProgressValue, playerRef}) => {
+
     const setProgress = (progress) => {
         setProgressValue((progress.played * 100).toFixed(9))
     }
 
     return (
         <ReactPlayer 
+            ref={playerRef}
             onProgress={setProgress}
             muted={muted}
             playing={playback}

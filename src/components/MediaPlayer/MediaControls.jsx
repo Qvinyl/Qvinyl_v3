@@ -13,9 +13,10 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import Slider from '@mui/material/Slider';
 import LinearProgress from '@mui/material/LinearProgress';
+import screenfull from 'screenfull'
 
 
-const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, setMuteState, muted, progress}) => {
+const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, setMuteState, muted, progress, playerRef}) => {
     const [playback, setPlayback] = useState(isPlaying)
     const [isMuted, setMute] = useState(muted)
     const [fullScreen, setFullScreen] = useState(false)
@@ -26,6 +27,12 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, set
     }
 
     const handleOnFullScreen = (isFullScreen) => {
+        if(isFullScreen) {
+            screenfull.request(playerRef)
+        }
+        else {
+            screenfull.exit();
+        }
         setFullScreen(isFullScreen)
     }
 
