@@ -11,7 +11,8 @@
 }
 
 .media-controls {
-    opacity: 0;
+    cursor: pointer;
+    opacity: 1;
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -47,6 +48,7 @@
 .volume-container {
     display: flex;
     flex-direction: row;
+    margin: 7px;
 }
 
 .slider {
