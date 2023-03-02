@@ -1,84 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../../css/Queue.css'
 import QueueItem from './QueueItem';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import { getLastPlayed } from '../../../features/queue/Queuing/QueueServices'; 
 
 const LastPlayedList = () => {
-    const lastPlayed = [
-                // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Another Day of Sun",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Someone in the crowd",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Mia and Sebastian's Theme",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "A Lovely Night",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Herman's Habit",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "City of Stars",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Planetarium",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Summer Montage/ Madeline",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: `City Of Stars (From "La La Land" Soundtrack)`,
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Start a fire",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Engagement Party",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Audition",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "Epilogue",
-        //     queuedBy: "Josh Cheung"
-        // },
-        // {
-        //     thumbnail: "https://i.ytimg.com/vi/GTWqwSNQCcg/hq720.jpg",
-        //     title: "The End",
-        //     queuedBy: "Josh Cheung"
-        // }
-    ]
+    const [lastPlayed, setLastPlaylist] = useState([])
+
+    useEffect(() => {
+        getLastPlayed("43ed9d111e4523fd0572be22ecf3099a")
+        .then(response => {
+            setLastPlaylist(response);
+        });
+    });
 
     return (
         <div className="queue list">
@@ -89,6 +26,7 @@ const LastPlayedList = () => {
                             <TableRow>
                                 <TableCell className="table-cell">
                                     <QueueItem
+                                        url={item.url}
                                         thumbnail={item.thumbnail}
                                         title={item.title}
                                         wasPlayed={true}
