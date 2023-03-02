@@ -48,6 +48,7 @@
 .volume-container {
     display: flex;
     flex-direction: row;
+    margin: 7px;
 }
 
 .slider {
@@ -57,7 +58,7 @@
     display: flex;
 }
 
-.volume-button-container:hover .slider {
+.volume-container:hover .slider {
     bottom: 1px;
     transition: 0.5s;
     width: 125px !important;

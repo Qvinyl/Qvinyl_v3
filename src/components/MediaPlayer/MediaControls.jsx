@@ -93,6 +93,7 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, set
                                 }
                                 
                                 <Slider
+                                    defaultValue={100}
                                     className="slider"
                                     size="small"
                                     onChange={handleVolumeOnChange}
