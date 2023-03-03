@@ -15,8 +15,8 @@ const SearchList = ({searchResults, closeSearch}) => {
                 <Table>
                     <TableBody>
                         {
-                            searchResults.map((item) =>
-                                <TableRow>
+                            searchResults.map((item, index) =>
+                                <TableRow key={index}>
                                     <TableCell className="table-cell">
                                         <QueueItem
                                             url={item.url}

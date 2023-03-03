@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import QueueList from './QueueList';
 import LastPlayedList from './LastPlayedList';
 import SwipeableViews from 'react-swipeable-views';
@@ -7,10 +7,14 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import { getRoomPlaylist, getLastPlayed } from '../../../features/queue/Queuing/QueueServices'; 
+
 
 const PlaylistQueue = () => {
     const theme = useTheme();
     const [value, setValue] = useState(0);
+    const [playlist, setRoomPlaylist] = useState([])
+    const [lastPlayed, setLastPlaylist] = useState([])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -19,6 +23,17 @@ const PlaylistQueue = () => {
     const handleChangeIndex = (index) => {
         setValue(index);
     };
+
+    useEffect(() => {
+        getRoomPlaylist("43ed9d111e4523fd0572be22ecf3099a")
+        .then(response => {
+            setRoomPlaylist(response);
+        });
+        getLastPlayed("43ed9d111e4523fd0572be22ecf3099a")
+        .then(response => {
+            setLastPlaylist(response);
+        });
+    });
 
     return (
         <div className="content-container queue">
@@ -39,10 +54,14 @@ const PlaylistQueue = () => {
                 onChangeIndex={handleChangeIndex}>
                     
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <QueueList/>
+                    <QueueList
+                        playlist={playlist}
+                    />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <LastPlayedList/>
+                    <LastPlayedList
+                        lastPlayed={lastPlayed}
+                    />
                 </TabPanel>
             </SwipeableViews>
         </div>
@@ -63,7 +82,7 @@ function TabPanel(props) {
         {...other}
       >
         {value === index && (
-            <Typography>{children}</Typography>
+            <Typography component={'span'}>{children}</Typography>
         )}
       </div>
     );

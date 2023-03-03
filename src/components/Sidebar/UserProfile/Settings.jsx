@@ -15,7 +15,7 @@ const Settings = () => {
         <Accordion className="text-color-light component-tab" disableGutters>
             <AccordionSummary 
                 expandIcon={<SettingsIcon className="add"/>}>
-                <Typography>
+                <Typography component={'span'}>
                     Joshua Cheung
                 </Typography>
             </AccordionSummary>

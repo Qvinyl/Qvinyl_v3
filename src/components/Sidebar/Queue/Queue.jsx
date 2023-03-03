@@ -1,4 +1,4 @@
-import {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 
 import SearchList from './SearchList';
 import PlaylistQueue from './PlaylistQueue';
@@ -75,7 +75,6 @@ const Queue = () => {
                         value={searchTerm}
                         onKeyDown={keyPress}
                         onChange={setSeachInput}
-                        searchedTerm="searchedTerm" 
                         type="text"
                         inputRef={inputReference}
                         label="Search/Paste from Youtube" 

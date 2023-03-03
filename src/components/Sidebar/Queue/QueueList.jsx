@@ -5,25 +5,16 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { getRoomPlaylist } from '../../../features/queue/Queuing/QueueServices';
 
-const QueueList = () => {
-    const [playlist, setRoomPlaylist] = useState([])
-
-    useEffect(() => {
-        getRoomPlaylist("43ed9d111e4523fd0572be22ecf3099a")
-        .then(response => {
-            setRoomPlaylist(response);
-        });
-    })
+const QueueList = ({playlist}) => {
 
     return (
         <div className="list">
             <Table>
                 <TableBody>
                     {
-                        playlist.map((item) =>
-                            <TableRow>
+                        playlist.map((item, index) =>
+                            <TableRow key={index}>
                                 <TableCell className="table-cell">
                                     <QueueItem
                                         thumbnail={item.thumbnail}

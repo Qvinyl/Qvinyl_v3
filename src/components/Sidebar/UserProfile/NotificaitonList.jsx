@@ -59,8 +59,8 @@ const NotificationList = () => {
             <Table>
                 <TableBody>
                     {
-                        notifications.map((item) =>
-                            <TableRow>
+                        notifications.map((item, index) =>
+                            <TableRow key={index}>
                                 <TableCell className="table-cell">
                                     <NotificationItem
                                         roomId={item.roomId}

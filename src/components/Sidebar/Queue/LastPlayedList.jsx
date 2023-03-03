@@ -5,16 +5,12 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { getLastPlayed } from '../../../features/queue/Queuing/QueueServices'; 
 
-const LastPlayedList = () => {
-    const [lastPlayed, setLastPlaylist] = useState([])
+const LastPlayedList = ({lastPlayed}) => {
+    
 
     useEffect(() => {
-        getLastPlayed("43ed9d111e4523fd0572be22ecf3099a")
-        .then(response => {
-            setLastPlaylist(response);
-        });
+       
     });
 
     return (
@@ -22,8 +18,8 @@ const LastPlayedList = () => {
             <Table>
                 <TableBody>
                     {
-                        lastPlayed.map((item) =>
-                            <TableRow>
+                        lastPlayed.map((item, index) =>
+                            <TableRow key={index}>
                                 <TableCell className="table-cell">
                                     <QueueItem
                                         url={item.url}

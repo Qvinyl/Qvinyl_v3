@@ -26,8 +26,8 @@ const RoomList = () => {
             <Table>
                 <TableBody>
                     {
-                        rooms.map((item) =>
-                            <TableRow>
+                        rooms.map((item, index) =>
+                            <TableRow key={index}>
                                 <TableCell className="table-cell">
                                     <Room 
                                         roomId={item.roomId}
