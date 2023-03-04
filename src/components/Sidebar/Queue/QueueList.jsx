@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {} from 'react';
 import '../../../css/Queue.css'
 import QueueItem from './QueueItem';
 import Table from '@mui/material/Table';

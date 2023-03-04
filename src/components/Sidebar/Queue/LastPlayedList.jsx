@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {} from 'react';
 import '../../../css/Queue.css'
 import QueueItem from './QueueItem';
 import Table from '@mui/material/Table';
@@ -7,12 +7,6 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
 const LastPlayedList = ({lastPlayed}) => {
-    
-
-    useEffect(() => {
-       
-    });
-
     return (
         <div className="queue list">
             <Table>

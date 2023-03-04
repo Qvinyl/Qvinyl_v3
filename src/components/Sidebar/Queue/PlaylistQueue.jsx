@@ -25,15 +25,26 @@ const PlaylistQueue = () => {
     };
 
     useEffect(() => {
+        // getPlaylist();
+        // getLastPlayedList();
+    }, []);
+
+    const getPlaylist = () => {
+        console.log("getting playlist")
         getRoomPlaylist("43ed9d111e4523fd0572be22ecf3099a")
         .then(response => {
             setRoomPlaylist(response);
         });
+    }
+
+    const getLastPlayedList = () => {
+        console.log("getting last played playlist")
+
         getLastPlayed("43ed9d111e4523fd0572be22ecf3099a")
         .then(response => {
             setLastPlaylist(response);
         });
-    });
+    }
 
     return (
         <div className="content-container queue">

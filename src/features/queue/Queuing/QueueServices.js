@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc, arrayUnion, onSnapshot} from 'firebase/firestore';
+import { doc, getDoc, updateDoc, arrayUnion} from 'firebase/firestore';
 const firestoreDB = require('../../../config/constraints').db;
 
 const PLAYLIST_DOC = "Playlist";
