@@ -9,7 +9,7 @@ async function addRoomToFireStore(roomkey) {
         await setDoc(doc(firestoreDB, "Playlist", roomkey), {
             queue: []
         });
-        await setDoc(doc(firestoreDB, "Last25Played", roomkey), {
+        await setDoc(doc(firestoreDB, "LastPlayed", roomkey), {
             history: []
         });
         return true;
@@ -21,28 +21,28 @@ async function addRoomToFireStore(roomkey) {
 }
 
 export async function createVirtualRoom(user_id, roomname) {
-    // var createRoomEndpoint = "http://localhost:3000/rooms"
-    // await fetch(createRoomEndpoint, {
-    //     method: 'POST',
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify ({
-    //         admin: user_id, 
-    //         room_name: roomname,
-    //     })
-    // })
-    // .then(response => response.json())
-    // .then(contents => {
-    //     let roomObj = JSON.parse(contents);
-    //     let roomkey = roomObj.roomkey
-    //     addRoomToFireStore(roomkey)
-    // })
-    // .catch((error) => {
-    //     console.error(error)
-    //     return false;
-    // });
+    var createRoomEndpoint = "http://localhost:3000/rooms"
+    await fetch(createRoomEndpoint, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify ({
+            admin: user_id, 
+            room_name: roomname,
+        })
+    })
+    .then(response => response.json())
+    .then(contents => {
+        let roomObj = JSON.parse(contents);
+        let roomkey = roomObj.roomkey
+        addRoomToFireStore(roomkey)
+    })
+    .catch((error) => {
+        console.error(error)
+        return false;
+    });
     return true;
 }
 
