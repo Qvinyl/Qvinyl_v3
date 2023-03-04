@@ -100,3 +100,7 @@
     margin: auto !important;
     display: flex !important;
 }
+
+.progress-slider {
+    padding: 0px !important;
+}

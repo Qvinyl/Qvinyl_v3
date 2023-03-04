@@ -1,8 +1,10 @@
-import { doc, getDoc, updateDoc, arrayUnion} from 'firebase/firestore';
+import { doc, getDoc, updateDoc, arrayUnion, onSnapshot} from 'firebase/firestore';
 const firestoreDB = require('../../../config/constraints').db;
 
 const PLAYLIST_DOC = "Playlist";
 const LAST_PLAYED_DOC = "LastPlayed";
+
+var playlist = [];
 
 export async function addToPlaylist(roomkey, element) {
     const roomRef = doc(firestoreDB, PLAYLIST_DOC, roomkey);
@@ -23,21 +25,22 @@ export async function addToPlaylist(roomkey, element) {
     });
 }
 
-export async function getRoomPlaylist(roomkey) {
-    const roomRef = doc(firestoreDB, PLAYLIST_DOC, roomkey);
-    const docSnap = await getDoc(roomRef);
-    if (docSnap.exists()) {
-        return docSnap.data().queue;
-    } 
-    return [];
+export async function getRoomPlaylist(roomkey, setRoomPlaylist) {
+    onSnapshot(doc(firestoreDB, PLAYLIST_DOC, roomkey), (doc) => {
+        setRoomPlaylist(doc.data().queue)
+        playlist = doc.data().queue;
+    });
 }
 
-export async function getLastPlayed(roomkey) {
-    const roomRef = doc(firestoreDB, LAST_PLAYED_DOC, roomkey);
-    const docSnap = await getDoc(roomRef);
-    if (docSnap.exists()) {
-        return docSnap.data().history;
-    } 
-    return [];
+export async function getLastPlayed(roomkey, setLastPlaylist) {
+    onSnapshot(doc(firestoreDB, LAST_PLAYED_DOC, roomkey), (doc) => {
+        setLastPlaylist(doc.data().history)
+    });
+}
+
+export function getCurrentQueuedElement(roomkey, setCurrentElement) {
+    onSnapshot(doc(firestoreDB, PLAYLIST_DOC, roomkey), (doc) => {
+        setCurrentElement(doc.data().queue[0])
+    });
 }
 
