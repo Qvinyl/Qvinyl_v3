@@ -3,14 +3,14 @@ import ReactPlayer from 'react-player';
 
 const Player = ({playback, volume, muted, setProgressValue, playerRef, url}) => {
 
-    const setProgress = (progress) => {
-        setProgressValue((progress.played * 100).toFixed(9))
+    const onProgress = (progress) => {
+        setProgressValue((progress.played * 100).toFixed(9));
     }
 
     return (
         <ReactPlayer 
             ref={playerRef}
-            onProgress={setProgress}
+            onProgress={onProgress}
             muted={muted}
             playing={playback}
             volume={volume}

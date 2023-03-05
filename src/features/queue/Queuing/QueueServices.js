@@ -40,7 +40,12 @@ export async function getLastPlayed(roomkey, setLastPlaylist) {
 
 export function getCurrentQueuedElement(roomkey, setCurrentElement) {
     onSnapshot(doc(firestoreDB, PLAYLIST_DOC, roomkey), (doc) => {
-        setCurrentElement(doc.data().queue[0])
+        if (doc.data().queue[0]) {
+            setCurrentElement(doc.data().queue[0])
+        }
+        else {
+            setCurrentElement({})
+        }
     });
 }
 

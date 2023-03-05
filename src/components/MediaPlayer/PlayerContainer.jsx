@@ -10,7 +10,7 @@ const PlayerContainer = () => {
     const [playback, setPlayback] = useState(true);
     const [progress, setProgress] = useState("");
     const [currentElement, setCurrentElement] = useState({});
-    const playerRef = useRef()
+    const playerRef = useRef(null)
 
     useEffect(() => {
         getCurrentElement()
@@ -36,6 +36,11 @@ const PlayerContainer = () => {
         setProgress(progress)
     }
 
+    const handleOnSeekChange = (progress) => {
+        setProgressValue(progress)
+        playerRef.current.seekTo(parseFloat(progress/100));
+    }
+
     return (
         <div className="player">
             <div className="player-wrapper">
@@ -48,6 +53,7 @@ const PlayerContainer = () => {
                     url={currentElement.url}
                 />
                 <MediaControls
+                    handleOnSeekChange={handleOnSeekChange}
                     title={currentElement.title}
                     progress={progress}
                     muted={muted}
