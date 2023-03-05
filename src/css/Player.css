@@ -42,7 +42,8 @@
 .media-button-container {
     cursor: pointer;
     color: #8C8C8C !important;
-    width: 50px;
+    width: 40px;
+    min-width: 40px;
 }
 
 .volume-container {
@@ -87,6 +88,7 @@
 
 .media-container {
     border-bottom: none !important;
+    padding: 8px !important;
 }
 
 .volume-icon {
@@ -103,4 +105,16 @@
 
 .progress-slider {
     padding: 0px !important;
+}
+
+.media-screen-pause-play {
+    width: 100%;
+    height: 100%;
+}
+
+.title-overflow {
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

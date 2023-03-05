@@ -11,15 +11,16 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import Slider from '@mui/material/Slider';
+import CustomSlider from '../Basics/Slider/CustomSlider'; 
 import LinearProgress from '@mui/material/LinearProgress';
 import screenfull from 'screenfull'
 
 
-const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, setMuteState, muted, progress, playerRef, title}) => {
+const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, isPlaying, setMuteState, muted, progress, playerRef, title}) => {
     const [playback, setPlayback] = useState(isPlaying)
     const [isMuted, setMute] = useState(muted)
     const [fullScreen, setFullScreen] = useState(false)
+    const [hasControl, setHasControl] = useState(true);
 
     const handleOnPlayback = (isPlaying) => {
         setPlaybackState(isPlaying)
@@ -51,13 +52,23 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, set
         return Math.round(volume * 100);
     }
 
+    const setProgress = (event) => {
+        event.preventDefault();
+        var seekProgress = event.target.value;
+        handleOnSeekChange(seekProgress);
+    }
+
     return (
         <div className="media-controls">
-            <div style={{height: "100%", width: "100%"}} onClick={() => handleOnPlayback(!playback)}/>
+            <div className="media-screen-pause-play" onClick={() => handleOnPlayback(!playback)}/>
             <div className="progress-bar">
-                <Slider className="progress-slider" size="small" value={progress} aria-label="Small" />
+                {
+                    hasControl ? 
+                    <CustomSlider className="progress-slider" onChange={setProgress} size="small" value={progress} aria-label="Small"/>
+                    :
+                    <LinearProgress variant="determinate" value={progress}/>
+                }
 
-                {/* <LinearProgress variant="determinate" value={progress} /> */}
             </div>
             <Table className="media-table">
                 <TableBody>
@@ -76,7 +87,7 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, set
                                 /> 
                             }  
                         </TableCell>
-                        <TableCell className="media-button-container media-container ">
+                        <TableCell className="media-button-container media-container">
                             <div>
                                 <SkipNextIcon className="player-icon"/>
                             </div>
@@ -94,7 +105,7 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, set
                                         className="volume-icon"/>
                                 }
                                 
-                                <Slider
+                                <CustomSlider
                                     defaultValue={100}
                                     className="slider"
                                     size="small"
@@ -106,17 +117,19 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, set
                             </div>
                             
                         </TableCell>
-                        <TableCell className="media-button-extended-container media-container ">
+                        <TableCell className="media-button-extended-container media-container">
                             <Button className="request-control-button player-icon" variant="contained">
                                 Request Control
                             </Button>
                         </TableCell>
                         <TableCell className="media-container">
                             <div className="text-color-light">
-                                {title}
+                                <div className="title-overflow"> 
+                                    {title}
+                                </div>
                             </div>
                         </TableCell>
-                        <TableCell className="media-button-container media-container ">
+                        <TableCell className="media-button-container media-container">
                             {
                                 fullScreen ?
                                 <FullscreenExitIcon 
