@@ -113,7 +113,7 @@
 }
 
 .title-overflow {
-    width: 80%;
+    width: 90%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

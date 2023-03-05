@@ -11,7 +11,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import Slider from '@mui/material/Slider';
+import CustomSlider from '../Basics/Slider/CustomSlider'; 
 import LinearProgress from '@mui/material/LinearProgress';
 import screenfull from 'screenfull'
 
@@ -20,6 +20,7 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
     const [playback, setPlayback] = useState(isPlaying)
     const [isMuted, setMute] = useState(muted)
     const [fullScreen, setFullScreen] = useState(false)
+    const [hasControl, setHasControl] = useState(true);
 
     const handleOnPlayback = (isPlaying) => {
         setPlaybackState(isPlaying)
@@ -61,9 +62,13 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
         <div className="media-controls">
             <div className="media-screen-pause-play" onClick={() => handleOnPlayback(!playback)}/>
             <div className="progress-bar">
-                <Slider className="progress-slider" onChange={setProgress} size="small" value={progress} aria-label="Small" />
+                {
+                    hasControl ? 
+                    <CustomSlider className="progress-slider" onChange={setProgress} size="small" value={progress} aria-label="Small"/>
+                    :
+                    <LinearProgress variant="determinate" value={progress}/>
+                }
 
-                {/* <LinearProgress variant="determinate" value={progress} /> */}
             </div>
             <Table className="media-table">
                 <TableBody>
@@ -100,7 +105,7 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
                                         className="volume-icon"/>
                                 }
                                 
-                                <Slider
+                                <CustomSlider
                                     defaultValue={100}
                                     className="slider"
                                     size="small"
