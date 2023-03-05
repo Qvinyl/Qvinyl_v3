@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PlayerOverlay from './MediaPlayer/PlayerOverlay';
+import PlayerContainer from './MediaPlayer/PlayerContainer';
 import Sidebar from './Sidebar/Sidebar';
 import '../css/Sidebar.css';
 import '../css/Main.css';
@@ -13,7 +13,7 @@ const Main = () => {
 
     return (
         <div className="main"> 
-            <PlayerOverlay/>
+            <PlayerContainer/>
             
             <div className={sidebar ? "sidebar-wrapper" : "sidebar-wrapper-close"}>
                 <div className="slide">

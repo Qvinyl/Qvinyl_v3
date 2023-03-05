@@ -1,5 +1,3 @@
-import { doc, setDoc } from "firebase/firestore"; 
-
 export async function searchYouTube(searchTerm) {
     var searchEndpoint = "http://localhost:9000/search";
     var results = [];

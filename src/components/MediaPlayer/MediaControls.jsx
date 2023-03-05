@@ -16,7 +16,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import screenfull from 'screenfull'
 
 
-const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, setMuteState, muted, progress, playerRef}) => {
+const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, setMuteState, muted, progress, playerRef, title}) => {
     const [playback, setPlayback] = useState(isPlaying)
     const [isMuted, setMute] = useState(muted)
     const [fullScreen, setFullScreen] = useState(false)
@@ -55,7 +55,9 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, set
         <div className="media-controls">
             <div style={{height: "100%", width: "100%"}} onClick={() => handleOnPlayback(!playback)}/>
             <div className="progress-bar">
-                <LinearProgress variant="determinate" value={progress} />
+                <Slider className="progress-slider" size="small" value={progress} aria-label="Small" />
+
+                {/* <LinearProgress variant="determinate" value={progress} /> */}
             </div>
             <Table className="media-table">
                 <TableBody>
@@ -111,7 +113,7 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, volume, isPlaying, set
                         </TableCell>
                         <TableCell className="media-container">
                             <div className="text-color-light">
-                                Title of the Song of Video that is playing
+                                {title}
                             </div>
                         </TableCell>
                         <TableCell className="media-button-container media-container ">

@@ -34,7 +34,7 @@
 }
 
 .thumbnail {
-    height: 75px;
+    height: 60px;
 }
 
 .text-container {
@@ -45,7 +45,7 @@
 }
 
 .title-text {
-    font-size: 14px !important;
+    font-size: 12px !important;
 }
 
 .queued-by-text {
@@ -98,4 +98,10 @@
     height: 100%;
     transition: 0.7s;
     overflow-y: scroll;
+}
+
+.queued {
+    color: white !important;
+    border-color: #1976d2 !important;
+    background-color: #1976d2 !important;
 }

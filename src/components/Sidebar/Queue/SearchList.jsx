@@ -1,11 +1,10 @@
-import {useState} from 'react';
+import React from 'react';
 import QueueItem from './QueueItem';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { Button } from '@mui/material';
-
 import '../../../css/Queue.css'
 
 const SearchList = ({searchResults, closeSearch}) => {
@@ -16,10 +15,11 @@ const SearchList = ({searchResults, closeSearch}) => {
                 <Table>
                     <TableBody>
                         {
-                            searchResults.map((item) =>
-                                <TableRow>
+                            searchResults.map((item, index) =>
+                                <TableRow key={index}>
                                     <TableCell className="table-cell">
                                         <QueueItem
+                                            url={item.url}
                                             thumbnail={item.thumbnail}
                                             title={item.title}
                                             wasPlayed={false}
