@@ -1,10 +1,36 @@
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Qvinyl from './components/Main';
+import Login from './pages/Login';
 import './App.css';
-import Main from './components/Main';
+const firebase = require('./config/constraints').firebaseAuth;
 
-function App() {
+const App = () => {
+  const [authed, setAuth] = useState(true);
+
+  useEffect(() => {
+    firebase.onAuthStateChanged((user) => {
+      if (user) {
+        setAuth(true)
+      }
+      else {
+        setAuth(false);
+      }
+    });
+  }, [])
+
   return (
     <div className="App">
-      <Main/>
+      <Router>
+          <Routes>
+            { authed ? 
+              <Route exact path="/qvinyl" element={<Qvinyl/>}/>
+            :
+              <Route exact path="/login" element={<Login/>}/>
+            }
+            {/* <Route path="*" element={<NotFound/>}/> */}
+          </Routes>
+      </Router>
     </div>
   );
 }

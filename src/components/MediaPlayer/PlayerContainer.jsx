@@ -8,7 +8,7 @@ const PlayerContainer = () => {
     const [volume, setVolume] = useState(100);
     const [muted, setMute] = useState(false);
     const [playback, setPlayback] = useState(true);
-    const [progress, setProgress] = useState("");
+    const [progress, setProgress] = useState(0);
     const [currentElement, setCurrentElement] = useState({});
     const playerRef = useRef(null)
 
