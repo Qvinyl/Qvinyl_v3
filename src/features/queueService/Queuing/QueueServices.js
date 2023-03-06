@@ -1,10 +1,8 @@
-import { doc, getDoc, updateDoc, arrayUnion, onSnapshot} from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, onSnapshot} from 'firebase/firestore';
 const firestoreDB = require('../../../config/constraints').db;
 
 const PLAYLIST_DOC = "Playlist";
 const LAST_PLAYED_DOC = "LastPlayed";
-
-var playlist = [];
 
 export async function addToPlaylist(roomkey, element) {
     const roomRef = doc(firestoreDB, PLAYLIST_DOC, roomkey);
@@ -28,7 +26,6 @@ export async function addToPlaylist(roomkey, element) {
 export async function getRoomPlaylist(roomkey, setRoomPlaylist) {
     onSnapshot(doc(firestoreDB, PLAYLIST_DOC, roomkey), (doc) => {
         setRoomPlaylist(doc.data().queue)
-        playlist = doc.data().queue;
     });
 }
 
