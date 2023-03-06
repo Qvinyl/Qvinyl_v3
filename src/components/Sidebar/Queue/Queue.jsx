@@ -5,7 +5,7 @@ import PlaylistQueue from './PlaylistQueue';
 import FormControl from '@mui/material/FormControl';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import LinearProgress from '@mui/material/LinearProgress';
-import {searchYouTube} from '../../../features/queue/YoutubeSearch';
+import {searchYouTube} from '../../../features/queueService/ContentSearch/YoutubeSearch';
 
 import '../../../css/Queue.css'
 
