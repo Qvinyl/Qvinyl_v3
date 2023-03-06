@@ -1,5 +1,6 @@
 .logo-containter {
     display: block;
+    margin-bottom: 5%;
 }
 
 .content-containter {
@@ -7,10 +8,11 @@
     flex-direction: column;
     margin-top: auto;
     margin-bottom: auto;
+    padding-bottom: 5%;
 }
 
 .logo {
-    width: 50%;
+    width: 45%;
 }
 
 .background {

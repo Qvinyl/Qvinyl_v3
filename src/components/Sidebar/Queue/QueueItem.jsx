@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import QueuedButton from '../../Basics/Button/QueuedButton';
-import { addToPlaylist } from '../../../features/queue/Queuing/QueueServices';
+import { addToPlaylist } from '../../../features/queueService/Queuing/QueueServices';
 import '../../../css/Queue.css';
 
 const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url}) => {
