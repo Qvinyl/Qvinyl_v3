@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import Button from '@mui/material/Button';
 import CustomTextField from '../../Basics/InputField/CustomTextField'
-import {createVirtualRoom} from '../../../features/roomService/RoomCreation';
+import {createVirtualRoom} from '../../../features/rooms/RoomCreation';
 import SnackBar from '../../Basics/SnackBar/SnackBar';
 
 const AddRoom = () => {

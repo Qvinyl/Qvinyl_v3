@@ -64,9 +64,9 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
             <div className="progress-bar">
                 {
                     hasControl ? 
-                    <CustomSlider className="progress-slider" onChange={setProgress} size="small" defaultValue={0} value={progress} aria-label="Small"/>
+                    <CustomSlider className="progress-slider" onChange={setProgress} size="small" value={progress} aria-label="Small"/>
                     :
-                    <LinearProgress variant="determinate" defaultValue={0} value={progress}/>
+                    <LinearProgress variant="determinate" value={progress}/>
                 }
 
             </div>

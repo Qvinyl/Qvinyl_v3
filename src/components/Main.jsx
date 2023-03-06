@@ -4,7 +4,7 @@ import Sidebar from './Sidebar/Sidebar';
 import '../css/Sidebar.css';
 import '../css/Main.css';
 
-const Qvinyl = () => {
+const Main = () => {
     const [sidebar, setSidebar] = useState(true)
 
     const handleOnClickSidebarLip = (isOpen) => {
@@ -27,4 +27,4 @@ const Qvinyl = () => {
     )
 }
 
-export default Qvinyl;
+export default Main;
