@@ -1,7 +1,7 @@
 import {useState, useEffect, useRef} from 'react';
 import MediaControls from './MediaControls';
 import Player from './Player';
-import { getCurrentQueuedElement } from '../../features/queue/Queuing/QueueServices';
+import { getCurrentQueuedElement } from '../../features/queueService/Queuing/QueueServices';
 import '../../css/Player.css'
 
 const PlayerContainer = () => {

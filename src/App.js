@@ -1,36 +1,33 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Qvinyl from './components/Main';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Qvinyl from './components/Qvinyl';
 import Login from './pages/Login';
 import './App.css';
-const firebase = require('./config/constraints').firebaseAuth;
+const auth = require('./config/constraints').firebaseAuth;
 
 const App = () => {
-  const [authed, setAuth] = useState(true);
+  const navigate = useNavigate();
+  const [loggedIn, setloggedIn] = useState(false);
 
   useEffect(() => {
-    firebase.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       if (user) {
-        setAuth(true)
+        setloggedIn(true);
+        navigate("/qvinyl");
       }
       else {
-        setAuth(false);
+        navigate("/login")
       }
     });
-  }, [])
+
+  }, [loggedIn, navigate]);
 
   return (
     <div className="App">
-      <Router>
-          <Routes>
-            { authed ? 
-              <Route exact path="/qvinyl" element={<Qvinyl/>}/>
-            :
-              <Route exact path="/login" element={<Login/>}/>
-            }
-            {/* <Route path="*" element={<NotFound/>}/> */}
-          </Routes>
-      </Router>
+        <Routes>
+          <Route exact path="/login" element={<Login/>}/>
+          <Route exact path="/qvinyl" element={<Qvinyl/>} />
+        </Routes>
     </div>
   );
 }
