@@ -1,10 +1,33 @@
+import { useEffect, useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Qvinyl from './components/Qvinyl';
+import Login from './pages/Login';
 import './App.css';
-import Main from './components/Main';
+const auth = require('./config/constraints').firebaseAuth;
 
-function App() {
+const App = () => {
+  const navigate = useNavigate();
+  const [loggedIn, setloggedIn] = useState(false);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setloggedIn(true);
+        navigate("/qvinyl");
+      }
+      else {
+        navigate("/login")
+      }
+    });
+
+  }, [loggedIn, navigate]);
+
   return (
     <div className="App">
-      <Main/>
+        <Routes>
+          <Route exact path="/login" element={<Login/>}/>
+          <Route exact path="/qvinyl" element={<Qvinyl/>} />
+        </Routes>
     </div>
   );
 }
