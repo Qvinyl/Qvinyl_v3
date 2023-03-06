@@ -7,7 +7,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
-import { getRoomPlaylist, getLastPlayed } from '../../../features/queueService/Queuing/QueueServices'; 
+import { getRoomPlaylist, getLastPlayed } from '../../../features/queue/Queuing/QueueServices'; 
 
 
 const PlaylistQueue = () => {
@@ -30,10 +30,12 @@ const PlaylistQueue = () => {
     }, []);
 
     const getPlaylist = () => {
+        console.log("getting playlist")
         getRoomPlaylist("43ed9d111e4523fd0572be22ecf3099a", setRoomPlaylist)
     }
 
     const getLastPlayedList = () => {
+        console.log("getting last played playlist")
         getLastPlayed("43ed9d111e4523fd0572be22ecf3099a", setLastPlaylist)
     }
 

@@ -9,22 +9,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 // import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Setting from './Setting';
-import { useNavigate } from 'react-router-dom';
-const logout = require('../../../features/userService/UserAuthentication').logout;
 
 const Settings = () => {
-    const navigate = useNavigate();
-
-    const loggingOut = () => {
-       
-        if (logout()) {
-            navigate('/login');
-        }   
-        else {
-            console.log("error signing out");
-        }
-    }
-
     return (
         <Accordion className="text-color-light component-tab" disableGutters>
             <AccordionSummary 
@@ -39,7 +25,6 @@ const Settings = () => {
                     input={"Darkmode"}
                 />
                 <Setting 
-                    action={loggingOut}
                     icon={<LogoutIcon/>}
                     input={"Logout"}
                 />
