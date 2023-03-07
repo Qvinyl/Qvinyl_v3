@@ -1,38 +1,26 @@
-import React from 'react';
-import '../../../css/Queue.css'
+import React, { useState, useEffect } from 'react';
+import { getAdminRooms } from '../../../features/roomService/RoomService';
 import Room from './Room';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import '../../../css/Queue.css'
 
 
-const RoomList = () => {
-    const rooms = [
-        {
-            roomId: "1234198237490801",
-            roomName: "GYM JAMZ",
-            isAdmin: true
-        },
-        {
-            roomId: "129837401928",
-            roomName: "Baby Shark",
-            isAdmin: false
-        },
-    ]
-
+const RoomList = ({rooms, user_id}) => {
     return (
         <div className="list">
             <Table>
                 <TableBody>
                     {
-                        rooms.map((item, index) =>
-                            <TableRow key={index}>
+                        rooms.map((room) =>
+                            <TableRow key={room.id}>
                                 <TableCell className="table-cell">
                                     <Room 
-                                        roomId={item.roomId}
-                                        roomName={item.roomName}
-                                        isAdmin={item.isAdmin}
+                                        roomkey={room.roomkey}
+                                        roomName={room.room_name}
+                                        isAdmin={user_id == room.admin}
                                     />
                                 </TableCell>
                             </TableRow>

@@ -46,8 +46,11 @@ const Queue = () => {
             if (results) {
                 setLoading(false)
                 setSearching(true)
+                setSearchResults(results);
             }
-            setSearchResults(results);
+            else {
+                setSearchResults([]);
+            }
         })
     }
 

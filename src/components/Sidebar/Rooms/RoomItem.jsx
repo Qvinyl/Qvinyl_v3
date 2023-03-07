@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RoomItem = ({roomId, roomName}) => {
+const RoomItem = ({roomkey, roomName}) => {
     return (
         <div className="text-color-light room-item">
             {roomName}

@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RoomOption from './RoomOption';
 
-const AdminRoomItem = ({roomId, roomName}) => {
+const AdminRoomItem = ({roomkey, roomName}) => {
     const [expanded, setExpanded] = useState(false);
 
     const handleChange = (isExpanded) => {
