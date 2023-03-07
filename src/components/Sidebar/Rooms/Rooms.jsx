@@ -31,7 +31,9 @@ const Rooms = () => {
     }
 
     const appendNewRoom = (roomdata) => {
-        setRooms([...rooms, roomdata]);
+        if (Object.keys(roomdata).length !== 0) {
+            setRooms([...rooms, roomdata]);
+        }
     }
 
     return (
