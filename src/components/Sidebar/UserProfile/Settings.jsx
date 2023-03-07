@@ -24,18 +24,16 @@ const Settings = () => {
     const getInfo = async () => {
         await getUserInfo()
         .then((info) => {
-            console.log(info);
             setDisplayName(info.display_name);
         });
     }
 
     const loggingOut = () => {
-        
         if (logout()) {
             navigate('/login');
         }   
         else {
-            console.log("error signing out");
+            console.log("Error signing out");
         }
     }
 

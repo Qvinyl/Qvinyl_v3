@@ -6,8 +6,7 @@ let user = {}
 
 //Check to see if user already exists
 export async function findOrCreateUser(userInfo) {
-    console.log(userInfo);
-    var getUserByUid = usersAPIEndpoint + "/" + userInfo.uid;
+    var getUserByUid = `${usersAPIEndpoint}/${userInfo.uid}`
     await fetch(getUserByUid, {
         method: 'GET',
         headers: {
@@ -17,7 +16,6 @@ export async function findOrCreateUser(userInfo) {
     })
     .then(response => response.json())
     .then(content => {
-        console.log(content);
         if (content === null) {
             createNewUser(userInfo);
         }
@@ -32,7 +30,6 @@ export async function findOrCreateUser(userInfo) {
 
 // Create New User 
 async function createNewUser(userInfo) {
-    console.log("Create new User", userInfo);
     fetch(usersAPIEndpoint, {
         method: 'POST',
         headers: {
