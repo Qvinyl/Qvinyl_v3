@@ -9,9 +9,10 @@ import CustomTextField from '../../Basics/InputField/CustomTextField'
 import {createVirtualRoom} from '../../../features/roomService/RoomCreation';
 import SnackBar from '../../Basics/SnackBar/SnackBar';
 
-const AddRoom = ({uid}) => {
+const AddRoom = ({user_id, appendNewRoom}) => {
     const [expanded, setExpanded] = useState(false);
     const [roomName, setRoomName] = useState("");
+    const [newlyCreatedRoom, setNewlyCreatedRoom] = useState({})
     const [successful, setSuccess] = useState(true);
     const [snackbar, setSnackBar] = useState(false);
     const inputReference = useRef(null);
@@ -47,11 +48,13 @@ const AddRoom = ({uid}) => {
         }
     }
 
-    const createRoom = () => {
-        createVirtualRoom(uid, roomName).then(isSuccessful => {
-            if (isSuccessful) {
+    const createRoom = async () => {
+        createVirtualRoom(user_id, roomName, setNewlyCreatedRoom)
+        .then(successfulRoom => {
+            if (successfulRoom) {
                 handleChange(false);
                 setSuccess(true);
+                appendNewRoom(newlyCreatedRoom);
             }
             else {
                 setSuccess(false);

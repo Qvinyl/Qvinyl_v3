@@ -1,9 +1,9 @@
 import { doc, setDoc } from "firebase/firestore"; 
 const firestoreDB = require('../../config/constraints').db;
 
-var roomAPIEndpoint = "http://localhost:3000/api/v1/rooms"
+const roomAPIEndpoint = "http://localhost:3000/api/v1/rooms"
 
-export async function createVirtualRoom(user_id, roomname) {
+export async function createVirtualRoom(user_id, roomname, setNewlyCreatedRoom) {
     fetch(roomAPIEndpoint, {
         method: 'POST',
         headers: {
@@ -18,6 +18,7 @@ export async function createVirtualRoom(user_id, roomname) {
     .then(response => response.json())
     .then(roomContent => {
         addRoomToFireStore(roomContent.roomkey);
+        setNewlyCreatedRoom(roomContent);
     })
     .catch((error) => {
         console.error(error)
