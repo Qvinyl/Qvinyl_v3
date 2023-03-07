@@ -7,27 +7,18 @@ import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import Button from '@mui/material/Button';
 import CustomTextField from '../../Basics/InputField/CustomTextField'
 import {createVirtualRoom} from '../../../features/roomService/RoomCreation';
-import { getUserUid } from '../../../features/userService/UserAuthentication';
 import SnackBar from '../../Basics/SnackBar/SnackBar';
 
-const AddRoom = () => {
+const AddRoom = ({uid}) => {
     const [expanded, setExpanded] = useState(false);
     const [roomName, setRoomName] = useState("");
-    const [uid, setUid] = useState("");
     const [successful, setSuccess] = useState(true);
     const [snackbar, setSnackBar] = useState(false);
     const inputReference = useRef(null);
 
     useEffect(() => {
-        getUid();
         inputReference.current.focus();
     }, []);
-
-    const getUid = async () => {
-        await getUserUid().then((user_id) => {
-            setUid(user_id);
-        });
-    }
 
     const setRoomNameInput = (event) => {
         const newValue = event.target.value;
