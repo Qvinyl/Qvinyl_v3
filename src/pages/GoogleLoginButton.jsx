@@ -8,14 +8,9 @@ const provider = new GoogleAuthProvider();
 const login = () => {
     signInWithPopup(auth, provider)
     .then((result) => {
-        console.log(result);
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const user = result.user;
-        console.log(user);
     }).catch((error) => {
-        console.log(error);
         const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(credential);
     }); 
 }
 

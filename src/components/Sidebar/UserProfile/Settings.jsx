@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -10,18 +10,30 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Setting from './Setting';
 import { useNavigate } from 'react-router-dom';
+import { getUserInfo } from '../../../features/userService/UserAuthentication';
 const logout = require('../../../features/userService/UserAuthentication').logout;
 
 const Settings = () => {
     const navigate = useNavigate();
+    const [displayName, setDisplayName] = useState("");
+
+    useEffect(() => {
+        getInfo();
+    }, []);
+
+    const getInfo = async () => {
+        await getUserInfo()
+        .then((info) => {
+            setDisplayName(info.display_name);
+        });
+    }
 
     const loggingOut = () => {
-       
         if (logout()) {
             navigate('/login');
         }   
         else {
-            console.log("error signing out");
+            console.log("Error signing out");
         }
     }
 
@@ -30,7 +42,7 @@ const Settings = () => {
             <AccordionSummary 
                 expandIcon={<SettingsIcon className="add"/>}>
                 <Typography component={'span'}>
-                    Joshua Cheung
+                    {displayName}
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>

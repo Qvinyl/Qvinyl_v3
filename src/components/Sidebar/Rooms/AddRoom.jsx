@@ -9,7 +9,7 @@ import CustomTextField from '../../Basics/InputField/CustomTextField'
 import {createVirtualRoom} from '../../../features/roomService/RoomCreation';
 import SnackBar from '../../Basics/SnackBar/SnackBar';
 
-const AddRoom = () => {
+const AddRoom = ({uid}) => {
     const [expanded, setExpanded] = useState(false);
     const [roomName, setRoomName] = useState("");
     const [successful, setSuccess] = useState(true);
@@ -48,8 +48,7 @@ const AddRoom = () => {
     }
 
     const createRoom = () => {
-        createVirtualRoom(roomName).then(results => {
-            let isSuccessful = results;
+        createVirtualRoom(uid, roomName).then(isSuccessful => {
             if (isSuccessful) {
                 handleChange(false);
                 setSuccess(true);
