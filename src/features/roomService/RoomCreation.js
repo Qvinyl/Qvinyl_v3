@@ -36,8 +36,8 @@ export async function createVirtualRoom(user_id, roomname) {
     .then(response => response.json())
     .then(contents => {
         let roomObj = JSON.parse(contents);
-        let roomkey = roomObj.roomkey
-        addRoomToFireStore(roomkey)
+        let roomkey = roomObj.roomkey;
+        addRoomToFireStore(roomkey);
     })
     .catch((error) => {
         console.error(error)

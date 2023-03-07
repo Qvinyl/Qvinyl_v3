@@ -3,6 +3,8 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Qvinyl from './components/Qvinyl';
 import Login from './pages/Login';
 import './App.css';
+import { findOrCreateUser } from './features/userService/UserAuthentication';
+
 const auth = require('./config/constraints').firebaseAuth;
 
 const App = () => {
@@ -13,14 +15,14 @@ const App = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setloggedIn(true);
+        findOrCreateUser(user);
         navigate("/qvinyl");
       }
       else {
         navigate("/login")
       }
     });
-
-  }, [loggedIn, navigate]);
+  }, []);
 
   return (
     <div className="App">
