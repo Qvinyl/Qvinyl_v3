@@ -63,3 +63,8 @@ export async function logout() {
 export async function getUserInfo() {
     return user;
 }
+
+export async function getUserUid() {
+    return user.user_id;
+}
+
