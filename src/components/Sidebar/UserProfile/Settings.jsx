@@ -10,8 +10,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Setting from './Setting';
 import { useNavigate } from 'react-router-dom';
-import { getUserInfo } from '../../../features/userService/UserAuthentication';
-const logout = require('../../../features/userService/UserAuthentication').logout;
+import { getUserInfo } from '../../../features/userService/UserAdministration';
+const logout = require('../../../features/userService/UserAdministration').logout;
 
 const Settings = () => {
     const navigate = useNavigate();

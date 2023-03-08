@@ -2,6 +2,7 @@ import { styled } from '@mui/material/styles';
 import Accordion from '@mui/material/Accordion';
 
 const RoomAccordion = styled(Accordion)({
+    boxShadow: "none",
     backgroundColor: "inherit",
     '& .MuiAccordionSummary-root': {
         color: '#ACACAC',

@@ -9,8 +9,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RoomDeletionModal from '../../Basics/Modals/RoomDeletionModal';
 import RoomOption from './RoomOption';
+import { setUserCurrentRoomkey } from '../../../features/userService/UserAdministration';
 
-const AdminRoomItem = ({roomkey, roomName, removeRoom}) => {
+const AdminRoomItem = ({roomkey, roomName, removeRoom, setCurrentRoom}) => {
     const [expanded, setExpanded] = useState(false);
     const [deletionModalOpen, setdeletionModalOpen] = useState(false);
 
@@ -25,13 +26,19 @@ const AdminRoomItem = ({roomkey, roomName, removeRoom}) => {
     const handleChange = (isExpanded) => {
         setExpanded(isExpanded);
     }
-
+    
+    const setCurrentRoomkey = () => {
+        if  (setUserCurrentRoomkey(roomkey)) {
+            setCurrentRoom(roomkey);
+        }
+    }
+    
     return (
         <div>
             <RoomAccordion disableGutters expanded={expanded}>
                 <AccordionSummary 
                     expandIcon={<ExpandMore className="add" onClick={() => handleChange(!expanded)}/>}>
-                    <Typography>
+                    <Typography onClick={() => {setCurrentRoomkey()}}>
                         <b>{roomName}</b>
                     </Typography>
                 </AccordionSummary>

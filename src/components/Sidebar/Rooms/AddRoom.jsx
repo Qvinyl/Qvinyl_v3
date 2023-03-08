@@ -12,7 +12,6 @@ import SnackBar from '../../Basics/SnackBar/SnackBar';
 const AddRoom = ({user_id, appendNewRoom}) => {
     const [expanded, setExpanded] = useState(false);
     const [roomName, setRoomName] = useState("");
-    const [newlyCreatedRoom, setNewlyCreatedRoom] = useState({})
     const [successful, setSuccess] = useState(true);
     const [snackbar, setSnackBar] = useState(false);
     const inputReference = useRef(null);
@@ -48,9 +47,8 @@ const AddRoom = ({user_id, appendNewRoom}) => {
         }
     }
 
-
     const createRoom = () => {
-        createVirtualRoom(user_id, roomName, setNewlyCreatedRoom)
+        createVirtualRoom(user_id, roomName)
         .then(successfulRoom => {
             if (successfulRoom) {
                 handleChange(false);

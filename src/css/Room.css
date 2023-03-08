@@ -44,3 +44,18 @@
 .room-content-container {
     overflow: hidden;
 }
+
+.active-row {
+    background-color: rgba(53, 53, 53, 1);
+    /* background-color: #1976d2; */
+}
+
+.table-row {
+    padding: 0px 16px 0px 16px !important;
+    display: grid !important;
+}
+
+.table-row:hover {
+    background-color: #2b2b2b;
+    color: white !important;
+}

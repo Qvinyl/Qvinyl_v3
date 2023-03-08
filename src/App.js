@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Qvinyl from './components/Qvinyl';
 import Login from './pages/Login';
 import './App.css';
-import { findOrCreateUser } from './features/userService/UserAuthentication';
+import { findOrCreateUser } from './features/userService/UserAdministration';
 
 const auth = require('./config/constraints').firebaseAuth;
 

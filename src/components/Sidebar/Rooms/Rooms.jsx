@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
-import { getUserUid } from '../../../features/userService/UserAuthentication';
+import { getUserUid, getUserCurrentRoomkey } from '../../../features/userService/UserAdministration';
 import { getAdminRooms } from '../../../features/roomService/RoomService';
 import RoomList from './RoomList';
 import AddRoom from './AddRoom';
@@ -10,14 +10,16 @@ const Rooms = () => {
     const [user_id, setUserId] = useState("");
     const [loading, setLoading] = useState(true);
     const [rooms, setRooms] = useState([]);
+    const [currentRoomkey, setCurrentRoomkey] = useState("")
 
     useEffect(() => {
         setLoading(true);
         getUid();
         if (user_id) {
             getRooms();
+            getCurrentRoom();
         }
-    }, [user_id]);
+    }, [user_id, currentRoomkey]);
 
     const getUid = async () => {
         await getUserUid().then((uid) => {
@@ -37,12 +39,21 @@ const Rooms = () => {
     }
 
     const removeRoom = (roomkey) => {
-        let roomlist = [...rooms];
-        let index = roomlist.findIndex((room => room.roomkey === roomkey));
+        var roomlist = [...rooms];
+        var index = roomlist.findIndex((room => room.roomkey === roomkey));
         if (index !== -1) {
             roomlist.splice(index, 1);
             setRooms(roomlist);
         }
+    }
+
+    const setCurrentRoom = (roomkey) => {
+        setCurrentRoomkey(roomkey)
+    }
+
+    const getCurrentRoom = () => {
+        var roomkey = getUserCurrentRoomkey();
+        setCurrentRoomkey(roomkey);
     }
 
     return (
@@ -57,6 +68,8 @@ const Rooms = () => {
                         user_id={user_id}
                     />
                     <RoomList
+                        setCurrentRoom={setCurrentRoom}
+                        currentRoomkey={currentRoomkey}
                         removeRoom={removeRoom}
                         rooms={rooms}
                         user_id={user_id}

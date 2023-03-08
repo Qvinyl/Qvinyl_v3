@@ -7,16 +7,22 @@ import TableRow from '@mui/material/TableRow';
 import '../../../css/Queue.css'
 
 
-const RoomList = ({rooms, user_id, removeRoom}) => {
+const RoomList = ({rooms, user_id, removeRoom, currentRoomkey, setCurrentRoom}) => {
     return (
         <div className="list">
             <Table>
                 <TableBody>
                     {
                         rooms.map((room, index) =>
-                            <TableRow key={room.roomkey}  index={index}>
-                                <TableCell className="table-cell">
+                            <TableRow 
+                                key={room.roomkey}  
+                                index={index} 
+                                className={`table-row ${currentRoomkey === room.roomkey ? "active-row" : ""}`}>
+                                <TableCell 
+                                    className="table-cell">
                                     <Room 
+                                        setCurrentRoom={setCurrentRoom}
+                                        currentRoomkey={currentRoomkey}
                                         removeRoom={removeRoom}
                                         roomkey={room.roomkey}
                                         roomName={room.room_name}
