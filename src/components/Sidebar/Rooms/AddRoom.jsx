@@ -61,7 +61,6 @@ const AddRoom = ({user_id, appendNewRoom}) => {
                 setSuccess(false);
             }
         });
-        console.log(newlyCreatedRoom)
         handleSnackBarOpen(true)
     }
 

@@ -36,6 +36,15 @@ const Rooms = () => {
         }
     }
 
+    const removeRoom = (roomkey) => {
+        let roomlist = [...rooms];
+        let index = roomlist.findIndex((room => room.roomkey === roomkey));
+        if (index !== -1) {
+            roomlist.splice(index, 1);
+            setRooms(roomlist);
+        }
+    }
+
     return (
         <div className="content-container rooms">
             {
@@ -48,6 +57,7 @@ const Rooms = () => {
                         user_id={user_id}
                     />
                     <RoomList
+                        removeRoom={removeRoom}
                         rooms={rooms}
                         user_id={user_id}
                     />

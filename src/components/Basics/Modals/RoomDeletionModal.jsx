@@ -4,15 +4,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
 import { deleteVirtualRoom } from '../../../features/roomService/RoomAdministration';
-
-
-
-const RoomDeletionModal = ({deletionModalOpen, handleDeleteModalclose, roomName, roomkey}) => {
+import '../../../css/Modals.css';
+const RoomDeletionModal = ({deletionModalOpen, handleDeleteModalclose, roomName, roomkey, removeRoom}) => {
 
     const deleteRoom = () => {
-        deleteVirtualRoom(roomkey);
+        deleteVirtualRoom(roomkey)
+        .then(wasDeleted => {
+            if (wasDeleted) {
+                removeRoom(roomkey);
+            }
+        });
         handleDeleteModalclose();
-
     }
 
     return (
@@ -27,7 +29,7 @@ const RoomDeletionModal = ({deletionModalOpen, handleDeleteModalclose, roomName,
                     Are you sure you want to delete: <b>{roomName}</b> ?
                 </DialogTitle>
                 <DialogActions>
-                    <Button onClick={deleteRoom}>Confirm</Button>
+                    <Button className="delete-button" onClick={deleteRoom}>Delete</Button>
                     <Button onClick={handleDeleteModalclose}>Cancel</Button>
                 </DialogActions>
             </Dialog>

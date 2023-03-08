@@ -4,13 +4,14 @@ import RoomItem from './RoomItem';
 
 import '../../../css/Room.css';
 
-const Room = ({roomkey, roomName, isAdmin}) => {
+const Room = ({roomkey, roomName, isAdmin, removeRoom}) => {
 
     return (
         <div>
             {
                 isAdmin ? 
                 <AdminRoomItem 
+                    removeRoom={removeRoom}
                     roomkey={roomkey}
                     roomName={roomName}/>
                 :

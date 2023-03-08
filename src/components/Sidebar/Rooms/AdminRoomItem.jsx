@@ -10,7 +10,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RoomDeletionModal from '../../Basics/Modals/RoomDeletionModal';
 import RoomOption from './RoomOption';
 
-const AdminRoomItem = ({roomkey, roomName}) => {
+const AdminRoomItem = ({roomkey, roomName, removeRoom}) => {
     const [expanded, setExpanded] = useState(false);
     const [deletionModalOpen, setdeletionModalOpen] = useState(false);
 
@@ -47,6 +47,7 @@ const AdminRoomItem = ({roomkey, roomName}) => {
                 </AccordionDetails>
             </RoomAccordion>
             <RoomDeletionModal 
+                removeRoom={removeRoom}
                 roomkey={roomkey}
                 roomName={roomName}
                 deletionModalOpen={deletionModalOpen} 
