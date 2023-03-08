@@ -7,8 +7,8 @@ const CHATROOM_DOC = "ChatRoom";
 const PLAYLIST_DOC = "Playlist";
 const LASTPLAYED_DOC = "LastPlayed";
 
-export async function createVirtualRoom(user_id, roomname, setNewlyCreatedRoom) {
-    let newRoom = {}
+export async function createVirtualRoom(user_id, roomname) {
+    var newRoom = {}
     await fetch(roomAPIEndpoint, {
         method: 'POST',
         headers: {
@@ -74,7 +74,6 @@ export async function deleteVirtualRoom(roomkey) {
     });
     return true;
 }
-
 
 async function deleteFromFireStore(roomkey) {
     try {

@@ -2,7 +2,34 @@ import { signOut } from "firebase/auth";
 const auth = require('../../config/constraints').firebaseAuth;
 
 const usersAPIEndpoint = "http://localhost:3000/api/v1/users";
-let user = {}
+var user = {}
+
+export async function getUserInfo() {
+    return user;
+}
+
+export async function getUserUid() {
+    return user.user_id;
+}
+
+export function getUserCurrentRoomkey() {
+    return user.current_room_id;
+}
+
+export async function setUserCurrentRoomkey(roomkey) {
+    var currentRoomkey = getUserCurrentRoomkey();
+
+    if (currentRoomkey === roomkey) {
+        return;
+    }
+    userJoinRoom(roomkey)
+    .then(isSet => {
+        if (isSet) {
+            console.log(roomkey);
+            user.current_room_id = roomkey;
+        }
+    }); 
+}
 
 //Check to see if user already exists
 export async function findOrCreateUser(userInfo) {
@@ -60,11 +87,29 @@ export async function logout() {
     });
 }
 
-export async function getUserInfo() {
-    return user;
-}
-
-export async function getUserUid() {
-    return user.user_id;
+export async function userJoinRoom(roomkey) {
+    var joinRoomEndpoint = `${usersAPIEndpoint}/joinRoom`;
+    fetch(joinRoomEndpoint, {
+        method: "PUT",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify ({
+            user_id: user.user_id,
+            roomkey: roomkey,
+        })
+    })
+    .then(response => {
+        response.json()
+        if (response.status === 200) {
+            return true;
+        }
+    })
+    .catch((error) => {
+        return false;
+        console.log(error);
+    });
+    return true;
 }
 

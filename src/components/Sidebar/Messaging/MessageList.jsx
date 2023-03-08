@@ -94,7 +94,7 @@ const MessageList = () => {
     ]
 
     return (
-        <div className="list">
+        <div className="message list">
             {
                 messageList.map((message, index) => 
                     <Message key={index} message={message}/>

@@ -47,3 +47,7 @@
 .sent-text-label {
     text-align: right;
 }
+
+.message {
+    padding: 0px 16px 0px 16px !important;
+}
