@@ -1,5 +1,6 @@
 .room-navigation {
-    background-color: #2b2b2b;
+    border-bottom: 2px solid #767676;
+    box-shadow: none !important;    
 }
 
 .add-room-container {
