@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import Button from '@mui/material/Button';
 import CustomTextField from '../../Basics/InputField/CustomTextField'
-import {createVirtualRoom} from '../../../features/roomService/RoomCreation';
+import {createVirtualRoom} from '../../../features/roomService/RoomAdministration';
 import SnackBar from '../../Basics/SnackBar/SnackBar';
 
 const AddRoom = ({user_id, appendNewRoom}) => {
@@ -48,13 +48,14 @@ const AddRoom = ({user_id, appendNewRoom}) => {
         }
     }
 
-    const createRoom = async () => {
+
+    const createRoom = () => {
         createVirtualRoom(user_id, roomName, setNewlyCreatedRoom)
         .then(successfulRoom => {
             if (successfulRoom) {
                 handleChange(false);
                 setSuccess(true);
-                appendNewRoom(newlyCreatedRoom);
+                appendNewRoom(successfulRoom);
             }
             else {
                 setSuccess(false);
