@@ -2,18 +2,18 @@ import { signOut } from "firebase/auth";
 const auth = require('../../config/constraints').firebaseAuth;
 
 const usersAPIEndpoint = "http://localhost:3000/api/v1/users";
-var user = {}
+var USER = {}
 
 export async function getUserInfo() {
-    return user;
+    return USER;
 }
 
 export async function getUserUid() {
-    return user.user_id;
+    return USER.user_id;
 }
 
 export function getUserCurrentRoomkey() {
-    return user.current_room_id;
+    return USER.current_room_id;
 }
 
 export async function setUserCurrentRoomkey(roomkey) {
@@ -26,33 +26,18 @@ export async function setUserCurrentRoomkey(roomkey) {
     .then(isSet => {
         if (isSet) {
             console.log(roomkey);
-            user.current_room_id = roomkey;
+            USER.current_room_id = roomkey;
         }
     }); 
 }
 
 //Check to see if user already exists
-export async function findOrCreateUser(userInfo) {
+export async function findOrCreateUser(userInfo, setUser) {
     var getUserByUid = `${usersAPIEndpoint}/${userInfo.uid}`
-    await fetch(getUserByUid, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => response.json())
-    .then(content => {
-        if (content === null) {
-            createNewUser(userInfo);
-        }
-        else {
-            user = content;
-        }
-    })
-    .catch((error) => {
-        return false;
-    });
+    var response = await fetch(getUserByUid);  
+    var user = await response.json();
+    USER = user;
+    setUser(user);
 }
 
 // Create New User 
@@ -72,7 +57,7 @@ async function createNewUser(userInfo) {
     })
     .then(response => response.json())
     .then((results) => {
-        user = results; 
+        USER = results; 
     })
     .catch((error) => {
         return false;
@@ -96,7 +81,7 @@ export async function userJoinRoom(roomkey) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify ({
-            user_id: user.user_id,
+            user_id: USER.user_id,
             roomkey: roomkey,
         })
     })
@@ -108,6 +93,7 @@ export async function userJoinRoom(roomkey) {
     })
     .catch((error) => {
         return false;
+        console.log(error);
     });
     return true;
 }

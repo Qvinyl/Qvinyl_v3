@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Qvinyl from './components/Qvinyl';
 import Login from './pages/Login';
@@ -9,24 +9,24 @@ const auth = require('./config/constraints').firebaseAuth;
 
 const App = () => {
   const navigate = useNavigate();
-
+    const [user, setUser] = useState({})
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        findOrCreateUser(user);
+    auth.onAuthStateChanged((auth) => {
+      if (auth) {
+        findOrCreateUser(auth, setUser);
         navigate("/qvinyl");
       }
       else {
         navigate("/login")
       }
     });
-  }, [navigate]);
+  }, []);
 
   return (
     <div className="App">
         <Routes>
           <Route exact path="/login" element={<Login/>}/>
-          <Route exact path="/qvinyl" element={<Qvinyl/>} />
+          <Route exact path="/qvinyl" element={<Qvinyl user={user} />} />
         </Routes>
     </div>
   );

@@ -15,7 +15,7 @@ const QueueList = ({playlist}) => {
                     {
                         playlist.map((item, index) =>
                             <TableRow 
-                                className="table-row"
+                                className={`table-row ${index === 0 ? "active-row" : ""}`}
                                 key={index}>
                                 <TableCell className="table-cell">
                                     <QueueItem

@@ -20,7 +20,7 @@ const VIRTUAL_ROOMS = 2;
 const NOTIFICATIONS = 3;
 
 
-const Sidebar = ({isOpen, handleOnClickSidebarLip}) => {
+const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, currentRoomkey, displayName}) => {
     const [tab, setTab] = useState(0)
 
     const chooseTabs = (index) => {
@@ -30,11 +30,11 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip}) => {
     const getComponent = () => {
         switch(tab) {
             case MESSAGING:
-                return <Messaging/>
+                return <Messaging currentRoomkey={currentRoomkey}/>
             case MUSIC_QUEUE:
-                return <Queue/>
+                return <Queue displayName={displayName} currentRoomkey={currentRoomkey}/>
             case VIRTUAL_ROOMS:
-                return <Rooms/>
+                return <Rooms joinRoom={joinRoom}/>
             case NOTIFICATIONS:
                 return <Profile/>
             default: 

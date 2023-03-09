@@ -4,7 +4,7 @@ import Player from './Player';
 import { getCurrentQueuedElement } from '../../features/queueService/Queuing/QueueServices';
 import '../../css/Player.css'
 
-const PlayerContainer = () => {
+const PlayerContainer = ({currentRoomkey}) => {
     const [volume, setVolume] = useState(100);
     const [muted, setMute] = useState(false);
     const [playback, setPlayback] = useState(true);
@@ -13,12 +13,10 @@ const PlayerContainer = () => {
     const playerRef = useRef(null)
 
     useEffect(() => {
-        getCurrentElement()
-    }, []);
-
-    const getCurrentElement = () => {
-        getCurrentQueuedElement("43ed9d111e4523fd0572be22ecf3099a", setCurrentElement);
-    }
+        if (currentRoomkey) {
+            getCurrentQueuedElement(currentRoomkey, setCurrentElement);
+        }
+    }, [currentRoomkey]);
     
     const setVolumeLevel = (level) => {
         setVolume(level);

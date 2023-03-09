@@ -6,7 +6,7 @@ import RoomList from './RoomList';
 import AddRoom from './AddRoom';
 import '../../../css/Room.css'
 
-const Rooms = () => {
+const Rooms = ({joinRoom}) => {
     const [user_id, setUserId] = useState("");
     const [loading, setLoading] = useState(true);
     const [rooms, setRooms] = useState([]);
@@ -44,6 +44,7 @@ const Rooms = () => {
     }
 
     const setCurrentRoom = (roomkey) => {
+        joinRoom(roomkey);
         setCurrentRoomkey(roomkey)
     }
 
