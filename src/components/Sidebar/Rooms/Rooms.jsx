@@ -16,7 +16,7 @@ const Rooms = () => {
         setLoading(true);
         getUid();
         if (user_id) {
-            getRooms();
+            getAdminRooms(user_id, setRooms);
             getCurrentRoom();
         }
     }, [user_id, currentRoomkey]);
@@ -26,10 +26,6 @@ const Rooms = () => {
             setUserId(uid);
         });
         setLoading(false);
-    }
-
-    const getRooms = async () => {
-        getAdminRooms(user_id, setRooms);
     }
 
     const appendNewRoom = (roomdata) => {
