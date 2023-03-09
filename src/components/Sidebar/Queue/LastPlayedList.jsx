@@ -13,8 +13,11 @@ const LastPlayedList = ({lastPlayed}) => {
                 <TableBody>
                     {
                         lastPlayed.map((item, index) =>
-                            <TableRow key={index}>
-                                <TableCell className="table-cell">
+                            <TableRow 
+                                className="table-row"
+                                key={index}>
+                                <TableCell 
+                                    className="table-cell">
                                     <QueueItem
                                         url={item.url}
                                         thumbnail={item.thumbnail}

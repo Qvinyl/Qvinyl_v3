@@ -14,7 +14,9 @@ const QueueList = ({playlist}) => {
                 <TableBody>
                     {
                         playlist.map((item, index) =>
-                            <TableRow key={index}>
+                            <TableRow 
+                                className="table-row"
+                                key={index}>
                                 <TableCell className="table-cell">
                                     <QueueItem
                                         thumbnail={item.thumbnail}
