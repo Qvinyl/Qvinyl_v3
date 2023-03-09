@@ -108,7 +108,6 @@ export async function userJoinRoom(roomkey) {
     })
     .catch((error) => {
         return false;
-        console.log(error);
     });
     return true;
 }
