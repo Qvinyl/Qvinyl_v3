@@ -6,16 +6,21 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
-const LastPlayedList = ({lastPlayed}) => {
+const LastPlayedList = ({lastPlayed, currentRoomkey, displayName}) => {
     return (
         <div className="queue list">
             <Table>
                 <TableBody>
                     {
                         lastPlayed.map((item, index) =>
-                            <TableRow key={index}>
-                                <TableCell className="table-cell">
+                            <TableRow 
+                                className="table-row"
+                                key={index}>
+                                <TableCell 
+                                    className="table-cell">
                                     <QueueItem
+                                        displayName={displayName}
+                                        currentRoomkey={currentRoomkey}
                                         url={item.url}
                                         thumbnail={item.thumbnail}
                                         title={item.title}

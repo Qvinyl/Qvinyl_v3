@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import { Button } from '@mui/material';
 import '../../../css/Queue.css'
 
-const SearchList = ({searchResults, closeSearch}) => {
+const SearchList = ({searchResults, closeSearch, displayName, currentRoomkey}) => {
     
     return (
         <div> 
@@ -16,9 +16,13 @@ const SearchList = ({searchResults, closeSearch}) => {
                     <TableBody>
                         {
                             searchResults.map((item, index) =>
-                                <TableRow key={index}>
+                                <TableRow
+                                    className="table-row"
+                                    key={index}>
                                     <TableCell className="table-cell">
                                         <QueueItem
+                                            currentRoomkey={currentRoomkey}
+                                            displayName={displayName}
                                             url={item.url}
                                             thumbnail={item.thumbnail}
                                             title={item.title}

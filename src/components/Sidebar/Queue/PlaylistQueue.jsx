@@ -9,8 +9,7 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { getRoomPlaylist, getLastPlayed } from '../../../features/queueService/Queuing/QueueServices'; 
 
-
-const PlaylistQueue = () => {
+const PlaylistQueue = ({currentRoomkey}) => {
     const theme = useTheme();
     const [value, setValue] = useState(0);
     const [playlist, setRoomPlaylist] = useState([])
@@ -30,11 +29,11 @@ const PlaylistQueue = () => {
     }, []);
 
     const getPlaylist = () => {
-        getRoomPlaylist("43ed9d111e4523fd0572be22ecf3099a", setRoomPlaylist)
+        getRoomPlaylist(currentRoomkey, setRoomPlaylist)
     }
 
     const getLastPlayedList = () => {
-        getLastPlayed("43ed9d111e4523fd0572be22ecf3099a", setLastPlaylist)
+        getLastPlayed(currentRoomkey, setLastPlaylist)
     }
 
     return (

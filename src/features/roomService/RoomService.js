@@ -13,6 +13,7 @@ export async function getAdminRooms(user_id, setRooms) {
     .then(response => response.json())
     .then(rooms => {
         setRooms(rooms);
+        return true;
     })
     .catch((error) => {
         console.log(error);

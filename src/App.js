@@ -9,13 +9,11 @@ const auth = require('./config/constraints').firebaseAuth;
 
 const App = () => {
   const navigate = useNavigate();
-  const [loggedIn, setloggedIn] = useState(false);
-
+    const [user, setUser] = useState({})
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setloggedIn(true);
-        findOrCreateUser(user);
+    auth.onAuthStateChanged((auth) => {
+      if (auth) {
+        findOrCreateUser(auth, setUser);
         navigate("/qvinyl");
       }
       else {
@@ -28,7 +26,7 @@ const App = () => {
     <div className="App">
         <Routes>
           <Route exact path="/login" element={<Login/>}/>
-          <Route exact path="/qvinyl" element={<Qvinyl/>} />
+          <Route exact path="/qvinyl" element={<Qvinyl user={user} />} />
         </Routes>
     </div>
   );

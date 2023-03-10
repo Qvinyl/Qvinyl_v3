@@ -9,7 +9,7 @@ import {searchYouTube} from '../../../features/queueService/ContentSearch/Youtub
 
 import '../../../css/Queue.css'
 
-const Queue = () => {
+const Queue = ({currentRoomkey, displayName}) => {
    
     const [searching, setSearching] = useState(false);
     const [searchTerm, setSearchInput] = useState("");
@@ -20,7 +20,8 @@ const Queue = () => {
 
     useEffect(() => {
         inputReference.current.focus();
-    }, []);
+        console.log(currentRoomkey);
+    }, [currentRoomkey]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -61,10 +62,14 @@ const Queue = () => {
     return (
         <div className="content-container queue">
             <div className={searching ? "playlist-close" : "playlist-open"}>
-                <PlaylistQueue/>
+                <PlaylistQueue
+                    currentRoomkey={currentRoomkey}
+                />
             </div>
             <div className={searching ? "search-list-container" : "search-list-container-closed"}>
                 <SearchList
+                    currentRoomkey={currentRoomkey}
+                    displayName={displayName}
                     searchResults={searchResults}
                     closeSearch={closeSearch}
                 />

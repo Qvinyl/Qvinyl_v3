@@ -6,7 +6,7 @@ import RoomList from './RoomList';
 import AddRoom from './AddRoom';
 import '../../../css/Room.css'
 
-const Rooms = () => {
+const Rooms = ({joinRoom}) => {
     const [user_id, setUserId] = useState("");
     const [loading, setLoading] = useState(true);
     const [rooms, setRooms] = useState([]);
@@ -16,7 +16,7 @@ const Rooms = () => {
         setLoading(true);
         getUid();
         if (user_id) {
-            getRooms();
+            getAdminRooms(user_id, setRooms);
             getCurrentRoom();
         }
     }, [user_id, currentRoomkey]);
@@ -26,10 +26,6 @@ const Rooms = () => {
             setUserId(uid);
         });
         setLoading(false);
-    }
-
-    const getRooms = async () => {
-        getAdminRooms(user_id, setRooms);
     }
 
     const appendNewRoom = (roomdata) => {
@@ -48,6 +44,7 @@ const Rooms = () => {
     }
 
     const setCurrentRoom = (roomkey) => {
+        joinRoom(roomkey);
         setCurrentRoomkey(roomkey)
     }
 
