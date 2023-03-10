@@ -33,7 +33,8 @@
 }
 
 .thumbnail {
-    height: 60px;
+    /* height: 60px; */
+    width: 120px;
     border-radius: 5px;
 }
 
@@ -46,10 +47,11 @@
 
 .title-text {
     font-size: 12px !important;
+    display: block;/* or inline-block */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 

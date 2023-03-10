@@ -3,7 +3,7 @@ import QueuedButton from '../../Basics/Button/QueuedButton';
 import { addToPlaylist } from '../../../features/queueService/Queuing/QueueServices';
 import '../../../css/Queue.css';
 
-const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url, displayName, currentRoomkey}) => {
+const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url}) => {
     const [addedSuccessfully, setAddedStatus] = useState(false)
 
     const addToRoomPlaylist = (url, title, thumbnail, queuedBy) => {
@@ -11,9 +11,9 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url, displayName, cur
             url: url,
             title: title, 
             thumbnail: thumbnail,
-            queuedBy: queuedBy
+            queuedBy: "Josh Cheung"
         }
-        if (addToPlaylist(currentRoomkey, element)) {
+        if (addToPlaylist("43ed9d111e4523fd0572be22ecf3099a", element)) {
             setAddedStatus(true)
         } else {
             setAddedStatus(false)
@@ -31,20 +31,24 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url, displayName, cur
                         {title}
                     </b>
                 </div>
-                <br/>
                 {
+
                     queuedBy ?
-                        <div className="queued-by-text text-color-light">Queued By {queuedBy}</div> 
+
+                        <div className="queued-by-text text-color-light">
+                            <br/>
+                            Queued By {queuedBy}
+                        </div> 
                     :
                     <div>
                     { 
                         addedSuccessfully ? 
-                            <QueuedButton className="queued" disabled>Queued</QueuedButton>
+                            <QueuedButton className="queued" disabled size="small">Queued</QueuedButton>
                         :
                             wasPlayed ? 
-                            <QueuedButton onClick={() => {addToRoomPlaylist(url, title, thumbnail, displayName)}}>Requeue +</QueuedButton>
+                            <QueuedButton onClick={() => {addToRoomPlaylist(url, title, thumbnail, queuedBy)}}>Requeue +</QueuedButton>
                             : 
-                            <QueuedButton onClick={() => {addToRoomPlaylist(url, title, thumbnail, displayName)}}>Queue +</QueuedButton>
+                            <QueuedButton onClick={() => {addToRoomPlaylist(url, title, thumbnail, queuedBy)}}>Queue +</QueuedButton>
                     }
                     </div>
                 }
