@@ -14,13 +14,13 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import CustomSlider from '../Basics/Slider/CustomSlider'; 
 import LinearProgress from '@mui/material/LinearProgress';
 import screenfull from 'screenfull';
-import { voteToSkip } from '../../features/socketService/SyncService';
+import { voteToSkip, requestingMediaControl } from '../../features/socketService/SyncService';
 
-const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomkey}) => {
+const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomkey, displayName, userId}) => {
     const [isMuted, setMute] = useState(muted)
     const [fullScreen, setFullScreen] = useState(false)
     const [votedToSkip, setVoteToSkip] = useState(false);
-    const [hasControl, setHasControl] = useState(true);
+    const [hasControl, setHasControl] = useState(false);
     const inputRef = useRef(null);
 
     const handleOnPlayback = (playback) => {
@@ -61,6 +61,14 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
     const VotingToSkip = () => {
         voteToSkip(currentRoomkey);
         setVoteToSkip(true)
+    }
+
+    const onRequestControlClick = () => {
+        var user = {
+            userId: userId,
+            displayName: displayName
+        }
+        requestingMediaControl(currentRoomkey, user);
     }
 
     return (
@@ -134,11 +142,14 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
                         {
                             hasControl ? 
                             <Button disabled className="in-control-button" variant="contained">
-                                In Control
+                                In Ctrl
                             </Button>
                             :
-                            <Button className="request-control-button" variant="contained">
-                                Request Control
+                            <Button 
+                                className="request-control-button" 
+                                variant="contained"
+                                onClick={() => {onRequestControlClick()}}>
+                                Req Ctrl
                             </Button>
                         }
                         </TableCell>

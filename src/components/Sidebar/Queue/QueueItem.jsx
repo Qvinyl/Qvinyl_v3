@@ -3,17 +3,17 @@ import QueuedButton from '../../Basics/Button/QueuedButton';
 import { addToPlaylist } from '../../../features/queueService/Queuing/QueueServices';
 import '../../../css/Queue.css';
 
-const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url}) => {
+const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url, currentRoomkey, displayName}) => {
     const [addedSuccessfully, setAddedStatus] = useState(false)
 
-    const addToRoomPlaylist = (url, title, thumbnail, queuedBy) => {
+    const addToRoomPlaylist = (url, title, thumbnail, displayName) => {
         var element = {
             url: url,
             title: title, 
             thumbnail: thumbnail,
-            queuedBy: "Josh Cheung"
+            queuedBy: displayName
         }
-        if (addToPlaylist("43ed9d111e4523fd0572be22ecf3099a", element)) {
+        if (addToPlaylist(currentRoomkey, element)) {
             setAddedStatus(true)
         } else {
             setAddedStatus(false)
@@ -32,7 +32,6 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url}) => {
                     </b>
                 </div>
                 {
-
                     queuedBy ?
 
                         <div className="queued-by-text text-color-light">
@@ -46,9 +45,9 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url}) => {
                             <QueuedButton className="queued" disabled size="small">Queued</QueuedButton>
                         :
                             wasPlayed ? 
-                            <QueuedButton onClick={() => {addToRoomPlaylist(url, title, thumbnail, queuedBy)}}>Requeue +</QueuedButton>
+                            <QueuedButton onClick={() => {addToRoomPlaylist(url, title, thumbnail, displayName)}}>Requeue +</QueuedButton>
                             : 
-                            <QueuedButton onClick={() => {addToRoomPlaylist(url, title, thumbnail, queuedBy)}}>Queue +</QueuedButton>
+                            <QueuedButton onClick={() => {addToRoomPlaylist(url, title, thumbnail, displayName)}}>Queue +</QueuedButton>
                     }
                     </div>
                 }

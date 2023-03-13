@@ -1,16 +1,19 @@
 import {useState, useEffect, useRef} from 'react';
 import MediaControls from './MediaControls';
 import Player from './Player';
+import RequestControlModal from '../Basics/Modals/RequestControlModal';
 import { getCurrentQueuedElement } from '../../features/queueService/Queuing/QueueServices';
 import { socket, onSeek, onPausePlayMedia } from '../../features/socketService/SyncService';
 import '../../css/Player.css'
 
-const PlayerContainer = ({currentRoomkey}) => {
+const PlayerContainer = ({currentRoomkey, displayName, userId}) => {
     const [volume, setVolume] = useState(100);
     const [muted, setMute] = useState(false);
     const [playback, setPlayback] = useState(true);
     const [progress, setProgress] = useState(0);
+    const [controlModalOpen, setControlModalOpen] = useState(false)
     const [currentElement, setCurrentElement] = useState({});
+    const [requester, setRequester] = useState({});
     const playerRef = useRef(null)
 
     useEffect(() => {  
@@ -44,6 +47,10 @@ const PlayerContainer = ({currentRoomkey}) => {
         playerRef.current.seekTo(onSeekProgress);
     }
 
+    const handleControlModalClose = () => {
+        setControlModalOpen(false);
+    }
+
     socket.on(`seeking-${currentRoomkey}`, (data) => {
         setProgressValue(data.progress);
         playerRef.current.seekTo(data.progress + 0.000005);
@@ -51,6 +58,12 @@ const PlayerContainer = ({currentRoomkey}) => {
 
     socket.on(`playback-${currentRoomkey}`, (data) => {
         setPlayback(data.playback);
+    })
+
+    socket.on(`request-control-${currentRoomkey}`, (data) => {
+        // console.log(data);
+        setControlModalOpen(true);
+        setRequester(data.user);
     })
     
     return (
@@ -65,6 +78,8 @@ const PlayerContainer = ({currentRoomkey}) => {
                     url={currentElement.url}
                 />
                 <MediaControls
+                    displayName={displayName}
+                    userId={userId}
                     currentRoomkey={currentRoomkey}
                     handleOnSeekChange={handleOnSeekChange}
                     title={currentElement.title}
@@ -76,9 +91,14 @@ const PlayerContainer = ({currentRoomkey}) => {
                     setPlaybackState={setPlaybackState}
                     setVolumeLevel={setVolumeLevel}
                 />
-
-                {/* <RequestingControlModal/> */}
             </div>
+
+            <RequestControlModal  
+                requester={requester}
+                controlModalOpen={controlModalOpen}
+                handleControlModalClose={handleControlModalClose}
+                currentRoomkey={currentRoomkey}
+            />
         </div>
     )
 }

@@ -27,6 +27,8 @@ const Qvinyl = ({user}) => {
     return (
         <div className="main"> 
             <PlayerContainer
+                displayName={user.display_name}
+                userId={user.user_id}
                 currentRoomkey={ currentRoomkey === "" ? user.current_room_id : currentRoomkey }
             />
             

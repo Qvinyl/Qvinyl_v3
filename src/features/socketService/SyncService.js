@@ -18,9 +18,13 @@ export function voteToSkip(roomkey) {
     socket.emit('vote-to-skip', { roomkey });
 }
 
-// export function requestingMediaControl(user) {
-//     socket.emit('request-control', { roomkey, playback });
-// }
+export function requestingMediaControl(roomkey, user) {
+    socket.emit('request-control', { roomkey, user });
+}
+
+export function grantMediaControl(roomkey) {
+    socket.emit('grant-control', { roomkey });
+}
 
 export function onSeek(roomkey, progress) {
     socket.emit(`onSeek`, { 
