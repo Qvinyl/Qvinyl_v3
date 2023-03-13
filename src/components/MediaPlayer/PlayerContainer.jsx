@@ -2,6 +2,7 @@ import {useState, useEffect, useRef} from 'react';
 import MediaControls from './MediaControls';
 import Player from './Player';
 import { getCurrentQueuedElement } from '../../features/queueService/Queuing/QueueServices';
+import { socket, onSeek, onPausePlayMedia } from '../../features/socketService/SyncService';
 import '../../css/Player.css'
 
 const PlayerContainer = ({currentRoomkey}) => {
@@ -12,7 +13,7 @@ const PlayerContainer = ({currentRoomkey}) => {
     const [currentElement, setCurrentElement] = useState({});
     const playerRef = useRef(null)
 
-    useEffect(() => {
+    useEffect(() => {  
         if (currentRoomkey) {
             getCurrentQueuedElement(currentRoomkey, setCurrentElement);
         }
@@ -24,6 +25,8 @@ const PlayerContainer = ({currentRoomkey}) => {
 
     const setPlaybackState = (isPlaying) => {
         setPlayback(isPlaying);
+        onSeek(currentRoomkey, progress/100);
+        onPausePlayMedia(currentRoomkey, isPlaying);
     }
 
     const setMuteState = (isMuted) => {
@@ -35,14 +38,26 @@ const PlayerContainer = ({currentRoomkey}) => {
     }
 
     const handleOnSeekChange = (progress) => {
+        var onSeekProgress = parseFloat(progress/100)
         setProgressValue(progress)
-        playerRef.current.seekTo(parseFloat(progress/100));
+        onSeek(currentRoomkey, onSeekProgress);
+        playerRef.current.seekTo(onSeekProgress);
     }
 
+    socket.on(`seeking-${currentRoomkey}`, (data) => {
+        setProgressValue(data.progress);
+        playerRef.current.seekTo(data.progress + 0.000005);
+    })
+
+    socket.on(`playback-${currentRoomkey}`, (data) => {
+        setPlayback(data.playback);
+    })
+    
     return (
         <div className="player">
             <div className="player-wrapper">
                 <Player
+                    ref={playerRef}
                     playerRef={playerRef}
                     setProgressValue={setProgressValue}
                     muted={muted}
@@ -51,16 +66,19 @@ const PlayerContainer = ({currentRoomkey}) => {
                     url={currentElement.url}
                 />
                 <MediaControls
+                    currentRoomkey={currentRoomkey}
                     handleOnSeekChange={handleOnSeekChange}
                     title={currentElement.title}
                     progress={progress}
                     muted={muted}
-                    isPlaying={playback}
+                    playback={playback}
                     volume={volume}
                     setMuteState={setMuteState}
                     setPlaybackState={setPlaybackState}
                     setVolumeLevel={setVolumeLevel}
                 />
+
+                {/* <RequestingControlModal/> */}
             </div>
         </div>
     )

@@ -47,7 +47,7 @@
 
 .title-text {
     font-size: 12px !important;
-    display: block;/* or inline-block */
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

@@ -32,12 +32,16 @@ export async function setUserCurrentRoomkey(roomkey) {
 }
 
 //Check to see if user already exists
-export async function findOrCreateUser(userInfo, setUser) {
+export async function findOrCreateUser(userInfo) {
     var getUserByUid = `${usersAPIEndpoint}/${userInfo.uid}`
     var response = await fetch(getUserByUid);  
     var user = await response.json();
+    if (user === null) { 
+        createNewUser(userInfo);
+    }
     USER = user;
-    setUser(user);
+    // setUser(user);
+    return user;
 }
 
 // Create New User 

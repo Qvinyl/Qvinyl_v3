@@ -79,11 +79,18 @@
 .media-button-extended-container {
     cursor: pointer;
     color: #8C8C8C !important;
-    width: 200px;
+    width: 100px;
 }
 
 .request-control-button {
+    white-space: nowrap !important;
     background-color: #8C8C8C !important;
+}
+
+.in-control-button {
+    white-space: nowrap !important;
+    color: white !important;
+    background-color: #0061c8 !important;
 }
 
 .media-container {
@@ -113,8 +120,18 @@
 }
 
 .title-overflow {
-    width: 90%;
-    white-space: nowrap;
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    /* width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+.voted {
+    color: #0061c8 !important;
 }

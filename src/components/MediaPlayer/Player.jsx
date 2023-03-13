@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactPlayer from 'react-player';
 
 const Player = ({playback, volume, muted, setProgressValue, playerRef, url}) => {
@@ -17,6 +17,7 @@ const Player = ({playback, volume, muted, setProgressValue, playerRef, url}) => 
             width="100%"
             height="100%"
             url={url}
+            controls={false}
         />
     )
 }
