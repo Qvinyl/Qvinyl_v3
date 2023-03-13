@@ -16,7 +16,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import screenfull from 'screenfull';
 import { voteToSkip } from '../../features/socketService/SyncService';
 
-const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomKey}) => {
+const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomkey}) => {
     const [isMuted, setMute] = useState(muted)
     const [fullScreen, setFullScreen] = useState(false)
     const [votedToSkip, setVoteToSkip] = useState(false);
@@ -59,14 +59,13 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
     }
 
     const VotingToSkip = () => {
-        voteToSkip();
+        voteToSkip(currentRoomkey);
         setVoteToSkip(true)
     }
 
     return (
         <div className="media-controls">
             <div className="media-screen-pause-play" onClick={() => { 
-                console.log("clicked!");
                 handleOnPlayback(!playback)}
              } ref={inputRef} />
             <div className="progress-bar">

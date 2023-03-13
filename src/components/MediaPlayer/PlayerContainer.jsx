@@ -57,7 +57,6 @@ const PlayerContainer = ({currentRoomkey}) => {
         <div className="player">
             <div className="player-wrapper">
                 <Player
-                    ref={playerRef}
                     playerRef={playerRef}
                     setProgressValue={setProgressValue}
                     muted={muted}
