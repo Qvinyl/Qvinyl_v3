@@ -26,6 +26,10 @@ export function grantMediaControl(roomkey) {
     socket.emit('grant-control', { roomkey });
 }
 
+export function onMediaEnded(roomkey) {
+    socket.emit('media-ended', { roomkey });
+}
+
 export function onSeek(roomkey, progress) {
     socket.emit(`onSeek`, { 
             roomkey: roomkey,

@@ -3,8 +3,9 @@ import { styled } from '@mui/material/styles';
 
 const CustomSlider = styled(Slider)({
   '& .MuiSlider-thumb' : {
-    borderRadius: "0px",
-    width: "3px",
+    borderRadius: "100px",
+    width: "10px",
+    height: "10px"
   }
 });
   

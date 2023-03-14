@@ -16,11 +16,10 @@ import LinearProgress from '@mui/material/LinearProgress';
 import screenfull from 'screenfull';
 import { voteToSkip, requestingMediaControl } from '../../features/socketService/SyncService';
 
-const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomkey, displayName, userId}) => {
+const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomkey, displayName, userId, hasControl}) => {
     const [isMuted, setMute] = useState(muted)
     const [fullScreen, setFullScreen] = useState(false)
     const [votedToSkip, setVoteToSkip] = useState(false);
-    const [hasControl, setHasControl] = useState(false);
     const inputRef = useRef(null);
 
     const handleOnPlayback = (playback) => {

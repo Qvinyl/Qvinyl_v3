@@ -3,10 +3,10 @@ import MediaControls from './MediaControls';
 import Player from './Player';
 import RequestControlModal from '../Basics/Modals/RequestControlModal';
 import { getCurrentQueuedElement } from '../../features/queueService/Queuing/QueueServices';
-import { socket, onSeek, onPausePlayMedia } from '../../features/socketService/SyncService';
+import { socket, onSeek, onPausePlayMedia, onMediaEnded } from '../../features/socketService/SyncService';
 import '../../css/Player.css'
 
-const PlayerContainer = ({currentRoomkey, displayName, userId}) => {
+const PlayerContainer = ({currentRoomkey, displayName, userId, roomData}) => {
     const [volume, setVolume] = useState(100);
     const [muted, setMute] = useState(false);
     const [playback, setPlayback] = useState(true);
@@ -14,13 +14,15 @@ const PlayerContainer = ({currentRoomkey, displayName, userId}) => {
     const [controlModalOpen, setControlModalOpen] = useState(false)
     const [currentElement, setCurrentElement] = useState({});
     const [requester, setRequester] = useState({});
+    const [hasControl, setHasControl] = useState(true)
     const playerRef = useRef(null)
 
     useEffect(() => {  
         if (currentRoomkey) {
             getCurrentQueuedElement(currentRoomkey, setCurrentElement);
+            setHasControl(roomData.admin === userId);
         }
-    }, [currentRoomkey]);
+    }, [currentRoomkey, roomData]);
     
     const setVolumeLevel = (level) => {
         setVolume(level);
@@ -51,20 +53,27 @@ const PlayerContainer = ({currentRoomkey, displayName, userId}) => {
         setControlModalOpen(false);
     }
 
+    const handleOnVideoEnded = () => {
+        onMediaEnded(currentRoomkey);
+    }
+
     socket.on(`seeking-${currentRoomkey}`, (data) => {
         setProgressValue(data.progress);
         playerRef.current.seekTo(data.progress + 0.000005);
-    })
+    });
 
     socket.on(`playback-${currentRoomkey}`, (data) => {
         setPlayback(data.playback);
-    })
+    });
 
     socket.on(`request-control-${currentRoomkey}`, (data) => {
-        // console.log(data);
         setControlModalOpen(true);
         setRequester(data.user);
-    })
+    });
+
+    socket.on(`granted-control-${currentRoomkey}`, (data) => {
+        setHasControl(data.user === userId);
+    });;
     
     return (
         <div className="player">
@@ -76,8 +85,10 @@ const PlayerContainer = ({currentRoomkey, displayName, userId}) => {
                     playback={playback}
                     volume={volume}
                     url={currentElement.url}
+                    handleOnVideoEnded={handleOnVideoEnded}
                 />
                 <MediaControls
+                    hasControl={hasControl}
                     displayName={displayName}
                     userId={userId}
                     currentRoomkey={currentRoomkey}

@@ -40,7 +40,6 @@ export async function findOrCreateUser(userInfo) {
         createNewUser(userInfo);
     }
     USER = user;
-    // setUser(user);
     return user;
 }
 
