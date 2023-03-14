@@ -20,7 +20,6 @@ const Queue = ({currentRoomkey, displayName}) => {
 
     useEffect(() => {
         inputReference.current.focus();
-        console.log(currentRoomkey);
     }, [currentRoomkey]);
 
     const handleSubmit = (event) => {

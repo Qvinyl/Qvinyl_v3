@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,18 +13,17 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import CustomSlider from '../Basics/Slider/CustomSlider'; 
 import LinearProgress from '@mui/material/LinearProgress';
-import screenfull from 'screenfull'
+import screenfull from 'screenfull';
+import { voteToSkip, requestingMediaControl } from '../../features/socketService/SyncService';
 
-
-const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, isPlaying, setMuteState, muted, progress, playerRef, title}) => {
-    const [playback, setPlayback] = useState(isPlaying)
+const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomkey, displayName, userId, hasControl}) => {
     const [isMuted, setMute] = useState(muted)
     const [fullScreen, setFullScreen] = useState(false)
-    const [hasControl, setHasControl] = useState(true);
+    const [votedToSkip, setVoteToSkip] = useState(false);
+    const inputRef = useRef(null);
 
-    const handleOnPlayback = (isPlaying) => {
-        setPlaybackState(isPlaying)
-        setPlayback(isPlaying)
+    const handleOnPlayback = (playback) => {
+        setPlaybackState(playback)
     }
 
     const handleOnFullScreen = (isFullScreen) => {
@@ -58,9 +57,24 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
         handleOnSeekChange(seekProgress);
     }
 
+    const VotingToSkip = () => {
+        voteToSkip(currentRoomkey);
+        setVoteToSkip(true)
+    }
+
+    const onRequestControlClick = () => {
+        var user = {
+            userId: userId,
+            displayName: displayName
+        }
+        requestingMediaControl(currentRoomkey, user);
+    }
+
     return (
         <div className="media-controls">
-            <div className="media-screen-pause-play" onClick={() => handleOnPlayback(!playback)}/>
+            <div className="media-screen-pause-play" onClick={() => { 
+                handleOnPlayback(!playback)}
+             } ref={inputRef} />
             <div className="progress-bar">
                 {
                     hasControl ? 
@@ -89,7 +103,13 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
                         </TableCell>
                         <TableCell className="media-button-container media-container">
                             <div>
-                                <SkipNextIcon className="player-icon"/>
+                                {
+                                    votedToSkip ? 
+                                    <SkipNextIcon className="player-icon voted"/>
+                                    :
+                                    <SkipNextIcon className="player-icon" onClick={() => VotingToSkip()}/>
+                                }
+                                
                             </div>
                         </TableCell>
                         <TableCell className="volume-button-container media-container">
@@ -118,9 +138,19 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
                             
                         </TableCell>
                         <TableCell className="media-button-extended-container media-container">
-                            <Button className="request-control-button player-icon" variant="contained">
-                                Request Control
+                        {
+                            hasControl ? 
+                            <Button disabled className="in-control-button" variant="contained">
+                                In Ctrl
                             </Button>
+                            :
+                            <Button 
+                                className="request-control-button" 
+                                variant="contained"
+                                onClick={() => {onRequestControlClick()}}>
+                                Req Ctrl
+                            </Button>
+                        }
                         </TableCell>
                         <TableCell className="media-container">
                             <div className="text-color-light">

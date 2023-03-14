@@ -9,18 +9,28 @@ const auth = require('./config/constraints').firebaseAuth;
 
 const App = () => {
   const navigate = useNavigate();
-    const [user, setUser] = useState({})
+  const [user, setUser] = useState({})
+
   useEffect(() => {
     auth.onAuthStateChanged((auth) => {
       if (auth) {
-        findOrCreateUser(auth, setUser);
-        navigate("/qvinyl");
+        try {
+          getUser(auth);
+          navigate("/qvinyl");
+        } catch (e) {
+          console.log(e);
+        }
       }
       else {
         navigate("/login")
       }
     });
   }, []);
+
+  const getUser = async (auth) => {
+    var userInfo = await findOrCreateUser(auth);
+    setUser(userInfo);
+  }
 
   return (
     <div className="App">

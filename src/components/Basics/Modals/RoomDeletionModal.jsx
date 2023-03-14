@@ -26,7 +26,7 @@ const RoomDeletionModal = ({deletionModalOpen, handleDeleteModalclose, roomName,
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    Are you sure you want to delete: <b>{roomName}</b> ?
+                    Are you sure you want to delete: <b>{roomName}</b>?
                 </DialogTitle>
                 <DialogActions>
                     <Button className="delete-button" onClick={deleteRoom}>Delete</Button>

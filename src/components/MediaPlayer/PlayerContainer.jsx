@@ -1,22 +1,28 @@
 import {useState, useEffect, useRef} from 'react';
 import MediaControls from './MediaControls';
 import Player from './Player';
+import RequestControlModal from '../Basics/Modals/RequestControlModal';
 import { getCurrentQueuedElement } from '../../features/queueService/Queuing/QueueServices';
+import { socket, onSeek, onPausePlayMedia, onMediaEnded } from '../../features/socketService/SyncService';
 import '../../css/Player.css'
 
-const PlayerContainer = ({currentRoomkey}) => {
+const PlayerContainer = ({currentRoomkey, displayName, userId, roomData}) => {
     const [volume, setVolume] = useState(100);
     const [muted, setMute] = useState(false);
     const [playback, setPlayback] = useState(true);
     const [progress, setProgress] = useState(0);
+    const [controlModalOpen, setControlModalOpen] = useState(false)
     const [currentElement, setCurrentElement] = useState({});
+    const [requester, setRequester] = useState({});
+    const [hasControl, setHasControl] = useState(true)
     const playerRef = useRef(null)
 
-    useEffect(() => {
+    useEffect(() => {  
         if (currentRoomkey) {
             getCurrentQueuedElement(currentRoomkey, setCurrentElement);
+            setHasControl(roomData.admin === userId);
         }
-    }, [currentRoomkey]);
+    }, [currentRoomkey, roomData]);
     
     const setVolumeLevel = (level) => {
         setVolume(level);
@@ -24,6 +30,8 @@ const PlayerContainer = ({currentRoomkey}) => {
 
     const setPlaybackState = (isPlaying) => {
         setPlayback(isPlaying);
+        onSeek(currentRoomkey, progress/100);
+        onPausePlayMedia(currentRoomkey, isPlaying);
     }
 
     const setMuteState = (isMuted) => {
@@ -35,10 +43,38 @@ const PlayerContainer = ({currentRoomkey}) => {
     }
 
     const handleOnSeekChange = (progress) => {
+        var onSeekProgress = parseFloat(progress/100)
         setProgressValue(progress)
-        playerRef.current.seekTo(parseFloat(progress/100));
+        onSeek(currentRoomkey, onSeekProgress);
+        playerRef.current.seekTo(onSeekProgress);
     }
 
+    const handleControlModalClose = () => {
+        setControlModalOpen(false);
+    }
+
+    const handleOnVideoEnded = () => {
+        onMediaEnded(currentRoomkey);
+    }
+
+    socket.on(`seeking-${currentRoomkey}`, (data) => {
+        setProgressValue(data.progress);
+        playerRef.current.seekTo(data.progress + 0.000005);
+    });
+
+    socket.on(`playback-${currentRoomkey}`, (data) => {
+        setPlayback(data.playback);
+    });
+
+    socket.on(`request-control-${currentRoomkey}`, (data) => {
+        setControlModalOpen(true);
+        setRequester(data.user);
+    });
+
+    socket.on(`granted-control-${currentRoomkey}`, (data) => {
+        setHasControl(data.user === userId);
+    });;
+    
     return (
         <div className="player">
             <div className="player-wrapper">
@@ -49,19 +85,31 @@ const PlayerContainer = ({currentRoomkey}) => {
                     playback={playback}
                     volume={volume}
                     url={currentElement.url}
+                    handleOnVideoEnded={handleOnVideoEnded}
                 />
                 <MediaControls
+                    hasControl={hasControl}
+                    displayName={displayName}
+                    userId={userId}
+                    currentRoomkey={currentRoomkey}
                     handleOnSeekChange={handleOnSeekChange}
                     title={currentElement.title}
                     progress={progress}
                     muted={muted}
-                    isPlaying={playback}
+                    playback={playback}
                     volume={volume}
                     setMuteState={setMuteState}
                     setPlaybackState={setPlaybackState}
                     setVolumeLevel={setVolumeLevel}
                 />
             </div>
+
+            <RequestControlModal  
+                requester={requester}
+                controlModalOpen={controlModalOpen}
+                handleControlModalClose={handleControlModalClose}
+                currentRoomkey={currentRoomkey}
+            />
         </div>
     )
 }
