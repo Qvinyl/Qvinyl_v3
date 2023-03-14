@@ -11,6 +11,12 @@
     margin-bottom: 10px;
 }
 
+.system-message-container {
+    color: #ACACAC;
+    padding: 3px;
+    font-size: 14px;
+}
+
 .sent-message {
     margin-left: auto;
     width: 90%;

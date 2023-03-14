@@ -5,7 +5,7 @@ import PlaylistQueue from './PlaylistQueue';
 import FormControl from '@mui/material/FormControl';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField'
 import LinearProgress from '@mui/material/LinearProgress';
-import {searchYouTube} from '../../../features/queueService/ContentSearch/YoutubeSearch';
+import { searchYouTube } from '../../../features/queueService/ContentSearch/YoutubeSearch';
 
 import '../../../css/Queue.css'
 
@@ -28,7 +28,7 @@ const Queue = ({currentRoomkey, displayName}) => {
         setSearchInput("");
     };
 
-    const setSeachInput = (event) => {
+    const setSearch = (event) => {
         const newValue = event.target.value;
         setSearchInput(newValue);
     }
@@ -81,7 +81,7 @@ const Queue = ({currentRoomkey, displayName}) => {
                     <RoundedInputField 
                         value={searchTerm}
                         onKeyDown={keyPress}
-                        onChange={setSeachInput}
+                        onChange={setSearch}
                         type="text"
                         inputRef={inputReference}
                         label="Search/Paste from Youtube" 

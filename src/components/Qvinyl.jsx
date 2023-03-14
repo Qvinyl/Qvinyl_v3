@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PlayerContainer from './MediaPlayer/PlayerContainer';
 import Sidebar from './Sidebar/Sidebar';
 import { getRoomDataByKey } from '../features/roomService/RoomService';
-import { joinSocketRoom } from '../features/socketService/SyncService';
+import { joinSocketRoom, } from '../features/socketService/SyncService';
+import { joinMessageRoom } from '../features/socketService/HermesService';
 import '../css/Sidebar.css';
 import '../css/Main.css';
 
@@ -14,7 +15,7 @@ const Qvinyl = ({user}) => {
     useEffect(() => {
         if (user.current_room_id) {
             fetchRoomData();
-            joinSocketRoom(currentRoomkey === "" ? user.current_room_id : currentRoomkey);
+            joinRoom(user.current_room_id)
         }
     }, [user.current_room_id]);
 
@@ -29,6 +30,7 @@ const Qvinyl = ({user}) => {
 
     const joinRoom = (roomkey) => {
         joinSocketRoom(currentRoomkey === "" ? user.current_room_id : currentRoomkey);
+        joinMessageRoom(currentRoomkey === "" ? user.current_room_id : currentRoomkey, user.display_name);
         setCurrentRoomkey(roomkey)
     }
 
@@ -44,6 +46,7 @@ const Qvinyl = ({user}) => {
             <div className={sidebar ? "sidebar-wrapper" : "sidebar-wrapper-close"}>
                 <div className="slide">
                     <Sidebar 
+                        userId={user.user_id}
                         displayName={user.display_name}
                         currentRoomkey={currentRoomkey === "" ? user.current_room_id : currentRoomkey}
                         isOpen={sidebar}
