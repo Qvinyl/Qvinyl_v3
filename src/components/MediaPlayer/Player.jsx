@@ -16,7 +16,7 @@ const Player = ({playback, volume, muted, setProgressValue, playerRef, url, hand
             playing={playback}
             width="100%"
             height="100%"
-            url={url+"?rel=0"}
+            url={url}
             controls={false}
             onEnded={handleOnVideoEnded}
         />

@@ -25,7 +25,6 @@ export async function setUserCurrentRoomkey(roomkey) {
     userJoinRoom(roomkey)
     .then(isSet => {
         if (isSet) {
-            console.log(roomkey);
             USER.current_room_id = roomkey;
         }
     }); 

@@ -38,10 +38,6 @@ export function onSeek(roomkey, progress) {
     );
 }
 
-socket.on('disconnect', () => {
-    console.log(socket.connected);
-});
-
 socket.on('message', message => {
     console.log(message);
 });
