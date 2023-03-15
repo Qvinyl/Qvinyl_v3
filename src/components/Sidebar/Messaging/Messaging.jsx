@@ -41,7 +41,6 @@ const Messaging = ({currentRoomkey, userId, displayName}) => {
     }
 
     hermes.off(`message-${currentRoomkey}`).on(`message-${currentRoomkey}`, (data) => {
-        console.log("firing once");
         dispatch(addMessage(data));
     });
 
