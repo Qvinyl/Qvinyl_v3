@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Room from './Room';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -26,7 +26,7 @@ const RoomList = ({rooms, user_id, removeRoom, currentRoomkey, setCurrentRoom}) 
                                         removeRoom={removeRoom}
                                         roomkey={room.roomkey}
                                         roomName={room.room_name}
-                                        isAdmin={user_id == room.admin}
+                                        isAdmin={user_id === room.admin}
                                     />
                                 </TableCell>
                             </TableRow>

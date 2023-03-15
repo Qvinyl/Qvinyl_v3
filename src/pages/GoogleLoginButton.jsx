@@ -9,8 +9,10 @@ const login = () => {
     signInWithPopup(auth, provider)
     .then((result) => {
         const user = result.user;
+        return user;
     }).catch((error) => {
         const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(credential);
     }); 
 }
 

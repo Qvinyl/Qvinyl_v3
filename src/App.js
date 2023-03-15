@@ -25,7 +25,7 @@ const App = () => {
         navigate("/login")
       }
     });
-  }, []);
+  }, [navigate]);
 
   const getUser = async (auth) => {
     var userInfo = await findOrCreateUser(auth);

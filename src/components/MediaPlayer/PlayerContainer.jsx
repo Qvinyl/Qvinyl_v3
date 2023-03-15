@@ -22,7 +22,7 @@ const PlayerContainer = ({currentRoomkey, displayName, userId, roomData}) => {
             getCurrentQueuedElement(currentRoomkey, setCurrentElement);
             setHasControl(roomData.admin === userId);
         }
-    }, [currentRoomkey, roomData]);
+    }, [currentRoomkey, roomData, userId]);
     
     const setVolumeLevel = (level) => {
         setVolume(level);
