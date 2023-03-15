@@ -1,7 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Message from "./Message";
 
-const MessageList = ({messageList, userId}) => {
+const MessageList = ({userId}) => {
+    const messageList = useSelector((state) => state.messageList.messages);
 
     return (
         <div className="message list">

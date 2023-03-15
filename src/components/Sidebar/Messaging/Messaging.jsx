@@ -3,12 +3,16 @@ import RoundedInputField from '../../Basics/InputField/RoundedInputField';
 import FormControl from '@mui/material/FormControl';
 import MessageList from './MessageList';
 import { hermes, sendMessage } from '../../../features/socketService/HermesService';
+import { useDispatch } from 'react-redux';
+import { addMessage } from '../../../store/actions/messagesActions';
+import ping from '../../../audio/notification-sound.mp3'
 import '../../../css/Messaging.css';
 
 const Messaging = ({currentRoomkey, userId, displayName}) => {
-    const [messageList, setMessageList] = useState([]);
     const [message, setMessage] = useState("");
     const inputReference = useRef(null);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         inputReference.current.focus();
@@ -36,14 +40,15 @@ const Messaging = ({currentRoomkey, userId, displayName}) => {
         }
     }
 
-    hermes.on(`message-${currentRoomkey}`, (data) => {
-        setMessageList([...messageList, data])
+    hermes.off(`message-${currentRoomkey}`).on(`message-${currentRoomkey}`, (data) => {
+        console.log("firing once");
+        dispatch(addMessage(data));
     });
 
     return (
         <div className="content-container messaging">
             <MessageList 
-                messageList={messageList} userId={userId}/>
+                userId={userId}/>
             <div className="input-field send">
                 <FormControl onSubmit={handleSubmit}>
                     <RoundedInputField 

@@ -29,8 +29,8 @@ const Qvinyl = ({user}) => {
     }
 
     const joinRoom = (roomkey) => {
-        joinSocketRoom(currentRoomkey === "" ? user.current_room_id : currentRoomkey);
-        joinMessageRoom(currentRoomkey === "" ? user.current_room_id : currentRoomkey, user.display_name);
+        joinSocketRoom(roomkey);
+        joinMessageRoom(roomkey, user.display_name);
         setCurrentRoomkey(roomkey)
     }
 
