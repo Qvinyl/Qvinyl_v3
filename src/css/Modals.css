@@ -5,3 +5,30 @@
 .accept-button {
     color: #1976d2 important;
 }       
+
+.search-users-accordian {
+    background-color: inherit !important;
+    width: 100% !important;
+}
+
+.added-user-box {
+    padding: 5px;
+    font-size: 12px;
+}
+
+.box-container {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.remove-button {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+}
+
+.proposed-text {
+    font-size: 16px !important;
+}

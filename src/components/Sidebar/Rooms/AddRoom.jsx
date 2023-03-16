@@ -3,9 +3,9 @@ import CustomAccordion from '../../Basics/Accordian/CustomAccordion'
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AddIcon from '@mui/icons-material/Add';
-import RoundedInputField from '../../Basics/InputField/RoundedInputField'
+import RoundedInputField from '../../Basics/InputField/RoundedInputField';
 import Button from '@mui/material/Button';
-import CustomTextField from '../../Basics/InputField/CustomTextField'
+import CustomTextField from '../../Basics/InputField/CustomTextField';
 import {createVirtualRoom} from '../../../features/roomService/RoomAdministration';
 import SnackBar from '../../Basics/SnackBar/SnackBar';
 

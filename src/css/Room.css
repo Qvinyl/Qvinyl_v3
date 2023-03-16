@@ -48,7 +48,6 @@
 
 .active-row {
     background-color: rgba(53, 53, 53, 1);
-    /* background-color: #1976d2; */
 }
 
 .table-row {
@@ -59,4 +58,14 @@
 .table-row:hover {
     background-color: #2b2b2b;
     color: white !important;
+}
+
+.user-invitation-row {
+    padding: 0px 16px 0px 16px !important;
+    display: grid !important;
+    cursor: pointer;
+}
+
+.user-invitation-row:hover {
+    background-color: #d8d8d8;
 }

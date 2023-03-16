@@ -1,27 +1,43 @@
-import React, {} from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import NotificationItem from './NotificationItem'
+import { fetchUserInvitations } from '../../../features/notificationService/Invitations';
 
-const NotificationList = () => {
-    const notifications = [
-        
-    ]
+const NotificationList = ({userId}) => {
+    const[invitations, setInvitations] = useState([])
+
+    useEffect(() => {
+        fetchInvitations();
+    }, [])
+
+    const fetchInvitations = async () => {
+        var invitations = await fetchUserInvitations(userId);
+        setInvitations(invitations);
+    }
+
+    const removeOnSuccess = async (index) => {
+        invitations.splice(index, 1);
+        setInvitations([...invitations]);
+    }
     
     return (
         <div className="list">
             <Table>
                 <TableBody>
                     {
-                        notifications.map((item, index) =>
+                        invitations.map((item, index) =>
                             <TableRow key={index}>
                                 <TableCell className="table-cell">
                                     <NotificationItem
-                                        roomId={item.roomId}
-                                        roomName={item.roomName}
-                                        inviter={item.inviter}
+                                        removeOnSuccess={removeOnSuccess}
+                                        index={index}
+                                        invitationId={item.id}
+                                        roomkey={item.roomkey}
+                                        roomName={item.room_name}
+                                        inviter={item.display_name}
                                     />
                                 </TableCell>
                             </TableRow>

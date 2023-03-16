@@ -23,11 +23,15 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
     const inputRef = useRef(null);
 
     const handleOnPlayback = (playback) => {
-        setPlaybackState(playback)
+        if (hasControl) {
+            setPlaybackState(playback)
+        }
+       
     }
 
     const handleOnFullScreen = (isFullScreen) => {
         if(isFullScreen) {
+            console.log(screenfull.isEnabled);
             screenfull.request(playerRef)
         }
         else {
@@ -88,18 +92,21 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
                 <TableBody>
                     <TableRow>
                         <TableCell className="media-button-container media-container">
-                            {
-                                playback ? 
-                                <PauseIcon 
-                                    className="player-icon" 
-                                    onClick={() => handleOnPlayback(false)}
-                                />
-                                : 
-                                <PlayArrowIcon 
-                                    className="player-icon" 
-                                    onClick={() => handleOnPlayback(true)}
-                                /> 
-                            }  
+                            <div>
+                                {
+                                    playback ? 
+                                    <PauseIcon 
+                                        className="player-icon" 
+                                        onClick={() => handleOnPlayback(false)}
+                                    />
+                                    : 
+                                    <PlayArrowIcon 
+                                        className="player-icon" 
+                                        onClick={() => handleOnPlayback(true)}
+                                    /> 
+                                }  
+                            </div>
+                           
                         </TableCell>
                         <TableCell className="media-button-container media-container">
                             <div>

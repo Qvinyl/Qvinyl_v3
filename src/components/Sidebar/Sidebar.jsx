@@ -34,9 +34,9 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, currentRoomkey, dis
             case MUSIC_QUEUE:
                 return <Queue displayName={displayName} currentRoomkey={currentRoomkey}/>
             case VIRTUAL_ROOMS:
-                return <Rooms joinRoom={joinRoom}/>
+                return <Rooms displayName={displayName} joinRoom={joinRoom}/>
             case NOTIFICATIONS:
-                return <Profile/>
+                return <Profile userId={userId}/>
             default: 
                 return <Messaging/>
         }
