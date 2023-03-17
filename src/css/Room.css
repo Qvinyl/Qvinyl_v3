@@ -10,6 +10,15 @@
 
 .add {
     color: #ACACAC;
+    margin: auto !important;
+    display: block !important;
+}
+
+.button-outline-dropdown {
+    border: 1px solid #ACACAC;
+    border-radius: 50px;
+    margin: auto;
+    padding: 5px;
 }
 
 .option-container {

@@ -8,6 +8,7 @@ import '../../../css/Queue.css'
 
 
 const RoomList = ({displayName, rooms, user_id, removeRoom, currentRoomkey, setCurrentRoom}) => {
+   
     return (
         <div className="list">
             <Table>

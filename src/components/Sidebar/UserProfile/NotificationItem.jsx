@@ -1,13 +1,22 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import { acceptInvitation } from '../../../features/notificationService/Invitations';
+import { acceptInvitation, declineInvitation } from '../../../features/notificationService/Invitations';
 import '../../../css/Notification.css'
 
 const NotificationItem = ({invitationId, roomName, inviter, index, removeOnSuccess}) => {
 
-    const acceptInvite = (index) => {
-        if (acceptInvitation(invitationId)) {
-            removeOnSuccess(index)
+    const acceptInvite = async (index) => {
+        console.log(index);
+        var results = await acceptInvitation(invitationId);
+        if (results) {
+            removeOnSuccess(index);
+        }
+    }
+
+    const declineInvite = async (index) => {
+        var results = await declineInvitation(invitationId);
+        if (results) {
+            removeOnSuccess(index);
         }
     }
 
@@ -20,7 +29,7 @@ const NotificationItem = ({invitationId, roomName, inviter, index, removeOnSucce
                 <Button variant="contained" size="small" onClick={() => {acceptInvite(index)}}>
                     Join Room
                 </Button>
-                <Button className="cancel-button" variant="contained" size="small">
+                <Button className="cancel-button"  variant="contained" size="small" onClick={() => {declineInvite(index)}}>
                     Decline
                 </Button>
             </div>

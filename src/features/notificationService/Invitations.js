@@ -16,7 +16,7 @@ export async function fetchUserInvitations(user_id) {
 
 export async function acceptInvitation(invitationId) {
     const userInvitationsEndpoint = `${InvitationAPIEndpoint}/${invitationId}`;
-    fetch(userInvitationsEndpoint, {
+    var response = await fetch(userInvitationsEndpoint, {
         method: 'PUT',
         headers: {
             Accept: 'application/json',
@@ -26,19 +26,12 @@ export async function acceptInvitation(invitationId) {
             has_joined: true 
         })
     })  
-    .then(response => {
-        response.json()
-        if(response.status === 200) {
-            return true;
-        }
-    })
-    .catch((e) => {
-        console.log(e);
-    });
+
+    return response.status === 200;
 }
 
 export async function createInvitation(invite) {
-    fetch(InvitationAPIEndpoint, {
+    var response = await fetch(InvitationAPIEndpoint, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -48,14 +41,22 @@ export async function createInvitation(invite) {
             invitation: invite
         })
     })
-    .then(response => {
-        response.json()
-        if(response.status === 200) {
-            return true;
-        }
+
+    return response.status === 200;
+}
+
+export async function declineInvitation(invite_id) {
+    var deleteInvitationAPIEndpoint = `${InvitationAPIEndpoint}/${invite_id}`
+    var response = await fetch(deleteInvitationAPIEndpoint, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id: invite_id
+        })
     })
-    .catch((e) => {
-        console.log(e);
-        return false;
-    });
+
+    return response.status === 200;
 }

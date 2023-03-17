@@ -10,6 +10,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RoomDeletionModal from '../../Basics/Modals/RoomDeletionModal';
 import InvitationModal from '../../Basics/Modals/InvitationModal';
 import RoomOption from './RoomOption';
+import Box from '@mui/material/Box';
+
 import { setUserCurrentRoomkey } from '../../../features/userService/UserAdministration';
 
 const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setCurrentRoom}) => {
@@ -47,7 +49,11 @@ const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setC
         <div>
             <RoomAccordion disableGutters expanded={expanded}>
                 <AccordionSummary 
-                    expandIcon={<ExpandMore className="add" onClick={() => handleChange(!expanded)}/>}>
+                    expandIcon={
+                        <div className="button-outline-dropdown">
+                            <ExpandMore className="add" onClick={() => handleChange(!expanded)}/>
+                        </div>
+                    }>
                     <Typography onClick={() => {setCurrentRoomkey()}}>
                         <b>{roomName}</b>
                     </Typography>

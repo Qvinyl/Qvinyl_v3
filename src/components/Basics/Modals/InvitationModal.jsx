@@ -84,7 +84,7 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
     }
 
     return (
-        <div>
+        <div className="modals">
             <Dialog
                 open={invitationModalOpen}
                 onClose={handleInvitationModalClose}

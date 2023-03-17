@@ -31,7 +31,6 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
 
     const handleOnFullScreen = (isFullScreen) => {
         if(isFullScreen) {
-            console.log(screenfull.isEnabled);
             screenfull.request(playerRef)
         }
         else {
