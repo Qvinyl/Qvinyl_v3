@@ -6,7 +6,6 @@ import '../../../css/Notification.css'
 const NotificationItem = ({invitationId, roomName, inviter, index, removeOnSuccess}) => {
 
     const acceptInvite = async (index) => {
-        console.log(index);
         var results = await acceptInvitation(invitationId);
         if (results) {
             removeOnSuccess(index);
