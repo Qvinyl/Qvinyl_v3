@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { getRoomPlaylist, getLastPlayed } from '../../../features/queueService/Queuing/QueueServices'; 
 
-const PlaylistQueue = ({currentRoomkey}) => {
+const PlaylistQueue = ({currentRoomkey, displayName}) => {
     const theme = useTheme();
     const [value, setValue] = useState(0);
     const [playlist, setRoomPlaylist] = useState([])
@@ -61,6 +61,8 @@ const PlaylistQueue = ({currentRoomkey}) => {
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     <LastPlayedList
+                        currentRoomkey={currentRoomkey}
+                        displayName={displayName}
                         lastPlayed={lastPlayed}
                     />
                 </TabPanel>

@@ -34,3 +34,19 @@ export async function getRoomDataByKey(roomkey) {
     var roomData = await response.json();
     return await roomData;
 }
+
+
+export async function fetchUserRooms(user_id) {
+    var getUserRoomsEndpoint = `${roomAPIEndpoint}/getAllRooms/${user_id}`
+    
+    var response = await fetch(getUserRoomsEndpoint, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    });
+
+    var rooms = await response.json();
+    return await rooms;
+}

@@ -46,10 +46,10 @@ const Settings = () => {
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Setting 
+                {/* <Setting 
                     icon={<DarkModeIcon/>}
                     input={"Darkmode"}
-                />
+                /> */}
                 <Setting 
                     action={loggingOut}
                     icon={<LogoutIcon/>}

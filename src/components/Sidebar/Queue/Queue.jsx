@@ -62,6 +62,7 @@ const Queue = ({currentRoomkey, displayName}) => {
         <div className="content-container queue">
             <div className={searching ? "playlist-close" : "playlist-open"}>
                 <PlaylistQueue
+                    displayName={displayName}
                     currentRoomkey={currentRoomkey}
                 />
             </div>

@@ -7,7 +7,8 @@ import TableRow from '@mui/material/TableRow';
 import '../../../css/Queue.css'
 
 
-const RoomList = ({rooms, user_id, removeRoom, currentRoomkey, setCurrentRoom}) => {
+const RoomList = ({displayName, rooms, user_id, removeRoom, currentRoomkey, setCurrentRoom}) => {
+   
     return (
         <div className="list">
             <Table>
@@ -21,6 +22,8 @@ const RoomList = ({rooms, user_id, removeRoom, currentRoomkey, setCurrentRoom}) 
                                 <TableCell 
                                     className="table-cell">
                                     <Room 
+                                        displayName={displayName}
+                                        roomId={room.id}
                                         setCurrentRoom={setCurrentRoom}
                                         currentRoomkey={currentRoomkey}
                                         removeRoom={removeRoom}
