@@ -31,7 +31,12 @@ const Qvinyl = ({user}) => {
 
     const fetchRoomData = async () => {
         var fetchedRoomData = await getRoomDataByKey(currentRoomkey === "" ? user.current_room_id : currentRoomkey);
-        setRoomData(fetchedRoomData);
+        if (fetchedRoomData) {
+            setRoomData(fetchedRoomData);
+        }
+        else {
+            setRoomData({});
+        }
     }
 
     const joinRoom = (roomkey) => {
@@ -58,7 +63,7 @@ const Qvinyl = ({user}) => {
                 roomData={roomData}
                 displayName={user.display_name}
                 userId={user.user_id}
-                currentRoomkey={ currentRoomkey === "" ? user.current_room_id : currentRoomkey }
+                currentRoomkey={ currentRoomkey }
             />
             
             <div className={sidebar ? "sidebar-wrapper" : "sidebar-wrapper-close"}>
@@ -66,7 +71,7 @@ const Qvinyl = ({user}) => {
                     <Sidebar 
                         userId={user.user_id}
                         displayName={user.display_name}
-                        currentRoomkey={currentRoomkey === "" ? user.current_room_id : currentRoomkey}
+                        currentRoomkey={currentRoomkey}
                         isOpen={sidebar}
                         joinRoom={joinRoom}
                         handleOnClickSidebarLip={handleOnClickSidebarLip} 

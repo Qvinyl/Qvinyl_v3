@@ -13,8 +13,6 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url, currentRoomkey, 
             thumbnail: thumbnail,
             queuedBy: displayName
         }
-
-        console.log(element);
         if (addToPlaylist(currentRoomkey, element)) {
             setAddedStatus(true)
         } else {

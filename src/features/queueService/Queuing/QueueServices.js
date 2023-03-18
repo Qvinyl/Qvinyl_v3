@@ -5,8 +5,6 @@ const PLAYLIST_DOC = "Playlist";
 const LAST_PLAYED_DOC = "LastPlayed";
 
 export async function addToPlaylist(roomkey, element) {
-    console.log(element);
-    console.log(roomkey);
     const roomRef = doc(firestoreDB, PLAYLIST_DOC, roomkey);
     
     await updateDoc(roomRef, {

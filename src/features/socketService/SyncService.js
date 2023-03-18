@@ -18,7 +18,6 @@ export function onPausePlayMedia(roomkey, playback) {
 }
 
 export function voteToSkip(roomkey) {
-    console.log(roomkey);
     socket.emit('vote-to-skip', { roomkey });
 }
 
