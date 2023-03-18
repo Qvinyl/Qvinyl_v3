@@ -27,9 +27,7 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
 
     const sendInvitations = () => {
         if(invitationList.length > 0) {
-            console.log("Sending Invite to: ", invitationList);
             for (const invitee of invitationList) {
-                console.log(invitee);
                 var invite = {
                     user_id: invitee.user_id,
                     display_name: displayName,
@@ -64,6 +62,7 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
     const closeModal = () => {
         setSearchUser("");
         setFilteredList([]);
+        setInvitationList([]);
         handleInvitationModalClose()
     }
 

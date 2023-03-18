@@ -3,16 +3,16 @@ import PlayerContainer from './MediaPlayer/PlayerContainer';
 import Sidebar from './Sidebar/Sidebar';
 import { useDispatch } from 'react-redux';
 import { getRoomDataByKey } from '../features/roomService/RoomService';
-import { joinSocketRoom, } from '../features/socketService/SyncService';
-import { joinMessageRoom } from '../features/socketService/HermesService';
+import { joinSocketRoom, leaveSocketRoom } from '../features/socketService/SyncService';
+import { joinMessageRoom, leaveMessageRoom } from '../features/socketService/HermesService';
 import { clearMessages } from '../store/actions/messagesActions';
 
 import '../css/Sidebar.css';
 import '../css/Main.css';
 
 const Qvinyl = ({user}) => {
-    const [sidebar, setSidebar] = useState(true)
-    const [roomData, setRoomData] = useState({})
+    const [sidebar, setSidebar] = useState(true);
+    const [roomData, setRoomData] = useState({});
     const [currentRoomkey, setCurrentRoomkey] = useState("");
 
     const dispatch = useDispatch();
@@ -20,7 +20,8 @@ const Qvinyl = ({user}) => {
     useEffect(() => {
         if (user.current_room_id) {
             fetchRoomData();
-            joinRoom(user.current_room_id)
+            joinWebsocketsRooms(user.current_room_id);
+            setCurrentRoomkey(user.current_room_id);
         }
     }, [user.current_room_id]);
 
@@ -30,14 +31,30 @@ const Qvinyl = ({user}) => {
 
     const fetchRoomData = async () => {
         var fetchedRoomData = await getRoomDataByKey(currentRoomkey === "" ? user.current_room_id : currentRoomkey);
-        setRoomData(fetchedRoomData);
+        if (fetchedRoomData) {
+            setRoomData(fetchedRoomData);
+        }
+        else {
+            setRoomData({});
+        }
     }
 
     const joinRoom = (roomkey) => {
+        if (roomkey !== currentRoomkey) {
+            leaveSocketRooms();
+            setCurrentRoomkey(roomkey);
+            dispatch(clearMessages());
+        }
+    }
+
+    const joinWebsocketsRooms = (roomkey) => {
         joinSocketRoom(roomkey);
         joinMessageRoom(roomkey, user.display_name);
-        setCurrentRoomkey(roomkey)
-        dispatch(clearMessages())
+    }
+
+    const leaveSocketRooms = () => {
+        leaveSocketRoom(currentRoomkey);
+        leaveMessageRoom(currentRoomkey, user.display_name);
     }
 
     return (
@@ -46,7 +63,7 @@ const Qvinyl = ({user}) => {
                 roomData={roomData}
                 displayName={user.display_name}
                 userId={user.user_id}
-                currentRoomkey={ currentRoomkey === "" ? user.current_room_id : currentRoomkey }
+                currentRoomkey={ currentRoomkey }
             />
             
             <div className={sidebar ? "sidebar-wrapper" : "sidebar-wrapper-close"}>
@@ -54,7 +71,7 @@ const Qvinyl = ({user}) => {
                     <Sidebar 
                         userId={user.user_id}
                         displayName={user.display_name}
-                        currentRoomkey={currentRoomkey === "" ? user.current_room_id : currentRoomkey}
+                        currentRoomkey={currentRoomkey}
                         isOpen={sidebar}
                         joinRoom={joinRoom}
                         handleOnClickSidebarLip={handleOnClickSidebarLip} 
