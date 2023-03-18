@@ -7,6 +7,10 @@ export function joinMessageRoom(roomkey, user) {
     hermes.emit('joinRoom', {roomkey, user});
 }
 
+export function leaveMessageRoom(roomkey, user) {
+    hermes.emit('leaveRoom', {roomkey, user});
+}
+
 export function sendMessage(roomkey, message) {
     hermes.emit('message', {roomkey, message});
 }

@@ -44,8 +44,10 @@ const Rooms = ({joinRoom, displayName}) => {
     }
 
     const setCurrentRoom = (roomkey) => {
-        joinRoom(roomkey);
-        setCurrentRoomkey(roomkey)
+        if (roomkey !== currentRoomkey) {
+            joinRoom(roomkey);
+            setCurrentRoomkey(roomkey)
+        }
     }
 
     const getCurrentRoom = () => {

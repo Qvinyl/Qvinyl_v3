@@ -64,6 +64,7 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
     const closeModal = () => {
         setSearchUser("");
         setFilteredList([]);
+        setInvitationList([]);
         handleInvitationModalClose()
     }
 

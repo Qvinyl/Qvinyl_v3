@@ -3,16 +3,16 @@ import PlayerContainer from './MediaPlayer/PlayerContainer';
 import Sidebar from './Sidebar/Sidebar';
 import { useDispatch } from 'react-redux';
 import { getRoomDataByKey } from '../features/roomService/RoomService';
-import { joinSocketRoom, } from '../features/socketService/SyncService';
-import { joinMessageRoom } from '../features/socketService/HermesService';
+import { joinSocketRoom, leaveSocketRoom } from '../features/socketService/SyncService';
+import { joinMessageRoom, leaveMessageRoom } from '../features/socketService/HermesService';
 import { clearMessages } from '../store/actions/messagesActions';
 
 import '../css/Sidebar.css';
 import '../css/Main.css';
 
 const Qvinyl = ({user}) => {
-    const [sidebar, setSidebar] = useState(true)
-    const [roomData, setRoomData] = useState({})
+    const [sidebar, setSidebar] = useState(true);
+    const [roomData, setRoomData] = useState({});
     const [currentRoomkey, setCurrentRoomkey] = useState("");
 
     const dispatch = useDispatch();
@@ -20,7 +20,8 @@ const Qvinyl = ({user}) => {
     useEffect(() => {
         if (user.current_room_id) {
             fetchRoomData();
-            joinRoom(user.current_room_id)
+            joinWebsocketsRooms(user.current_room_id);
+            setCurrentRoomkey(user.current_room_id);
         }
     }, [user.current_room_id]);
 
@@ -34,10 +35,21 @@ const Qvinyl = ({user}) => {
     }
 
     const joinRoom = (roomkey) => {
+        if (roomkey !== currentRoomkey) {
+            leaveSocketRooms();
+            setCurrentRoomkey(roomkey);
+            dispatch(clearMessages());
+        }
+    }
+
+    const joinWebsocketsRooms = (roomkey) => {
         joinSocketRoom(roomkey);
         joinMessageRoom(roomkey, user.display_name);
-        setCurrentRoomkey(roomkey)
-        dispatch(clearMessages())
+    }
+
+    const leaveSocketRooms = () => {
+        leaveSocketRoom(currentRoomkey);
+        leaveMessageRoom(currentRoomkey, user.display_name);
     }
 
     return (

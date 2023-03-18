@@ -9,6 +9,10 @@ export function joinSocketRoom(roomkey) {
     socket.emit('joinRoom', roomkey);
 }
 
+export function leaveSocketRoom(roomkey) {
+    socket.emit('leaveRoom', roomkey);
+}
+
 export function onPausePlayMedia(roomkey, playback) {
     socket.emit('pause-play-media', { roomkey, playback });
 }
