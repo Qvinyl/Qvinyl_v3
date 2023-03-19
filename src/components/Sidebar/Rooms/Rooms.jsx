@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import { fetchUserRooms } from '../../../features/roomService/RoomService';
-import { setUserCurrentRoomkey } from '../../../store/actions/userActions';
 import { useDispatch } from 'react-redux';
 import RoomList from './RoomList';
 import AddRoom from './AddRoom';
@@ -39,7 +38,6 @@ const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
 
     const setCurrentRoom = (roomkey) => {
         if (roomkey !== currentRoomkey) {
-            dispatch(setUserCurrentRoomkey(roomkey));
             joinRoom(roomkey);
         }
     }

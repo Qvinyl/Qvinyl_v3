@@ -6,6 +6,7 @@ import { getRoomDataByKey } from '../features/roomService/RoomService';
 import { joinSocketRoom, leaveSocketRoom, connectSocket } from '../features/socketService/SyncService';
 import { joinMessageRoom, leaveMessageRoom, connectMessagingSocket } from '../features/socketService/HermesService';
 import { clearMessages } from '../store/actions/messagesActions';
+import { setUserCurrentRoomkey } from '../store/actions/userActions';
 import { useSelector } from 'react-redux';
 import { unsubscribe } from '../features/queueService/Queuing/QueueServices';
 import '../css/Sidebar.css';
@@ -17,7 +18,7 @@ const Qvinyl = () => {
     const user = useSelector((state) => state.userReducer.user);
     const loggedIn = useSelector((state) => state.userReducer.loggedIn);
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         if (user.current_room_id && loggedIn) {
             fetchRoomData();
@@ -45,6 +46,7 @@ const Qvinyl = () => {
             unsubscribe();
             leaveSocketRooms();
             dispatch(clearMessages());
+            dispatch(setUserCurrentRoomkey(roomkey));
         }
     }
 

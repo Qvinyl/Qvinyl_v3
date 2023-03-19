@@ -36,7 +36,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
             case VIRTUAL_ROOMS:
                 return <Rooms displayName={user.display_name} userId={user.user_id} currentRoomkey={user.current_room_id} joinRoom={joinRoom}/>
             case NOTIFICATIONS:
-                return <Profile displayName={user.display_name} userId={user.user_id}/>
+                return <Profile displayName={user.display_name} userId={user.user_id} joinRoom={joinRoom}/>
             default: 
                 return <Messaging/>
         }
