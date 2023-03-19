@@ -13,21 +13,9 @@ import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../../features/userService/UserAdministration';
 const logout = require('../../../features/userService/UserAdministration').logout;
 
-const Settings = () => {
+const Settings = ({displayName}) => {
     const navigate = useNavigate();
-    const [displayName, setDisplayName] = useState("");
-
-    useEffect(() => {
-        getInfo();
-    }, []);
-
-    const getInfo = async () => {
-        await getUserInfo()
-        .then((info) => {
-            setDisplayName(info.display_name);
-        });
-    }
-
+    
     const loggingOut = () => {
         if (logout()) {
             navigate('/login');

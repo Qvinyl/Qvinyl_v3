@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Qvinyl from './components/Qvinyl';
 import Login from './pages/Login';
+import { useDispatch } from 'react-redux';
+import { setUser } from './store/actions/userActions';
 import './App.css';
 import { findOrCreateUser } from './features/userService/UserAdministration';
 
@@ -9,7 +11,7 @@ const auth = require('./config/constraints').firebaseAuth;
 
 const App = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({})
+  const dispatch = useDispatch();
 
   useEffect(() => {
     auth.onAuthStateChanged((auth) => {
@@ -29,14 +31,14 @@ const App = () => {
 
   const getUser = async (auth) => {
     var userInfo = await findOrCreateUser(auth);
-    setUser(userInfo);
+    dispatch(setUser(userInfo))
   }
 
   return (
     <div className="App">
         <Routes>
           <Route exact path="/login" element={<Login/>}/>
-          <Route exact path="/qvinyl" element={<Qvinyl user={user} />} />
+          <Route exact path="/qvinyl" element={<Qvinyl/>} />
         </Routes>
     </div>
   );

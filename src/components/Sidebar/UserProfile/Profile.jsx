@@ -2,11 +2,11 @@
 import '../../../css/Sidebar.css';
 import Settings from './Settings';
 import NotificationList from "./NotificaitonList";
-const Profile = ({userId}) => {
+const Profile = ({displayName, userId}) => {
 
     return (
         <div className="content notifications">
-            <Settings/>
+            <Settings displayName={displayName}/>
             <NotificationList userId={userId}/>
         </div>
     )

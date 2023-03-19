@@ -1,10 +1,11 @@
 import React from 'react';
 import { setUserCurrentRoomkey } from '../../../features/userService/UserAdministration';
 
-const RoomItem = ({roomkey, roomName, setCurrentRoom}) => {
+const RoomItem = ({roomkey, roomName, setCurrentRoom, userId}) => {
 
-    const setCurrentRoomkey = () => {
-        if  (setUserCurrentRoomkey(roomkey)) {
+    const setCurrentRoomkey = async () => {
+        var results = await setUserCurrentRoomkey(userId, roomkey)
+        if  (results) {
             setCurrentRoom(roomkey);
         }
     }

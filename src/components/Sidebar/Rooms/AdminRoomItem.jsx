@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 
 import { setUserCurrentRoomkey } from '../../../features/userService/UserAdministration';
 
-const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setCurrentRoom}) => {
+const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setCurrentRoom, userId}) => {
     const [expanded, setExpanded] = useState(false);
     const [deletionModalOpen, setdeletionModalOpen] = useState(false);
     const [invitationModalOpen, setInvitationModalOpen] = useState(false);
@@ -39,8 +39,9 @@ const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setC
         setExpanded(isExpanded);
     }
     
-    const setCurrentRoomkey = () => {
-        if  (setUserCurrentRoomkey(roomkey)) {
+    const setCurrentRoomkey = async () => {
+        var results = await setUserCurrentRoomkey(userId, roomkey)
+        if  (results) {
             setCurrentRoom(roomkey);
         }
     }

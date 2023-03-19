@@ -1,32 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
-import { getUserUid, getUserCurrentRoomkey } from '../../../features/userService/UserAdministration';
 import { fetchUserRooms } from '../../../features/roomService/RoomService';
+import { setUserCurrentRoomkey } from '../../../store/actions/userActions';
+import { useDispatch } from 'react-redux';
 import RoomList from './RoomList';
 import AddRoom from './AddRoom';
 import '../../../css/Room.css'
 
-const Rooms = ({joinRoom, displayName}) => {
-    const [user_id, setUserId] = useState("");
+const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
     const [loading, setLoading] = useState(true);
     const [rooms, setRooms] = useState([]);
-    const [currentRoomkey, setCurrentRoomkey] = useState("")
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setLoading(true);
-        getUid();
-        if (user_id) {
+        if (userId) {
             fetchAndSortRooms();
-            getCurrentRoom();
+            setLoading(false);
         }
-    }, [user_id, currentRoomkey]);
+    }, [userId, currentRoomkey]);
 
-    const getUid = async () => {
-        await getUserUid().then((uid) => {
-            setUserId(uid);
-        });
-        setLoading(false);
-    }
 
     const appendNewRoom = (roomdata) => {
         if (Object.keys(roomdata).length !== 0) {
@@ -45,23 +38,18 @@ const Rooms = ({joinRoom, displayName}) => {
 
     const setCurrentRoom = (roomkey) => {
         if (roomkey !== currentRoomkey) {
+            dispatch(setUserCurrentRoomkey(roomkey));
             joinRoom(roomkey);
-            setCurrentRoomkey(roomkey)
         }
     }
 
-    const getCurrentRoom = () => {
-        var roomkey = getUserCurrentRoomkey();
-        setCurrentRoomkey(roomkey);
-    }
-
     const fetchAndSortRooms = async () => {
-        var rooms = await fetchUserRooms(user_id);
+        var rooms = await fetchUserRooms(userId);
         rooms.sort((a, b) => {
-            if (a.admin === user_id) {
+            if (a.admin === userId) {
                 return -1;
             }
-            else if ( b.admin === user_id) {
+            else if ( b.admin === userId) {
                 return 1;
             }
             return 0;
@@ -78,7 +66,7 @@ const Rooms = ({joinRoom, displayName}) => {
                 <div className="room-content-container">
                     <AddRoom
                         appendNewRoom={appendNewRoom}
-                        user_id={user_id}
+                        userId={userId}
                     />
                     <RoomList
                         displayName={displayName}
@@ -86,11 +74,10 @@ const Rooms = ({joinRoom, displayName}) => {
                         currentRoomkey={currentRoomkey}
                         removeRoom={removeRoom}
                         rooms={rooms}
-                        user_id={user_id}
+                        userId={userId}
                     />
                 </div>
             }
-           
         </div>
     )
 }
