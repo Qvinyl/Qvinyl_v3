@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Qvinyl from './components/Qvinyl';
 import Login from './pages/Login';
 import { useDispatch } from 'react-redux';
-import { setUser } from './store/actions/userActions';
+import { setUser, setLoggedIn} from './store/actions/userActions';
 import './App.css';
 import { findOrCreateUser } from './features/userService/UserAdministration';
 
@@ -19,6 +19,7 @@ const App = () => {
         try {
           getUser(auth);
           navigate("/qvinyl");
+          dispatch(setLoggedIn(true));
         } catch (e) {
           console.log(e);
         }
@@ -27,7 +28,7 @@ const App = () => {
         navigate("/login")
       }
     });
-  }, [navigate]);
+  }, []);
 
   const getUser = async (auth) => {
     var userInfo = await findOrCreateUser(auth);
@@ -38,7 +39,7 @@ const App = () => {
     <div className="App">
         <Routes>
           <Route exact path="/login" element={<Login/>}/>
-          <Route exact path="/qvinyl" element={<Qvinyl/>} />
+          <Route exact path="/qvinyl" element={ auth && <Qvinyl/> } />
         </Routes>
     </div>
   );

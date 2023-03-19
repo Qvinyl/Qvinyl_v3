@@ -1,7 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setUser, setUserCurrentRoomkey } from "../actions/userActions";
+import { setUser, setUserCurrentRoomkey, setLoggedIn } from "../actions/userActions";
 
-const initialState = { user: {} };
+const initialState = {
+    user: {},
+    loggedIn: false
+ };
 
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -11,6 +14,9 @@ const userReducer = createReducer(initialState, (builder) => {
         })
         .addCase(setUserCurrentRoomkey, (state, action) => {
             state.user.current_room_id = action.payload
+        })
+        .addCase(setLoggedIn, (state, action) => { 
+            state.loggedIn = action.payload;
         });
 });
   

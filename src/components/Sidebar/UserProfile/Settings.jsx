@@ -10,19 +10,30 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Setting from './Setting';
 import { useNavigate } from 'react-router-dom';
-import { getUserInfo } from '../../../features/userService/UserAdministration';
+import { leaveSocketRoom, disconnectSocket } from '../../../features/socketService/SyncService';
+import { leaveMessageRoom, disconnectMessaging } from '../../../features/socketService/HermesService';
+import { setLoggedIn } from '../../../store/actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 const logout = require('../../../features/userService/UserAdministration').logout;
 
 const Settings = ({displayName}) => {
     const navigate = useNavigate();
-    
+    const user = useSelector((state) => state.userReducer.user);
+    const dispatch = useDispatch();
     const loggingOut = () => {
         if (logout()) {
             navigate('/login');
+            dispatch(setLoggedIn(false));
+            leaveRoom();
         }   
         else {
             console.log("Error signing out");
         }
+    }
+
+    const leaveRoom = () => {
+        disconnectSocket();
+        disconnectMessaging();
     }
 
     return (
