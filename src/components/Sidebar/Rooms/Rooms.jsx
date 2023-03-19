@@ -10,6 +10,7 @@ import '../../../css/Room.css'
 const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
     const [loading, setLoading] = useState(true);
     const [rooms, setRooms] = useState([]);
+    const [filteredRoomList, setFilteredRoomList] = useState(rooms)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -55,7 +56,16 @@ const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
             return 0;
         })
         setRooms(rooms)
+        setFilteredRoomList(rooms);
     }
+
+    const searchRooms = (roomFilter) => {
+        var newList = rooms.filter(room => {
+            const lc = (room.room_name).toLowerCase();
+            return lc.includes(roomFilter.toLowerCase())
+        });
+        setFilteredRoomList(newList);
+    } 
 
     return (
         <div className="content-container rooms">
@@ -65,6 +75,7 @@ const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
                 :
                 <div className="room-content-container">
                     <AddRoom
+                        searchRooms={searchRooms}
                         appendNewRoom={appendNewRoom}
                         userId={userId}
                     />
@@ -73,7 +84,7 @@ const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
                         setCurrentRoom={setCurrentRoom}
                         currentRoomkey={currentRoomkey}
                         removeRoom={removeRoom}
-                        rooms={rooms}
+                        rooms={filteredRoomList}
                         userId={userId}
                     />
                 </div>
