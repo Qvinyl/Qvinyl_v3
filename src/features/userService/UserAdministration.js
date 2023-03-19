@@ -29,7 +29,10 @@ export async function findOrCreateUser(userInfo) {
     var getUserByUid = `${usersAPIEndpoint}/${userInfo.uid}`
     var response = await fetch(getUserByUid);  
     var user = await response.json();
-    
+    if (user === null) {
+        user = await createNewUser(userInfo);
+        
+    }
     return await user;
 }
 
