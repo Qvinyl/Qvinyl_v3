@@ -45,9 +45,7 @@ export async function getLastPlayed(roomkey, setLastPlaylist) {
 }
 
 export async function getCurrentQueuedElement(roomkey, setCurrentElement) {
-    console.log(roomkey);
     subscription = onSnapshot(doc(firestoreDB, PLAYLIST_DOC, roomkey), (doc) => {
-        console.log(roomkey);
         if (doc.data() === undefined) { 
             return;
         }

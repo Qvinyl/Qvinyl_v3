@@ -9,7 +9,7 @@ import CustomTextField from '../../Basics/InputField/CustomTextField';
 import {createVirtualRoom} from '../../../features/roomService/RoomAdministration';
 import SnackBar from '../../Basics/SnackBar/SnackBar';
 
-const AddRoom = ({userId, appendNewRoom}) => {
+const AddRoom = ({userId, appendNewRoom, searchRooms}) => {
     const [expanded, setExpanded] = useState(false);
     const [roomName, setRoomName] = useState("");
     const [successful, setSuccess] = useState(true);
@@ -47,6 +47,11 @@ const AddRoom = ({userId, appendNewRoom}) => {
         }
     }
 
+    const filterRoom = (e) => {
+        const newValue = e.target.value;
+        searchRooms(newValue)
+    }
+
     const createRoom = () => {
         createVirtualRoom(userId, roomName)
         .then(successfulRoom => {
@@ -73,6 +78,7 @@ const AddRoom = ({userId, appendNewRoom}) => {
                     expandIcon={<AddIcon className="add" onClick={() => handleChange(!expanded)}/>}>
                     <div className="room-search-container" >
                         <RoundedInputField 
+                            onChange={filterRoom}
                             inputRef={inputReference} 
                             label="Search Your Rooms..." 
                             multiline maxRows={2} 

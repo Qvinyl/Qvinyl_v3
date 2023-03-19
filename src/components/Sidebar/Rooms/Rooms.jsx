@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import { fetchUserRooms } from '../../../features/roomService/RoomService';
-import { setUserCurrentRoomkey } from '../../../store/actions/userActions';
 import { useDispatch } from 'react-redux';
 import RoomList from './RoomList';
 import AddRoom from './AddRoom';
@@ -10,6 +9,7 @@ import '../../../css/Room.css'
 const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
     const [loading, setLoading] = useState(true);
     const [rooms, setRooms] = useState([]);
+    const [filteredList, setFilteredList] = useState([]);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -38,7 +38,6 @@ const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
 
     const setCurrentRoom = (roomkey) => {
         if (roomkey !== currentRoomkey) {
-            dispatch(setUserCurrentRoomkey(roomkey));
             joinRoom(roomkey);
         }
     }
@@ -57,6 +56,17 @@ const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
         setRooms(rooms)
     }
 
+    const searchRooms = (roomFilter) => {
+        if (!roomFilter) {
+            setFilteredList(rooms);
+        } 
+        var newList = rooms.filter(room => {
+            const lc = (room.room_name).toLowerCase();
+            return lc.includes(roomFilter.toLowerCase())
+        });
+        setFilteredList(newList);
+    } 
+
     return (
         <div className="content-container rooms">
             {
@@ -65,6 +75,7 @@ const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
                 :
                 <div className="room-content-container">
                     <AddRoom
+                        searchRooms={searchRooms}
                         appendNewRoom={appendNewRoom}
                         userId={userId}
                     />
@@ -73,7 +84,7 @@ const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
                         setCurrentRoom={setCurrentRoom}
                         currentRoomkey={currentRoomkey}
                         removeRoom={removeRoom}
-                        rooms={rooms}
+                        rooms={filteredList.length > 0 ? filteredList : rooms}
                         userId={userId}
                     />
                 </div>

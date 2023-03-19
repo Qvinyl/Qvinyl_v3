@@ -3,12 +3,13 @@ import Button from '@mui/material/Button';
 import { acceptInvitation, declineInvitation } from '../../../features/notificationService/Invitations';
 import '../../../css/Notification.css'
 
-const NotificationItem = ({invitationId, roomName, inviter, index, removeOnSuccess}) => {
+const NotificationItem = ({invitationId, roomName, inviter, index, removeOnSuccess, roomkey, joinRoom}) => {
 
     const acceptInvite = async (index) => {
         var results = await acceptInvitation(invitationId);
         if (results) {
             removeOnSuccess(index);
+            joinRoom(roomkey);
         }
     }
 

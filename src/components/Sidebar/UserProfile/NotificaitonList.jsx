@@ -6,7 +6,7 @@ import TableRow from '@mui/material/TableRow';
 import NotificationItem from './NotificationItem'
 import { fetchUserInvitations } from '../../../features/notificationService/Invitations';
 
-const NotificationList = ({userId}) => {
+const NotificationList = ({userId, joinRoom}) => {
     const[invitations, setInvitations] = useState([])
 
     useEffect(() => {
@@ -32,6 +32,7 @@ const NotificationList = ({userId}) => {
                             <TableRow key={index}>
                                 <TableCell className="table-cell">
                                     <NotificationItem
+                                        joinRoom={joinRoom}
                                         removeOnSuccess={removeOnSuccess}
                                         index={index}
                                         invitationId={item.id}

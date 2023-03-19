@@ -1,6 +1,12 @@
 import io from 'socket.io-client';
 export const socket = io("http://localhost:7777");
 
+export function connectSocket() {
+    if (!socket.connected) {
+        socket.connect();
+    }
+}
+
 socket.on("connect", () => {
     // console.log(socket.connected);
 });
@@ -39,6 +45,10 @@ export function onSeek(roomkey, progress) {
             onSeekProgress: progress 
         }
     );
+}
+
+export function disconnectSocket() {
+    socket.disconnect();
 }
 
 socket.on('message', message => {
