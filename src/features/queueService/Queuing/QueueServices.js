@@ -4,6 +4,8 @@ const firestoreDB = require('../../../config/constraints').db;
 const PLAYLIST_DOC = "Playlist";
 const LAST_PLAYED_DOC = "LastPlayed";
 
+var subscription;
+
 export async function addToPlaylist(roomkey, element) {
     const roomRef = doc(firestoreDB, PLAYLIST_DOC, roomkey);
     
@@ -42,17 +44,24 @@ export async function getLastPlayed(roomkey, setLastPlaylist) {
     });
 }
 
-export function getCurrentQueuedElement(roomkey, setCurrentElement) {
-    onSnapshot(doc(firestoreDB, PLAYLIST_DOC, roomkey), (doc) => {
+export async function getCurrentQueuedElement(roomkey, setCurrentElement) {
+    console.log(roomkey);
+    subscription = onSnapshot(doc(firestoreDB, PLAYLIST_DOC, roomkey), (doc) => {
+        console.log(roomkey);
         if (doc.data() === undefined) { 
             return;
         }
         if (doc.data().queue[0]) {
-            setCurrentElement(doc.data().queue[0])
+            setCurrentElement(doc.data().queue[0]);
         }
         else {
-            setCurrentElement({})
+            setCurrentElement({});
         }
     });
+}
+
+
+export async function unsubscribe() {
+    subscription();
 }
 

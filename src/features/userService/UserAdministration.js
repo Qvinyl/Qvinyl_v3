@@ -16,18 +16,12 @@ export function getUserCurrentRoomkey() {
     return USER.current_room_id;
 }
 
-export async function setUserCurrentRoomkey(roomkey) {
+export async function setUserCurrentRoomkey(userId, roomkey) {
     var currentRoomkey = getUserCurrentRoomkey();
-
     if (currentRoomkey === roomkey) {
         return;
     }
-    userJoinRoom(roomkey)
-    .then(isSet => {
-        if (isSet) {
-            USER.current_room_id = roomkey;
-        }
-    }); 
+    return await userJoinRoom(userId, roomkey);
 }
 
 //Check to see if user already exists
@@ -35,16 +29,13 @@ export async function findOrCreateUser(userInfo) {
     var getUserByUid = `${usersAPIEndpoint}/${userInfo.uid}`
     var response = await fetch(getUserByUid);  
     var user = await response.json();
-    if (user === null) { 
-        createNewUser(userInfo);
-    }
-    USER = user;
-    return user;
+    
+    return await user;
 }
 
 // Create New User 
 async function createNewUser(userInfo) {
-    fetch(usersAPIEndpoint, {
+    var response = await fetch(usersAPIEndpoint, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -57,13 +48,8 @@ async function createNewUser(userInfo) {
             display_name: userInfo.displayName,
         })
     })
-    .then(response => response.json())
-    .then((results) => {
-        USER = results; 
-    })
-    .catch((error) => {
-        return false;
-    });
+    var user = await response.json();
+    return user;
 }
 
 export async function logout() {
@@ -74,29 +60,19 @@ export async function logout() {
     });
 }
 
-export async function userJoinRoom(roomkey) {
+export async function userJoinRoom(userId, roomkey) {
     var joinRoomEndpoint = `${usersAPIEndpoint}/joinRoom`;
-    fetch(joinRoomEndpoint, {
+    var response = await fetch(joinRoomEndpoint, {
         method: "PUT",
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify ({
-            user_id: USER.user_id,
+            user_id: userId,
             roomkey: roomkey,
         })
     })
-    .then(response => {
-        response.json()
-        if (response.status === 200) {
-            return true;
-        }
-    })
-    .catch((error) => {
-        console.log(error);
-        return false;
-    });
-    return true;
+    return response.status == 200;
 }
 

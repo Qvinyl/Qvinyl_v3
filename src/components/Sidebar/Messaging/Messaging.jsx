@@ -5,7 +5,6 @@ import MessageList from './MessageList';
 import { hermes, sendMessage } from '../../../features/socketService/HermesService';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../../../store/actions/messagesActions';
-import ping from '../../../audio/notification-sound.mp3'
 import '../../../css/Messaging.css';
 
 const Messaging = ({currentRoomkey, userId, displayName}) => {

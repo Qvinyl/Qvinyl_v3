@@ -6,22 +6,21 @@ import { getRoomDataByKey } from '../features/roomService/RoomService';
 import { joinSocketRoom, leaveSocketRoom } from '../features/socketService/SyncService';
 import { joinMessageRoom, leaveMessageRoom } from '../features/socketService/HermesService';
 import { clearMessages } from '../store/actions/messagesActions';
-
+import { useSelector } from 'react-redux';
+import { unsubscribe } from '../features/queueService/Queuing/QueueServices';
 import '../css/Sidebar.css';
 import '../css/Main.css';
 
-const Qvinyl = ({user}) => {
+const Qvinyl = () => {
     const [sidebar, setSidebar] = useState(true);
     const [roomData, setRoomData] = useState({});
-    const [currentRoomkey, setCurrentRoomkey] = useState("");
-
+    const user = useSelector((state) => state.userReducer.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (user.current_room_id) {
             fetchRoomData();
             joinWebsocketsRooms(user.current_room_id);
-            setCurrentRoomkey(user.current_room_id);
         }
     }, [user.current_room_id]);
 
@@ -30,7 +29,7 @@ const Qvinyl = ({user}) => {
     }
 
     const fetchRoomData = async () => {
-        var fetchedRoomData = await getRoomDataByKey(currentRoomkey === "" ? user.current_room_id : currentRoomkey);
+        var fetchedRoomData = await getRoomDataByKey(user.current_room_id);
         if (fetchedRoomData) {
             setRoomData(fetchedRoomData);
         }
@@ -40,9 +39,9 @@ const Qvinyl = ({user}) => {
     }
 
     const joinRoom = (roomkey) => {
-        if (roomkey !== currentRoomkey) {
+        if (roomkey !== user.current_room_id) {
+            unsubscribe();
             leaveSocketRooms();
-            setCurrentRoomkey(roomkey);
             dispatch(clearMessages());
         }
     }
@@ -53,25 +52,21 @@ const Qvinyl = ({user}) => {
     }
 
     const leaveSocketRooms = () => {
-        leaveSocketRoom(currentRoomkey);
-        leaveMessageRoom(currentRoomkey, user.display_name);
+        leaveSocketRoom(user.current_room_id);
+        leaveMessageRoom(user.current_room_id, user.display_name);
     }
 
     return (
         <div className="main"> 
             <PlayerContainer
                 roomData={roomData}
-                displayName={user.display_name}
-                userId={user.user_id}
-                currentRoomkey={ currentRoomkey }
+                user={user}
             />
             
             <div className={sidebar ? "sidebar-wrapper" : "sidebar-wrapper-close"}>
                 <div className="slide">
                     <Sidebar 
-                        userId={user.user_id}
-                        displayName={user.display_name}
-                        currentRoomkey={currentRoomkey}
+                        user={user}
                         isOpen={sidebar}
                         joinRoom={joinRoom}
                         handleOnClickSidebarLip={handleOnClickSidebarLip} 

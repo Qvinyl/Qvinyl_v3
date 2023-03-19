@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { addMessage, clearMessages } from "./actions/messagesActions";
+import { addMessage, clearMessages } from "../actions/messagesActions";
 
 const initialState = { messages: [] };
 

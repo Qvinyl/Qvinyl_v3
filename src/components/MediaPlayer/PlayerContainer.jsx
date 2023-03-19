@@ -6,7 +6,7 @@ import { getCurrentQueuedElement } from '../../features/queueService/Queuing/Que
 import { socket, onSeek, onPausePlayMedia, onMediaEnded } from '../../features/socketService/SyncService';
 import '../../css/Player.css'
 
-const PlayerContainer = ({currentRoomkey, displayName, userId, roomData}) => {
+const PlayerContainer = ({user, roomData}) => {
     const [volume, setVolume] = useState(100);
     const [muted, setMute] = useState(false);
     const [playback, setPlayback] = useState(true);
@@ -15,14 +15,15 @@ const PlayerContainer = ({currentRoomkey, displayName, userId, roomData}) => {
     const [currentElement, setCurrentElement] = useState({});
     const [requester, setRequester] = useState({});
     const [hasControl, setHasControl] = useState(true)
-    const playerRef = useRef(null)
+    const playerRef = useRef(null)  
+    const currentRoomkey = user.current_room_id;
 
     useEffect(() => {  
         if (currentRoomkey) {
-            getCurrentQueuedElement(currentRoomkey, setCurrentElement);
-            setHasControl(roomData.admin === userId);
+            getSongElement();
+            setHasControl(roomData.admin === user.user_id);
         }
-    }, [currentRoomkey, roomData, userId]);
+    }, [roomData, user.user_id]);
     
     const setVolumeLevel = (level) => {
         setVolume(level);
@@ -57,6 +58,10 @@ const PlayerContainer = ({currentRoomkey, displayName, userId, roomData}) => {
         onMediaEnded(currentRoomkey);
     }
 
+    const getSongElement = async () => {
+        getCurrentQueuedElement(currentRoomkey, setCurrentElement);
+    }
+
     socket.on(`seeking-${currentRoomkey}`, (data) => {
         setProgressValue(data.progress);
         playerRef.current.seekTo(data.progress + 0.000005);
@@ -72,7 +77,7 @@ const PlayerContainer = ({currentRoomkey, displayName, userId, roomData}) => {
     });
 
     socket.on(`granted-control-${currentRoomkey}`, (data) => {
-        setHasControl(data.user === userId);
+        setHasControl(data.user === user.user_id);
     });;
     
     return (
@@ -89,8 +94,8 @@ const PlayerContainer = ({currentRoomkey, displayName, userId, roomData}) => {
                 />
                 <MediaControls
                     hasControl={hasControl}
-                    displayName={displayName}
-                    userId={userId}
+                    displayName={user.displayName}
+                    userId={user.user_id}
                     currentRoomkey={currentRoomkey}
                     handleOnSeekChange={handleOnSeekChange}
                     title={currentElement.title}
