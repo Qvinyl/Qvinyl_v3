@@ -5,20 +5,23 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import { useSelector } from 'react-redux';
 
-const QueueList = ({playlist}) => {
-
+const QueueList = () => {
+    const queue = useSelector((state) => state.queueReducer.queue);
+    
     return (
         <div className="list">
             <Table>
                 <TableBody>
                     {
-                        playlist.map((item, index) =>
+                        queue.map((item, index) =>
                             <TableRow 
                                 className={`table-row ${index === 0 ? "active-row" : ""}`}
                                 key={index}>
                                 <TableCell className="table-cell">
                                     <QueueItem
+                                        queue={queue}
                                         thumbnail={item.thumbnail}
                                         title={item.title}
                                         queuedBy={item.queuedBy}

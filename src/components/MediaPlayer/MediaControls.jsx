@@ -14,7 +14,7 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import CustomSlider from '../Basics/Slider/CustomSlider'; 
 import LinearProgress from '@mui/material/LinearProgress';
 import screenfull from 'screenfull';
-import { voteToSkip, requestingMediaControl } from '../../features/socketService/SyncService';
+import { socket, voteToSkip, requestingMediaControl } from '../../features/socketService/SyncService';
 
 const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomkey, user, hasControl}) => {
     const [isMuted, setMute] = useState(muted)
@@ -71,6 +71,13 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
         }
         requestingMediaControl(currentRoomkey, requestingUser);
     }
+
+    socket.off(`skipping-${currentRoomkey}`).on(`skipping-${currentRoomkey}`, (data) =>  {
+
+        if (data.skipping) {
+            setVoteToSkip(false);
+        }
+    });
 
     return (
         <div className="media-controls">
