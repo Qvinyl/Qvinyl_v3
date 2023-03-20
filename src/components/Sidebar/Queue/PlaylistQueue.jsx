@@ -7,13 +7,27 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { setPlaylist, setLastPlayed } from '../../../store/actions/queueActions';
 import { getRoomPlaylist, getLastPlayed } from '../../../features/queueService/Queuing/QueueServices'; 
 
 const PlaylistQueue = ({currentRoomkey, displayName}) => {
     const theme = useTheme();
     const [value, setValue] = useState(0);
-    const [playlist, setRoomPlaylist] = useState([])
-    const [lastPlayed, setLastPlaylist] = useState([])
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        getPlaylist();
+        getLastPlayedList();
+    }, []);
+
+    const getPlaylist = () => {
+        getRoomPlaylist(currentRoomkey, setPlaylist, dispatch)
+    }
+
+    const getLastPlayedList = () => {
+        getLastPlayed(currentRoomkey, setLastPlayed, dispatch)
+    }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -22,19 +36,6 @@ const PlaylistQueue = ({currentRoomkey, displayName}) => {
     const handleChangeIndex = (index) => {
         setValue(index);
     };
-
-    useEffect(() => {
-        getPlaylist();
-        getLastPlayedList();
-    }, []);
-
-    const getPlaylist = () => {
-        getRoomPlaylist(currentRoomkey, setRoomPlaylist)
-    }
-
-    const getLastPlayedList = () => {
-        getLastPlayed(currentRoomkey, setLastPlaylist)
-    }
 
     return (
         <div className="content-container queue">
@@ -55,15 +56,12 @@ const PlaylistQueue = ({currentRoomkey, displayName}) => {
                 onChangeIndex={handleChangeIndex}>
                     
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <QueueList
-                        playlist={playlist}
-                    />
+                    <QueueList/>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     <LastPlayedList
                         currentRoomkey={currentRoomkey}
                         displayName={displayName}
-                        lastPlayed={lastPlayed}
                     />
                 </TabPanel>
             </SwipeableViews>

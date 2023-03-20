@@ -5,9 +5,11 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { Button } from '@mui/material';
+import { useSelector } from 'react-redux';
 import '../../../css/Queue.css'
 
 const SearchList = ({searchResults, closeSearch, displayName, currentRoomkey}) => {
+    const queue = useSelector((state) => state.queueReducer.queue);
     
     return (
         <div> 
@@ -21,6 +23,7 @@ const SearchList = ({searchResults, closeSearch, displayName, currentRoomkey}) =
                                     key={index}>
                                     <TableCell className="table-cell">
                                         <QueueItem
+                                            queue={queue}
                                             currentRoomkey={currentRoomkey}
                                             displayName={displayName}
                                             url={item.url}

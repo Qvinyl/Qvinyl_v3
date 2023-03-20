@@ -34,8 +34,10 @@ const Messaging = ({currentRoomkey, userId, displayName}) => {
     }
 
     const keyPress = (e) => {
-        if(e.keyCode === 13){
-           handleSubmit(e);
+        if (message !== "" || message !== "\n") {
+            if(e.keyCode === 13){
+                handleSubmit(e);
+            }
         }
     }
 
@@ -45,8 +47,7 @@ const Messaging = ({currentRoomkey, userId, displayName}) => {
 
     return (
         <div className="content-container messaging">
-            <MessageList 
-                userId={userId}/>
+            <MessageList userId={userId}/>
             <div className="input-field send">
                 <FormControl onSubmit={handleSubmit}>
                     <RoundedInputField 

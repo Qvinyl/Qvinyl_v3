@@ -11,6 +11,9 @@ const userReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(setUser, (state, action) => {
             state.user = action.payload
+            if (state.user.current_room_id === null) {
+                state.user.current_room_id = "";
+            }
         })
         .addCase(setUserCurrentRoomkey, (state, action) => {
             state.user.current_room_id = action.payload

@@ -18,7 +18,7 @@ const Rooms = ({joinRoom, displayName, userId, currentRoomkey}) => {
             fetchAndSortRooms();
             setLoading(false);
         }
-    }, [userId, currentRoomkey]);
+    }, [userId]);
 
 
     const appendNewRoom = (roomdata) => {

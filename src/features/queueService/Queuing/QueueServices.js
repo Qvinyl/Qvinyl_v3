@@ -8,7 +8,7 @@ var subscription;
 
 export async function addToPlaylist(roomkey, element) {
     const roomRef = doc(firestoreDB, PLAYLIST_DOC, roomkey);
-    
+    var updatedSuccessfully = false;
     await updateDoc(roomRef, {
         queue: arrayUnion({
             url: element.url,
@@ -18,29 +18,30 @@ export async function addToPlaylist(roomkey, element) {
         })
     })
     .then(() => {
-        return true;
+        updatedSuccessfully = true;
     })
     .catch((e) => {
         console.log("Error adding document: ", e);
-        return false;
+        updatedSuccessfully = false;
     });
+    return updatedSuccessfully;
 }
 
-export async function getRoomPlaylist(roomkey, setRoomPlaylist) {
+export async function getRoomPlaylist(roomkey, setRoomPlaylist, dispatch) {
     onSnapshot(doc(firestoreDB, PLAYLIST_DOC, roomkey), (doc) => {
         if (doc.data() === undefined) { 
-            return;
+            return [];
         }
-        setRoomPlaylist(doc.data().queue)
+        dispatch(setRoomPlaylist(doc.data().queue));
     });
 }
 
-export async function getLastPlayed(roomkey, setLastPlaylist) {
+export async function getLastPlayed(roomkey, setLastPlaylist, dispatch) {
     onSnapshot(doc(firestoreDB, LAST_PLAYED_DOC, roomkey), (doc) => {
         if (doc.data() === undefined) { 
-            return;
+            return [];
         }
-        setLastPlaylist(doc.data().history)
+        dispatch(setLastPlaylist(doc.data().history))
     });
 }
 

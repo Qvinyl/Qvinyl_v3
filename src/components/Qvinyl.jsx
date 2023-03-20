@@ -20,12 +20,18 @@ const Qvinyl = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user.current_room_id && loggedIn) {
-            fetchRoomData();
-            connectSocketRooms();
-            joinWebsocketsRooms(user.current_room_id);
+        try {
+            if (user.current_room_id && loggedIn) {
+                fetchRoomData();
+                connectSocketRooms();
+                joinWebsocketsRooms(user.current_room_id);
+            }
         }
-    }, [user.current_room_id]);
+        catch (e) {
+            console.log(e, "no current room ID");
+        }
+      
+    }, [user]);
 
     const handleOnClickSidebarLip = (isOpen) => {
         setSidebar(isOpen)
@@ -67,10 +73,13 @@ const Qvinyl = () => {
 
     return (
         <div className="main"> 
-            <PlayerContainer
+            {user && 
+             <PlayerContainer
                 roomData={roomData}
                 user={user}
             />
+            }
+           
             
             <div className={sidebar ? "sidebar-wrapper" : "sidebar-wrapper-close"}>
                 <div className="slide">

@@ -10,7 +10,6 @@ import { searchYouTube } from '../../../features/queueService/ContentSearch/Yout
 import '../../../css/Queue.css'
 
 const Queue = ({currentRoomkey, displayName}) => {
-   
     const [searching, setSearching] = useState(false);
     const [searchTerm, setSearchInput] = useState("");
     const [searchResults, setSearchResults] = useState([]);

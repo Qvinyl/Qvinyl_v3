@@ -14,9 +14,9 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import CustomSlider from '../Basics/Slider/CustomSlider'; 
 import LinearProgress from '@mui/material/LinearProgress';
 import screenfull from 'screenfull';
-import { voteToSkip, requestingMediaControl } from '../../features/socketService/SyncService';
+import { socket, voteToSkip, requestingMediaControl } from '../../features/socketService/SyncService';
 
-const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomkey, displayName, userId, hasControl}) => {
+const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, volume, playback, setMuteState, muted, progress, playerRef, title, currentRoomkey, user, hasControl}) => {
     const [isMuted, setMute] = useState(muted)
     const [fullScreen, setFullScreen] = useState(false)
     const [votedToSkip, setVoteToSkip] = useState(false);
@@ -26,7 +26,6 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
         if (hasControl) {
             setPlaybackState(playback)
         }
-       
     }
 
     const handleOnFullScreen = (isFullScreen) => {
@@ -66,12 +65,19 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
     }
 
     const onRequestControlClick = () => {
-        var user = {
-            userId: userId,
-            displayName: displayName
+        var requestingUser = {
+            userId: user.user_id,
+            displayName: user.display_name
         }
-        requestingMediaControl(currentRoomkey, user);
+        requestingMediaControl(currentRoomkey, requestingUser);
     }
+
+    socket.off(`skipping-${currentRoomkey}`).on(`skipping-${currentRoomkey}`, (data) =>  {
+
+        if (data.skipping) {
+            setVoteToSkip(false);
+        }
+    });
 
     return (
         <div className="media-controls">

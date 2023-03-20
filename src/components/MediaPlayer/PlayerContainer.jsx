@@ -77,7 +77,10 @@ const PlayerContainer = ({user, roomData}) => {
     });
 
     socket.on(`granted-control-${currentRoomkey}`, (data) => {
-        setHasControl(data.user === user.user_id);
+        setHasControl(data.user === user.user_id)
+        if (roomData.admin === user.user_id) {
+            setHasControl(roomData.admin === user.user_id);
+        }
     });;
     
     return (
@@ -94,8 +97,7 @@ const PlayerContainer = ({user, roomData}) => {
                 />
                 <MediaControls
                     hasControl={hasControl}
-                    displayName={user.displayName}
-                    userId={user.user_id}
+                    user={user}
                     currentRoomkey={currentRoomkey}
                     handleOnSeekChange={handleOnSeekChange}
                     title={currentElement.title}

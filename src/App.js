@@ -39,7 +39,7 @@ const App = () => {
     <div className="App">
         <Routes>
           <Route exact path="/login" element={<Login/>}/>
-          <Route exact path="/qvinyl" element={ auth && <Qvinyl/> } />
+          <Route exact path="/qvinyl" element={<Qvinyl/>} />
         </Routes>
     </div>
   );
