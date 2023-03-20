@@ -34,9 +34,6 @@ export async function createVirtualRoom(user_id, roomname) {
 
 async function addRoomToFireStore(roomkey) {
     try {
-        await setDoc(doc(firestoreDB, CHATROOM_DOC, roomkey), {
-            messages: []
-        });
         await setDoc(doc(firestoreDB, PLAYLIST_DOC, roomkey), {
             queue: []
         });
@@ -77,7 +74,6 @@ export async function deleteVirtualRoom(roomkey) {
 
 async function deleteFromFireStore(roomkey) {
     try {
-        await deleteDoc(doc(firestoreDB, CHATROOM_DOC, roomkey));
         await deleteDoc(doc(firestoreDB, PLAYLIST_DOC, roomkey));
         await deleteDoc(doc(firestoreDB, LASTPLAYED_DOC, roomkey));
     }

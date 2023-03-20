@@ -20,12 +20,14 @@
     position: relative;
     height: 100%;
     overflow-y: scroll;
+    /* scroll-behavior: smooth !important; */
 }
 
 .send {
     position: relative;
-    height: 100%;
     height: auto;
+    margin-top: auto;
+
 }
 
 .thumbnail-container {

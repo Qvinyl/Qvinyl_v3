@@ -25,6 +25,7 @@
 
 .sent {
     margin-left: auto;
+    margin-right: 16px;
     padding: 10px;
     width: fit-content;
     border-radius: 10px 10px 0px 10px;
@@ -39,6 +40,7 @@
 
 .received {
     margin-right: auto;
+    margin-left: 16px;
     padding: 10px;
     width: fit-content;
     border-radius: 10px 10px 10px 0px;
@@ -46,6 +48,7 @@
 }
 
 .text-label {
+    margin-left: 16px;
     font-size: 12px;
     color: #ACACAC;
 }
@@ -55,5 +58,6 @@
 }
 
 .message {
-    padding: 0px 16px 0px 16px !important;
+    /* padding: 0px 16px 0px 16px !important; */
+    overflow: hidden;
 }
