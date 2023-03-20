@@ -48,6 +48,8 @@ const Qvinyl = () => {
     }
 
     const joinRoom = (roomkey) => {
+        console.log(user.current_room_id);
+        console.log(roomkey);
         if (roomkey !== user.current_room_id) {
             unsubscribe();
             leaveSocketRooms();
