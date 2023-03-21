@@ -52,7 +52,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
             case NOTIFICATIONS:
                 return <Profile displayName={user.display_name} userId={user.user_id}/>
             default: 
-                chooseTabs(0);
+                chooseTabs(2);
         }
     }
 
