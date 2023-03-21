@@ -72,6 +72,25 @@ export async function deleteVirtualRoom(roomkey) {
     return true;
 }
 
+export async function renameVirtualRoom(roomkey, roomName) {
+    var updateRoomEndpoint = `${roomAPIEndpoint}/${roomkey}`
+    var response = await fetch(updateRoomEndpoint, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify ({
+            roomkey: roomkey, 
+            room_name: roomName
+        })
+    })
+    if (response.status !== 200) {
+        return false;
+    }    
+    return await response.json();
+}
+
 async function deleteFromFireStore(roomkey) {
     try {
         await deleteDoc(doc(firestoreDB, PLAYLIST_DOC, roomkey));

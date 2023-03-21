@@ -6,6 +6,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import InvitationAccordion from '../Accordian/InvitationAccordion';
 import RoundedInputField from '../InputField/RoundedInputField';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
 import UserList from '../../Sidebar/Rooms/UserList/UserList';
 import AddedUserBox from '../../Sidebar/Rooms/UserList/AddedUserBox';
 import { getUsers } from '../../../features/userService/UserInvitation';
@@ -54,7 +56,7 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
             setExpanded(true);
             var newList = users.filter(user => {
                 const lc = (user.display_name).toLowerCase();
-                return lc.includes(newValue.toLowerCase())
+                return lc.includes(newValue.toLowerCase());
             });
             setFilteredList(newList);
         }
@@ -67,7 +69,7 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
         setSearchUser("");
         setFilteredList([]);
         setInvitationList([]);
-        handleInvitationModalClose()
+        handleInvitationModalClose();
     }
 
     const fetchUsers = async () => {
@@ -76,7 +78,7 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
     }
 
     const addToInvitationList = (user) => {
-        var list = invitationList
+        var list = invitationList;
         list.push(user);
         setInvitationList([...list]);
     };
@@ -106,13 +108,17 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
                     }
                     <InvitationAccordion disableGutters expanded={expanded}>
                         <AccordionSummary>
-                            <RoundedInputField
+                        <FormControl fullWidth>
+                            <TextField
+                                size="small"
                                 value={searchUser}
                                 label="Search users" 
                                 onChange={setSearchInput} 
                                 multiline 
                                 maxRows={1} 
                             />
+                        </FormControl>
+                        
                         </AccordionSummary>
                         <AccordionDetails>
                             <UserList addToInvitationList={addToInvitationList} users={filteredList}/>
