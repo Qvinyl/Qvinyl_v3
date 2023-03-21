@@ -11,6 +11,7 @@ import AddedUserBox from '../../Sidebar/Rooms/UserList/AddedUserBox';
 import { getUsers } from '../../../features/userService/UserInvitation';
 import { Button } from '@mui/material';
 import { createInvitation } from '../../../features/notificationService/Invitations';
+import { sendNotification } from '../../../features/socketService/NotificationService';
 import '../../../css/Modals.css';
 import '../../../css/Room.css';
 
@@ -34,7 +35,10 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
                     room_id: roomId,
                     has_joined: false
                 }
-                createInvitation(invite);
+                var results = createInvitation(invite);
+                if (results) {
+                    sendNotification(invitee.user_id);
+                }
             }
             handleInvitationModalClose();
         }

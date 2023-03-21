@@ -4,13 +4,15 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import ChatIcon from '@mui/icons-material/Chat';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import WeekendIcon from '@mui/icons-material/Weekend';
-import PersonIcon from '@mui/icons-material/Person';
-
+// import PersonIcon from '@mui/icons-material/Person';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Badge from '@mui/material/Badge';
 import SidebarLip from './SidebarLip';
 import Messaging from './Messaging/Messaging';
 import Queue from './Queue/Queue';
 import Rooms from './Rooms/Rooms';
 import Profile from './UserProfile/Profile';
+import { notifications } from '../../features/socketService/NotificationService';
 
 import '../../css/Sidebar.css'
 
@@ -21,7 +23,8 @@ const NOTIFICATIONS = 3;
 
 
 const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
-    const [tab, setTab] = useState()
+    const [tab, setTab] = useState();
+    const [readNotifications, setReadNotifications] = useState()
 
     useEffect(() => {
         if (user.current_room_id === "") {
@@ -29,9 +32,12 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                 setTab(tab)
             }
         }
-    })
+    }, [tab])
 
     const chooseTabs = (index) => {
+        if (index === 3) {
+            setReadNotifications(false);
+        }
         setTab(index)
     }
     
@@ -49,6 +55,10 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                 chooseTabs(0);
         }
     }
+
+    notifications.on(`notify-${user.user_id}`, (data) => {
+        setReadNotifications(data.notification);
+    })
    
     return (
         <div className="sidebar-container">
@@ -72,7 +82,14 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                     </Button>
 
                     <Button className={tab === NOTIFICATIONS ? "active-tab" : "tab"} onClick={() => chooseTabs(NOTIFICATIONS)}>
-                        <PersonIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
+                        {
+                            readNotifications ?
+                            <Badge color="primary" overlap="circular" variant="dot"> 
+                                <NotificationsIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
+                            </Badge>
+                            :
+                            <NotificationsIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
+                        }
                     </Button>
                     
                 </ButtonGroup>

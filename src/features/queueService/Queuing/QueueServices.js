@@ -59,7 +59,6 @@ export async function getCurrentQueuedElement(roomkey, setCurrentElement) {
     });
 }
 
-
 export async function unsubscribe() {
     subscription();
 }

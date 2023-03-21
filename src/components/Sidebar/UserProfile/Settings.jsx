@@ -3,15 +3,17 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import SettingsIcon from '@mui/icons-material/Settings';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+// import SettingsIcon from '@mui/icons-material/Settings';
+// import DarkModeIcon from '@mui/icons-material/DarkMode';
 // import Switch from '@mui/material/Switch';
 // import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Setting from './Setting';
 import { useNavigate } from 'react-router-dom';
-import { leaveSocketRoom, disconnectSocket } from '../../../features/socketService/SyncService';
-import { leaveMessageRoom, disconnectMessaging } from '../../../features/socketService/HermesService';
+import { disconnectSocket } from '../../../features/socketService/SyncService';
+import { disconnectMessaging } from '../../../features/socketService/HermesService';
+import { disconnectNotifications } from '../../../features/socketService/NotificationService';
 import { setLoggedIn } from '../../../store/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 const logout = require('../../../features/userService/UserAdministration').logout;
@@ -34,12 +36,13 @@ const Settings = ({displayName}) => {
     const leaveRoom = () => {
         disconnectSocket();
         disconnectMessaging();
+        disconnectNotifications();
     }
 
     return (
         <Accordion className="text-color-light component-tab" disableGutters>
             <AccordionSummary 
-                expandIcon={<SettingsIcon className="add"/>}>
+                expandIcon={<ExpandMore className="add"/>}>
                 <Typography component={'span'}>
                     {displayName}
                 </Typography>
