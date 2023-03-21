@@ -3,8 +3,9 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import SettingsIcon from '@mui/icons-material/Settings';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+// import SettingsIcon from '@mui/icons-material/Settings';
+// import DarkModeIcon from '@mui/icons-material/DarkMode';
 // import Switch from '@mui/material/Switch';
 // import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -41,7 +42,7 @@ const Settings = ({displayName}) => {
     return (
         <Accordion className="text-color-light component-tab" disableGutters>
             <AccordionSummary 
-                expandIcon={<SettingsIcon className="add"/>}>
+                expandIcon={<ExpandMore className="add"/>}>
                 <Typography component={'span'}>
                     {displayName}
                 </Typography>

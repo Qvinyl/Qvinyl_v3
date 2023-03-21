@@ -73,7 +73,6 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
     }
 
     socket.off(`skipping-${currentRoomkey}`).on(`skipping-${currentRoomkey}`, (data) =>  {
-
         if (data.skipping) {
             setVoteToSkip(false);
         }
