@@ -7,8 +7,8 @@ module.exports = {
     FB_MESSAGING_SENDER_ID: "1095197449779",
     FB_APP_ID: "1:1095197449779:web:7efbd809f751e285800d46",
 
-    HOSTSITE: "localhost",
-    // HOSTSITE: "35.235.106.128",
+    // HOSTSITE: "localhost",
+    HOSTSITE: "35.235.106.128",
     SYNC_PORT: "7777",
     YTS_PORT: "9000",
     MSG_PORT: "9993",
