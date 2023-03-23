@@ -3,7 +3,7 @@ import MediaControls from './MediaControls';
 import Player from './Player';
 import RequestControlModal from '../Basics/Modals/RequestControlModal';
 import { getCurrentQueuedElement } from '../../features/queueService/Queuing/QueueServices';
-import { socket, onSeek, onPausePlayMedia, onMediaEnded } from '../../features/socketService/SyncService';
+import { socket, onSeek, onPausePlayMedia, onMediaEnded, onSyncRoom } from '../../features/socketService/SyncService';
 import '../../css/Player.css'
 
 const PlayerContainer = ({user, roomData}) => {
@@ -44,10 +44,14 @@ const PlayerContainer = ({user, roomData}) => {
     }
 
     const handleOnSeekChange = (progress) => {
-        var onSeekProgress = parseFloat(progress/100)
+        var onSeekProgress = parseFloat(progress/100);
         setProgressValue(progress)
         onSeek(currentRoomkey, onSeekProgress);
         playerRef.current.seekTo(onSeekProgress);
+    }
+
+    const handleOnReady = () => {
+        playerRef.current.seekTo(0);
     }
 
     const handleControlModalClose = () => {
@@ -62,7 +66,7 @@ const PlayerContainer = ({user, roomData}) => {
         getCurrentQueuedElement(currentRoomkey, setCurrentElement);
     }
 
-    socket.on(`seeking-${currentRoomkey}`, (data) => {
+    socket.off(`seeking-${currentRoomkey}`).on(`seeking-${currentRoomkey}`, (data) => {
         setProgressValue(data.progress);
         playerRef.current.seekTo(data.progress + 0.000005);
     });
@@ -81,7 +85,11 @@ const PlayerContainer = ({user, roomData}) => {
         if (roomData.admin === user.user_id) {
             setHasControl(roomData.admin === user.user_id);
         }
-    });;
+    });
+
+    socket.off(`sync-up-${currentRoomkey}`).on(`sync-up-${currentRoomkey}`, () => {
+        onSyncRoom(currentRoomkey, progress/100);
+    })
     
     return (
         <div className="player">
@@ -94,6 +102,7 @@ const PlayerContainer = ({user, roomData}) => {
                     volume={volume}
                     url={currentElement.url}
                     handleOnVideoEnded={handleOnVideoEnded}
+                    handleOnReady={handleOnReady}
                 />
                 <MediaControls
                     hasControl={hasControl}

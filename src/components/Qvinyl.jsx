@@ -3,7 +3,7 @@ import PlayerContainer from './MediaPlayer/PlayerContainer';
 import Sidebar from './Sidebar/Sidebar';
 import { useDispatch } from 'react-redux';
 import { getRoomDataByKey } from '../features/roomService/RoomService';
-import { joinSocketRoom, leaveSocketRoom, connectSocket } from '../features/socketService/SyncService';
+import { joinSocketRoom, leaveSocketRoom, connectSocket, syncUp } from '../features/socketService/SyncService';
 import { joinMessageRoom, leaveMessageRoom, connectMessagingSocket } from '../features/socketService/HermesService';
 import { clearMessages } from '../store/actions/messagesActions';
 import { setUserCurrentRoomkey } from '../store/actions/userActions';
@@ -20,6 +20,7 @@ const Qvinyl = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log("SETING UP DATA");
         try {
             if (user.current_room_id && loggedIn) {
                 fetchRoomData();
@@ -58,6 +59,7 @@ const Qvinyl = () => {
 
     const joinWebsocketsRooms = (roomkey) => {
         joinSocketRoom(roomkey);
+        syncUp(roomkey);
         joinMessageRoom(roomkey, user.display_name);
     }
 

@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+// export const notifications = io("http://35.235.106.128:5240");
 export const notifications = io("http://localhost:5240");
 
 notifications.on("connect");
