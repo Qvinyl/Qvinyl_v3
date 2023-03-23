@@ -1,4 +1,6 @@
-const usersAPIEndpoint = "http://localhost:3000/api/v1/users"
+import { HOSTSITE, ORM_PORT } from "../../config/db_config";
+
+const usersAPIEndpoint = `http://${HOSTSITE}:${ORM_PORT}/api/v1/users`
 
 export async function getUsers() {
     var response = await fetch(usersAPIEndpoint, {

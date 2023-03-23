@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
-export const socket = io("http://localhost:7777");
+import { HOSTSITE, SYNC_PORT } from '../../config/db_config';
+export const socket = io(`http://${HOSTSITE}:${SYNC_PORT}`);
 
 export function connectSocket() {
     if (!socket.connected) {
@@ -45,6 +46,19 @@ export function onSeek(roomkey, progress) {
             onSeekProgress: progress 
         }
     );
+}
+
+export function syncUp(roomkey) {
+    socket.emit(`sync-up`, { 
+        roomkey: roomkey
+    });
+}
+
+export function onSyncRoom(roomkey, progress) {
+    socket.emit(`sync-room`, { 
+        roomkey: roomkey,
+        progress: progress 
+    });
 }
 
 export function disconnectSocket() {

@@ -1,5 +1,7 @@
+import { HOSTSITE, YTS_PORT } from "../../../config/db_config";
+
 export async function searchYouTube(searchTerm) {
-    var searchEndpoint = "http://localhost:9000/search";
+    var searchEndpoint = `http://${HOSTSITE}:${YTS_PORT}/search`;
     var results = [];
 
     await fetch(searchEndpoint, {
