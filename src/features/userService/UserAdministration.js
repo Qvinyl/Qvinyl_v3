@@ -1,7 +1,8 @@
 import { signOut } from "firebase/auth";
+import { HOSTSITE, ORM_PORT } from "../../config/db_config";
 const auth = require('../../config/constraints').firebaseAuth;
 
-const usersAPIEndpoint = "http://localhost:3000/api/v1/users";
+const usersAPIEndpoint = `http://${HOSTSITE}:${ORM_PORT}/api/v1/users`;
 var USER = {}
 
 export async function getUserInfo() {
