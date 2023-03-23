@@ -1,7 +1,6 @@
 import io from 'socket.io-client';
-// export const socket = io("http://35.235.106.128:7777");
-export const socket = io("http://localhost:7777");
-
+import { HOSTSITE, SYNC_PORT } from '../../config/db_config';
+export const socket = io(`http://${HOSTSITE}:${SYNC_PORT}`);
 
 export function connectSocket() {
     if (!socket.connected) {

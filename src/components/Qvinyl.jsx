@@ -20,7 +20,6 @@ const Qvinyl = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("SETING UP DATA");
         try {
             if (user.current_room_id && loggedIn) {
                 fetchRoomData();

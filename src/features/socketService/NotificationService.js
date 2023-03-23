@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
-// export const notifications = io("http://35.235.106.128:5240");
-export const notifications = io("http://localhost:5240");
+import { HOSTSITE, NOT_PORT } from '../../config/db_config';
+export const notifications = io(`http://${HOSTSITE}:${NOT_PORT}`);
 
 notifications.on("connect");
 

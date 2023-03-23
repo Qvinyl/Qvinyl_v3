@@ -1,4 +1,6 @@
-const InvitationAPIEndpoint = "http://localhost:3000/api/v1/invitations"
+import { HOSTSITE, ORM_PORT } from "../../config/db_config";
+
+const InvitationAPIEndpoint = `http://${HOSTSITE}:${ORM_PORT}/api/v1/invitations`
 
 export async function fetchUserInvitations(user_id) {
     const userInvitationsEndpoint = `${InvitationAPIEndpoint}/${user_id}`;

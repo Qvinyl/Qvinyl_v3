@@ -1,7 +1,8 @@
 import { doc, setDoc, deleteDoc } from "firebase/firestore"; 
+import { HOSTSITE, ORM_PORT } from "../../config/db_config";
 const firestoreDB = require('../../config/constraints').db;
 
-const roomAPIEndpoint = "http://localhost:3000/api/v1/rooms"
+const roomAPIEndpoint = `http://${HOSTSITE}:${ORM_PORT}/api/v1/rooms`
 
 const CHATROOM_DOC = "ChatRoom";
 const PLAYLIST_DOC = "Playlist";

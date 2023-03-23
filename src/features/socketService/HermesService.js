@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
-// export const hermes = io("http://35.235.106.128:9993");
-export const hermes = io("http://localhost:9993");
+import { HOSTSITE, MSG_PORT } from '../../config/db_config';
+export const hermes = io(`http://${HOSTSITE}:${MSG_PORT}`);
 
 hermes.on("connect");
 
