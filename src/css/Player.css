@@ -12,7 +12,7 @@
 
 .media-controls {
     cursor: pointer;
-    opacity: 0;
+    opacity: 1;
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -56,7 +56,7 @@
     width: 0px !important;
     transition: 0.5s;
     margin: auto auto auto 10px;
-    display: flex;
+
 }
 
 .volume-container:hover .slider {
@@ -67,6 +67,7 @@
 
 .slider:active {
     width: 125px !important;
+    display: flex !important;
 } 
 
 .volume-button-container {
