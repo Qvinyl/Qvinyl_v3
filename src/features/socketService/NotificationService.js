@@ -11,7 +11,6 @@ export function connectMessagingSocket() {
 }
 
 export function sendNotification(userId) {
-    console.log(userId);
     notifications.emit('send-Invitation', {userId});
 }
 

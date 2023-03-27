@@ -97,10 +97,9 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    Sending Invitations to <b>{roomName}</b>.   
+                    <b>{roomName}</b>
                     <br/>
-                    <br/>
-                    <div className="proposed-text">Proposed Invitations to:</div>
+                    <div className="proposed-text">Send Invitations to:</div>
                     {
                         invitationList.map((user, index) => 
                             <AddedUserBox key={index} index={index} removeFromInvitationList={removeFromInvitationList} user={user}/>
