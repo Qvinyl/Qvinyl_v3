@@ -10,7 +10,7 @@
   height: 100%;
   display: flex;
   justify-content: space-between;
-  transition: transform 0.5s ease-out;
+  transition: transform 0.3s ease-out;
   overflow: hidden;
 }
 
@@ -20,16 +20,10 @@
 
 .slider-content.show {
   transform: translateX(100%);
-  /* width: 100%; */
 }
 
 .slider-button {
-  /* position: relative; */
-  /* border: none; */
   background: #2b2b2b !important;
-  /* color: white; */
-  /* cursor: pointer; */
-  /* margin-left: auto; */
 }
 
 
