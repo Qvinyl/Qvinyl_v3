@@ -3,6 +3,8 @@
   display: flex;
   margin-left: auto;
   overflow: hidden;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .slider-content {
@@ -26,7 +28,10 @@
   background: #2b2b2b !important;
 }
 
-
 .slider-button:hover {
   background: #1976d2 !important;
+}
+
+.slider-container {
+  margin: auto 0 auto auto;
 }

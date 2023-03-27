@@ -64,36 +64,38 @@ const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setC
                             <div className="room-item-text" onClick={() => {setCurrentRoomkey()}}>{updatedRoomName}</div> 
                         }
                     </Tooltip>
+                
+                    <div className="slider-container">
+                        <ContentSlider 
+                            content={
+                                <div className="room-options-container">
+                                    <div className="option-container">
+                                        <RoomOption
+                                            action={handleRenameModalOpen}
+                                            option="Rename Room" 
+                                            icon={<EditIcon className="icon"/>}
+                                        /> 
+                                    </div> 
 
-                    <ContentSlider 
-                        content={
-                            <div className="room-options-container">
-                                <div className="option-container">
-                                    <RoomOption
-                                        action={handleRenameModalOpen}
-                                        option="Rename Room" 
-                                        icon={<EditIcon className="icon"/>}
-                                    /> 
+                                    <div className="option-container">
+                                        <RoomOption
+                                            action={handleInvitationModalOpen}
+                                            option="Invite People" 
+                                            icon={<PersonAddIcon className="icon"/>}
+                                        /> 
+                                    </div>
+                                    
+                                    <div className="option-container">
+                                        <RoomOption
+                                            action={handleDeleteModalOpen}
+                                            option="Delete Room" 
+                                            icon={<DeleteOutlineIcon className="icon"/>}
+                                        /> 
+                                    </div>
                                 </div> 
-
-                                <div className="option-container">
-                                    <RoomOption
-                                        action={handleInvitationModalOpen}
-                                        option="Invite People" 
-                                        icon={<PersonAddIcon className="icon"/>}
-                                    /> 
-                                </div>
-                                
-                                <div className="option-container">
-                                    <RoomOption
-                                        action={handleDeleteModalOpen}
-                                        option="Delete Room" 
-                                        icon={<DeleteOutlineIcon className="icon"/>}
-                                    /> 
-                                </div>
-                            </div> 
-                        }
-                    />
+                            }
+                        />
+                    </div>
                 </div>
             </div>
 

@@ -46,7 +46,7 @@
 }
 
 .room-item {
-    padding: 16px;
+    padding: 16px 0px 16px 0px;
     font-size: 16px;
     cursor: pointer;
     margin: auto;

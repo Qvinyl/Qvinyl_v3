@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import './Slider.css';
 
 function ContentSlider({ content }) {
@@ -14,7 +15,7 @@ function ContentSlider({ content }) {
         <div className={`slider-content ${showContent ? 'show' : ''}`}>
             {content}
         </div>
-        <Button className="slider-button" variant="contained" onClick={toggleContent}>
+        <Button className="slider-button" variant="contained" size="small" onClick={toggleContent}>
             Admin
         </Button>
     </div>
