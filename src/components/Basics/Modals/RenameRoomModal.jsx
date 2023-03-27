@@ -50,7 +50,7 @@ const RenameRoomModal = ({updateRoomName, renameModalOpen, handleRenameModalClos
                 </DialogTitle>
                 <DialogActions>
                     <Button onClick={renameRoom}>Rename</Button>
-                    <Button onClick={handleRenameModalClose}>Cancel</Button>
+                    <Button className="delete-button" onClick={handleRenameModalClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
         </div>

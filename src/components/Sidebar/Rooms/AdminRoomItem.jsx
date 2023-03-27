@@ -1,22 +1,17 @@
 import {React, useState} from 'react';
-import RoomAccordion from '../../Basics/Accordian/RoomAccordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMore from '@mui/icons-material/ExpandMore';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RoomDeletionModal from '../../Basics/Modals/RoomDeletionModal';
 import RenameRoomModal from '../../Basics/Modals/RenameRoomModal';
 import InvitationModal from '../../Basics/Modals/InvitationModal';
+import ContentSlider from '../../Basics/ContentSlider/ContentSlider';
 import RoomOption from './RoomOption';
-import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 
 import { setUserCurrentRoomkey } from '../../../features/userService/UserAdministration';
 
-const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setCurrentRoom, userId}) => {
-    const [expanded, setExpanded] = useState(false);
+const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setCurrentRoom, userId, selected}) => {
     const [deletionModalOpen, setdeletionModalOpen] = useState(false);
     const [invitationModalOpen, setInvitationModalOpen] = useState(false);
     const [renameModalOpen, setRenameModalOpen] = useState(false);  
@@ -46,10 +41,6 @@ const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setC
         setdeletionModalOpen(false);
     };
 
-    const handleChange = (isExpanded) => {
-        setExpanded(isExpanded);
-    }
-    
     const setCurrentRoomkey = async () => {
         var results = await setUserCurrentRoomkey(userId, roomkey)
         if  (results) {
@@ -62,36 +53,50 @@ const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setC
     }
     
     return (
-        <div>
-            <RoomAccordion disableGutters expanded={expanded}>
-                <AccordionSummary 
-                    expandIcon={
-                        <div className="button-outline-dropdown">
-                            <ExpandMore className="add" onClick={() => handleChange(!expanded)}/>
-                        </div>
-                    }>
-                    <Typography onClick={() => {setCurrentRoomkey()}}>
-                        <b>{updatedRoomName}</b>
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <RoomOption 
-                        action={handleInvitationModalOpen}
-                        option="Invite People" 
-                        icon={<PersonAddIcon className="icon"/>}
+        <div>                    
+            <div className="text-color-light room-item">
+                <div className="room-item-container">
+                    <Tooltip title="Join Room">
+                        {
+                            selected ?
+                            <b className="room-item-text">{updatedRoomName}</b> 
+                            :
+                            <div className="room-item-text" onClick={() => {setCurrentRoomkey()}}>{updatedRoomName}</div> 
+                        }
+                    </Tooltip>
+
+                    <ContentSlider 
+                        content={
+                            <div className="room-options-container">
+                                <div className="option-container">
+                                    <RoomOption
+                                        action={handleRenameModalOpen}
+                                        option="Rename Room" 
+                                        icon={<EditIcon className="icon"/>}
+                                    /> 
+                                </div> 
+
+                                <div className="option-container">
+                                    <RoomOption
+                                        action={handleInvitationModalOpen}
+                                        option="Invite People" 
+                                        icon={<PersonAddIcon className="icon"/>}
+                                    /> 
+                                </div>
+                                
+                                <div className="option-container">
+                                    <RoomOption
+                                        action={handleDeleteModalOpen}
+                                        option="Delete Room" 
+                                        icon={<DeleteOutlineIcon className="icon"/>}
+                                    /> 
+                                </div>
+                            </div> 
+                        }
                     />
-                    <RoomOption 
-                        action={handleRenameModalOpen}
-                        option="Rename Room" 
-                        icon={<EditIcon className="icon"/>}
-                    />
-                    <RoomOption 
-                        action={handleDeleteModalOpen}
-                        option="Delete Room" 
-                        icon={<DeleteOutlineIcon className="icon"/>}
-                    />
-                </AccordionDetails>
-            </RoomAccordion>
+                </div>
+            </div>
+
             <RoomDeletionModal 
                 removeRoom={removeRoom}
                 roomkey={roomkey}

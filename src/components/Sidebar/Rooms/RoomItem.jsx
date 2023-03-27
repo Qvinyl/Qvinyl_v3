@@ -1,7 +1,7 @@
 import React from 'react';
 import { setUserCurrentRoomkey } from '../../../features/userService/UserAdministration';
 
-const RoomItem = ({roomkey, roomName, setCurrentRoom, userId}) => {
+const RoomItem = ({roomkey, roomName, setCurrentRoom, userId, selected}) => {
 
     const setCurrentRoomkey = async () => {
         var results = await setUserCurrentRoomkey(userId, roomkey)
@@ -12,7 +12,13 @@ const RoomItem = ({roomkey, roomName, setCurrentRoom, userId}) => {
     
     return (
         <div className="text-color-light room-item" onClick={() => {setCurrentRoomkey()}}>
-            {roomName}
+            <div className="room-item-text">
+                { selected ?
+                    <b>{roomName}</b>
+                    :
+                    <div> {roomName} </div>
+                } 
+            </div>
         </div>
     )
 }

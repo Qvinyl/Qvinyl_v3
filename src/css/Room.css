@@ -22,7 +22,7 @@
 }
 
 .option-container {
-    margin: auto;
+    padding: 5px;
 }
 
 .room-option-container {
@@ -40,14 +40,20 @@
     margin-bottom: auto;
 }
 
-.icon {
-    margin-top: 4px;
-    margin-left: auto;
+.room-item-container {
+    display: flex;
+    margin: auto;
 }
 
 .room-item {
     padding: 16px;
     font-size: 16px;
+    cursor: pointer;
+    margin: auto;
+}
+
+.room-item-text {
+    padding: 5px;
     cursor: pointer;
 }
 
@@ -55,8 +61,14 @@
     overflow: hidden;
 }
 
+.room-options-container {
+    margin-left: auto;
+    display: flex;
+}
+
 .active-row {
-    background-color: rgba(53, 53, 53, 1);
+    background-color: #08213b;
+    font-weight: bold;
 }
 
 .table-row {
@@ -77,4 +89,8 @@
 
 .user-invitation-row:hover {
     background-color: #d8d8d8;
+}
+
+.room-table-cell {
+    padding: 0px !important;
 }

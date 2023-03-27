@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PlayerContainer from './MediaPlayer/PlayerContainer';
 import Sidebar from './Sidebar/Sidebar';
+import ContentSlider from './Basics/ContentSlider/ContentSlider'
 import { useDispatch } from 'react-redux';
 import { getRoomDataByKey } from '../features/roomService/RoomService';
 import { joinSocketRoom, leaveSocketRoom, connectSocket, syncUp } from '../features/socketService/SyncService';

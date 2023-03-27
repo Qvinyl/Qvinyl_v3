@@ -20,8 +20,9 @@ const RoomList = ({displayName, rooms, userId, removeRoom, currentRoomkey, setCu
                                 index={index} 
                                 className={`table-row ${currentRoomkey === room.roomkey ? "active-row" : ""}`}>
                                 <TableCell 
-                                    className="table-cell">
+                                    className="room-table-cell">
                                     <Room 
+                                        selected={currentRoomkey === room.roomkey }
                                         userId={userId}
                                         displayName={displayName}
                                         roomId={room.id}

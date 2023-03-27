@@ -1,0 +1,38 @@
+.content-slider {
+  position: relative;
+  display: flex;
+  margin-left: auto;
+  overflow: hidden;
+}
+
+.slider-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  transition: transform 0.5s ease-out;
+  overflow: hidden;
+}
+
+.slider-content > * {
+  overflow: hidden;
+}
+
+.slider-content.show {
+  transform: translateX(100%);
+  /* width: 100%; */
+}
+
+.slider-button {
+  /* position: relative; */
+  /* border: none; */
+  background: #2b2b2b !important;
+  /* color: white; */
+  /* cursor: pointer; */
+  /* margin-left: auto; */
+}
+
+
+.slider-button:hover {
+  background: #1976d2 !important;
+}
