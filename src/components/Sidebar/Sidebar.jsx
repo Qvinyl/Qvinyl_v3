@@ -61,7 +61,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
             case NOTIFICATIONS:
                 return <Profile displayName={user.display_name} userId={user.user_id} joinRoom={joinRoom}/>
             default: 
-                chooseTabs(2);
+                chooseTabs(0);
         }
     }
 
@@ -80,7 +80,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                         <Button className={tab === MESSAGING ? "active-tab" : "tab"} onClick={() => chooseTabs(MESSAGING)}>
                             {
                                 newMessages && tab !== MESSAGING ?
-                                <Badge color="secondary" overlap="circular" variant="dot"> 
+                                <Badge color="error" overlap="circular" variant="dot"> 
                                     <ChatIcon className="inactive"/>
                                 </Badge>
                                 :
@@ -100,7 +100,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                     <Button className={tab === NOTIFICATIONS ? "active-tab" : "tab"} onClick={() => chooseTabs(NOTIFICATIONS)}>
                         {
                             readNotifications ?
-                            <Badge color="secondary" overlap="circular" variant="dot"> 
+                            <Badge color="error" overlap="circular" variant="dot"> 
                                 <NotificationsIcon className="inactive"/>
                             </Badge>
                             :
