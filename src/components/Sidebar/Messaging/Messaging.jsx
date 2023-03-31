@@ -4,6 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import MessageList from './MessageList';
 import { hermes, sendMessage } from '../../../features/socketService/HermesService';
 import { useDispatch } from 'react-redux';
+import { hasUnreadMessages } from '../../../store/actions/messagesActions';
 import { addMessage } from '../../../store/actions/messagesActions';
 import '../../../css/Messaging.css';
 
@@ -42,6 +43,7 @@ const Messaging = ({currentRoomkey, userId, displayName}) => {
     }
 
     hermes.off(`message-${currentRoomkey}`).on(`message-${currentRoomkey}`, (data) => {
+        dispatch(hasUnreadMessages(true));
         dispatch(addMessage(data));
     });
 

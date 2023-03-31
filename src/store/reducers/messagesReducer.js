@@ -1,7 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { addMessage, clearMessages } from "../actions/messagesActions";
+import { addMessage, clearMessages, hasUnreadMessages } from "../actions/messagesActions";
 
-const initialState = { messages: [] };
+const initialState = { 
+    messages: [],
+    hasUnreadNessages: false
+};
 
 
 const messagesReducer = createReducer(initialState, (builder) => {
@@ -11,6 +14,9 @@ const messagesReducer = createReducer(initialState, (builder) => {
         })
         .addCase(clearMessages, (state, action) => {
            state.messages = []
+        })
+        .addCase(hasUnreadMessages, (state, action) => {
+            state.hasUnreadNessages = action.payload
         })
 });
   

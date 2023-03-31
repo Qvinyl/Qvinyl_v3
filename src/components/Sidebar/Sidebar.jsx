@@ -13,8 +13,11 @@ import Queue from './Queue/Queue';
 import Rooms from './Rooms/Rooms';
 import Profile from './UserProfile/Profile';
 import { notifications } from '../../features/socketService/NotificationService';
+import { hasUnreadMessages } from '../../store/actions/messagesActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 import '../../css/Sidebar.css'
+
 
 const MESSAGING = 0;
 const MUSIC_QUEUE = 1;
@@ -25,6 +28,9 @@ const NOTIFICATIONS = 3;
 const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
     const [tab, setTab] = useState();
     const [readNotifications, setReadNotifications] = useState()
+    const newMessages = useSelector((state) => state.messagesReducer.hasUnreadNessages);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user.current_room_id === "") {
@@ -35,10 +41,13 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
     }, [tab])
 
     const chooseTabs = (index) => {
-        if (index === 3) {
+        if (index === NOTIFICATIONS) {
             setReadNotifications(false);
-        }
-        setTab(index)
+        }    
+        if (tab === MESSAGING) {
+            dispatch(hasUnreadMessages(false));
+        }     
+        setTab(index);
     }
     
     const getComponent = () => {
@@ -58,7 +67,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
 
     notifications.on(`notify-${user.user_id}`, (data) => {
         setReadNotifications(data.notification);
-    })
+    });
    
     return (
         <div className="sidebar-container">
@@ -67,15 +76,22 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                 handleOnClickSidebarLip={handleOnClickSidebarLip}/>
             <div className="sidebar">
                 <ButtonGroup className="tab-group tabs" variant="contained" aria-label="outlined primary button group">
-                    {user.current_room_id && 
+                    { user.current_room_id && 
                         <Button className={tab === MESSAGING ? "active-tab" : "tab"} onClick={() => chooseTabs(MESSAGING)}>
-                            <ChatIcon className={tab === MESSAGING ? "active" : "inactive"}/>
+                            {
+                                newMessages && tab !== MESSAGING ?
+                                <Badge color="secondary" overlap="circular" variant="dot"> 
+                                    <ChatIcon className="inactive"/>
+                                </Badge>
+                                :
+                                <ChatIcon className={tab === MESSAGING ? "active" : "inactive"}/>
+                            }
                         </Button>
                     } 
-                    {user.current_room_id &&   
-                    <Button className={tab === MUSIC_QUEUE ? "active-tab" : "tab"} onClick={() => chooseTabs(MUSIC_QUEUE)}>
-                       { <QueueMusicIcon className={tab === MUSIC_QUEUE ? "active" : "inactive"}/> }
-                    </Button>
+                    { user.current_room_id &&   
+                        <Button className={tab === MUSIC_QUEUE ? "active-tab" : "tab"} onClick={() => chooseTabs(MUSIC_QUEUE)}>
+                            <QueueMusicIcon className={tab === MUSIC_QUEUE ? "active" : "inactive"}/> 
+                        </Button>
                     }
                     <Button className={tab === VIRTUAL_ROOMS ? "active-tab" : "tab"} onClick={() => chooseTabs(VIRTUAL_ROOMS)}>
                         <WeekendIcon className={tab === VIRTUAL_ROOMS ? "active" : "inactive"}/>
@@ -84,14 +100,13 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                     <Button className={tab === NOTIFICATIONS ? "active-tab" : "tab"} onClick={() => chooseTabs(NOTIFICATIONS)}>
                         {
                             readNotifications ?
-                            <Badge color="primary" overlap="circular" variant="dot"> 
-                                <NotificationsIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
+                            <Badge color="secondary" overlap="circular" variant="dot"> 
+                                <NotificationsIcon className="inactive"/>
                             </Badge>
                             :
                             <NotificationsIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
                         }
-                    </Button>
-                    
+                    </Button>   
                 </ButtonGroup>
                 <div className="content">
                     {getComponent()}
