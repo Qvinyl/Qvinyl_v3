@@ -1,8 +1,8 @@
 import { signOut } from "firebase/auth";
-import { HOSTSITE, ORM_PORT } from "../../config/db_config";
+import { CONNECTION_TYPE, HOSTSITE, ORM_PORT, ORM_PATH } from "../../config/db_config";
 const auth = require('../../config/constraints').firebaseAuth;
 
-const usersAPIEndpoint = `http://${HOSTSITE}:${ORM_PORT}/api/v1/users`;
+const usersAPIEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${ORM_PATH}/users`;
 var USER = {}
 
 export async function getUserInfo() {
@@ -77,6 +77,6 @@ export async function userJoinRoom(userId, roomkey) {
             roomkey: roomkey,
         })
     })
-    return response.status == 200;
+    return response.status === 200;
 }
 

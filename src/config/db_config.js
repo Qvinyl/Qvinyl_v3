@@ -7,12 +7,19 @@ module.exports = {
     FB_MESSAGING_SENDER_ID: "1095197449779",
     FB_APP_ID: "1:1095197449779:web:7efbd809f751e285800d46",
 
-    HOSTSITE: "localhost",
-    // HOSTSITE: "35.235.106.128",
-    SYNC_PORT: "7777",
-    YTS_PORT: "9000",
-    MSG_PORT: "9993",
-    NOT_PORT: "5240",
-    ORM_PORT: "3000"
-
+    CONNECTION_TYPE: "https://",
+    // HOSTSITE: "localhost",
+    // HOSTSITE_2: "34.82.95.65",
+    HOSTSITE: "staging1.qvinyl.app",
+    SYNC_PATH: "/syncing/",
+    YTS_PATH: "/youtubeSearch/",
+    MSG_PATH: "/messaging/",
+    NOT_PATH: "/notifications/",
+    ORM_PATH: "/data-sync/",
+    // SYNC_PORT: ":7777",
+    // YTS_PORT: ":9000",
+    // MSG_PORT: ":9993",
+    // NOT_PORT: ":5240",
+    // ORM_PORT: "3000"
 }; 
+

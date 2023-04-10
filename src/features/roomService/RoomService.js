@@ -1,5 +1,5 @@
-import { HOSTSITE, ORM_PORT } from "../../config/db_config";
-const roomAPIEndpoint = `http://${HOSTSITE}:${ORM_PORT}/api/v1/rooms`
+import { CONNECTION_TYPE, HOSTSITE, ORM_PORT, ORM_PATH } from "../../config/db_config";
+const roomAPIEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${ORM_PATH}/rooms`
 
 export async function getAdminRooms(user_id, setRooms) {
     var getAdminRoomEndpoint = `${roomAPIEndpoint}/admin/${user_id}`

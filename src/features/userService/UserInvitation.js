@@ -1,6 +1,6 @@
-import { HOSTSITE, ORM_PORT } from "../../config/db_config";
+import { CONNECTION_TYPE, HOSTSITE, HOSTSITE_2, ORM_PATH, ORM_PORT } from "../../config/db_config";
 
-const usersAPIEndpoint = `http://${HOSTSITE}:${ORM_PORT}/api/v1/users`
+const usersAPIEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${ORM_PATH}/users`
 
 export async function getUsers() {
     var response = await fetch(usersAPIEndpoint, {

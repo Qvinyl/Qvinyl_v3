@@ -1,6 +1,9 @@
 import io from 'socket.io-client';
-import { HOSTSITE, SYNC_PORT } from '../../config/db_config';
-export const socket = io(`http://${HOSTSITE}:${SYNC_PORT}`);
+import { HOSTSITE, SYNC_PATH,  HOSTSITE_2, SYNC_PORT } from '../../config/db_config';
+export const socket = io(`https://${HOSTSITE}`, {
+    path: SYNC_PATH,
+    transports: ['websocket','polling']
+});
 
 export function connectSocket() {
     if (!socket.connected) {
