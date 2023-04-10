@@ -1,4 +1,4 @@
-import { CONNECTION_TYPE, HOSTSITE, ORM_PORT, ORM_PATH } from "../../config/db_config";
+import { CONNECTION_TYPE, HOSTSITE, ORM_PATH } from "../../config/db_config";
 
 const InvitationAPIEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${ORM_PATH}invitations`
 

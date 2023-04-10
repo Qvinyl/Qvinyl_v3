@@ -16,10 +16,5 @@ module.exports = {
     MSG_PATH: "/messaging/",
     NOT_PATH: "/notifications/",
     ORM_PATH: "/data-sync/",
-    // SYNC_PORT: ":7777",
-    // YTS_PORT: ":9000",
-    // MSG_PORT: ":9993",
-    // NOT_PORT: ":5240",
-    // ORM_PORT: "3000"
 }; 
 
