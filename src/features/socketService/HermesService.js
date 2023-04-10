@@ -1,7 +1,9 @@
 import io from 'socket.io-client';
-import { HOSTSITE, MSG_PORT } from '../../config/db_config';
-export const hermes = io(`http://${HOSTSITE}:${MSG_PORT}`);
-
+import { CONNECTION_TYPE, HOSTSITE, MSG_PATH, HOSTSITE_2, MSG_PORT } from '../../config/db_config';
+export const hermes = io(`${CONNECTION_TYPE}${HOSTSITE}`, {
+    path: MSG_PATH,
+    transports: ['websocket','polling']
+});
 hermes.on("connect");
 
 export function connectMessagingSocket() {
