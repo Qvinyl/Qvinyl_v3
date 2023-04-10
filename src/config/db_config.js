@@ -10,7 +10,7 @@ module.exports = {
     CONNECTION_TYPE: "https://",
     // HOSTSITE: "localhost",
     // HOSTSITE_2: "34.82.95.65",
-    HOSTSITE: "staging1.qvinyl.app",
+    HOSTSITE: "api.staging1.qvinyl.app",
     SYNC_PATH: "/syncing/",
     YTS_PATH: "/youtubeSearch/",
     MSG_PATH: "/messaging/",
