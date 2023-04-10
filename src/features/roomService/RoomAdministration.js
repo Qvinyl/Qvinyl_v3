@@ -2,7 +2,7 @@ import { doc, setDoc, deleteDoc } from "firebase/firestore";
 import { CONNECTION_TYPE, HOSTSITE, ORM_PORT, ORM_PATH } from "../../config/db_config";
 const firestoreDB = require('../../config/constraints').db;
 
-const roomAPIEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${ORM_PATH}/rooms`
+const roomAPIEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${ORM_PATH}rooms`
 
 // const CHATROOM_DOC = "ChatRoom";
 const PLAYLIST_DOC = "Playlist";

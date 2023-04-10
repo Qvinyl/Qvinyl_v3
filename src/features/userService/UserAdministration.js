@@ -2,7 +2,7 @@ import { signOut } from "firebase/auth";
 import { CONNECTION_TYPE, HOSTSITE, ORM_PORT, ORM_PATH } from "../../config/db_config";
 const auth = require('../../config/constraints').firebaseAuth;
 
-const usersAPIEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${ORM_PATH}/users`;
+const usersAPIEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${ORM_PATH}users`;
 var USER = {}
 
 export async function getUserInfo() {
