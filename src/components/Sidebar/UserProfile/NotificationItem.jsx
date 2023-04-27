@@ -22,7 +22,7 @@ const NotificationItem = ({invitationId, roomName, inviter, index, removeOnSucce
 
     return (
         <div className="notification-container">
-            <div className="text-color-light center">
+            <div className="text text-color-light center">
                 <b>{inviter}</b> has invited to <b>{roomName}</b>
             </div>
             <div className="button-container">

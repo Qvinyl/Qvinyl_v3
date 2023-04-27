@@ -1,11 +1,10 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import InvitationAccordion from '../Accordian/InvitationAccordion';
-import RoundedInputField from '../InputField/RoundedInputField';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import UserList from '../../Sidebar/Rooms/UserList/UserList';
@@ -109,6 +108,7 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
                         <AccordionSummary>
                         <FormControl fullWidth>
                             <TextField
+                                error
                                 size="small"
                                 value={searchUser}
                                 label="Search users" 

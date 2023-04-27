@@ -54,7 +54,7 @@ const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setC
     
     return (
         <div>                    
-            <div className="text-color-light room-item">
+            <div className="text text-color-light room-item">
                 <div className="room-item-container">
                     <Tooltip title="Join Room">
                         {

@@ -25,7 +25,6 @@ const Message = ({message, userId}) => {
                 }
                 </div>
             }
-            
         </div>
     )
 }

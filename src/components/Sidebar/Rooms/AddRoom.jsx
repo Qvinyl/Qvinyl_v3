@@ -14,6 +14,7 @@ const AddRoom = ({userId, appendNewRoom, searchRooms}) => {
     const [roomName, setRoomName] = useState("");
     const [successful, setSuccess] = useState(true);
     const [snackbar, setSnackBar] = useState(false);
+    const [hasInputError, setHasInputError] = useState(false)
     const inputReference = useRef(null);
 
     useEffect(() => {
@@ -22,11 +23,15 @@ const AddRoom = ({userId, appendNewRoom, searchRooms}) => {
 
     const setRoomNameInput = (event) => {
         const newValue = event.target.value;
+        if (newValue) {
+            setHasInputError(false)
+        }
         setRoomName(newValue);
     }
 
     const handleChange = (isExpanded) => {
         setExpanded(isExpanded);
+        setHasInputError(false)
         setRoomName("");
     };
 
@@ -43,7 +48,7 @@ const AddRoom = ({userId, appendNewRoom, searchRooms}) => {
             createRoom();
         } 
         else {
-            console.log("Room name is blank");
+            setHasInputError(true)
         }
     }
 
@@ -88,10 +93,12 @@ const AddRoom = ({userId, appendNewRoom, searchRooms}) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <CustomTextField  
+                        error={hasInputError}
                         type="text" 
                         value={roomName}
                         onChange={setRoomNameInput} 
                         fullWidth label="Room Name" variant="standard" 
+                        helperText={hasInputError ? "Cannot be blank" : ""}
                     />
                     <Button onClick={() => roomCreation()}> Add Room </Button>
                     <Button onClick={() => handleChange(!expanded)}> Cancel </Button>

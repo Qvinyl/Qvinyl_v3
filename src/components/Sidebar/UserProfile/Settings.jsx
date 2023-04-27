@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -15,12 +15,11 @@ import { disconnectSocket } from '../../../features/socketService/SyncService';
 import { disconnectMessaging } from '../../../features/socketService/HermesService';
 import { disconnectNotifications } from '../../../features/socketService/NotificationService';
 import { setLoggedIn } from '../../../store/actions/userActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 const logout = require('../../../features/userService/UserAdministration').logout;
 
 const Settings = ({displayName}) => {
     const navigate = useNavigate();
-    const user = useSelector((state) => state.userReducer.user);
     const dispatch = useDispatch();
     const loggingOut = () => {
         if (logout()) {
@@ -40,7 +39,7 @@ const Settings = ({displayName}) => {
     }
 
     return (
-        <Accordion className="text-color-light component-tab" disableGutters>
+        <Accordion className="text text-color-light component-tab" disableGutters>
             <AccordionSummary 
                 expandIcon={<ExpandMore className="add"/>}>
                 <Typography component={'span'}>

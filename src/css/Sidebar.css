@@ -78,6 +78,9 @@
 
 .text-color-light {
     color: #ACACAC !important;
+}
+
+.text {
     font-size: 16px !important;
 }
 
