@@ -164,7 +164,7 @@ const MediaControls = ({setVolumeLevel, setPlaybackState, handleOnSeekChange, vo
                         }
                         </TableCell>
                         <TableCell className="media-container">
-                            <div className="text-color-light">
+                            <div className="text title-color">
                                 <div className="title-overflow"> 
                                     {title}
                                 </div>

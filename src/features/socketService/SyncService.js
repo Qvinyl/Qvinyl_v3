@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import { CONNECTION_TYPE, HOSTSITE, SYNC_PATH } from '../../config/db_config';
+
 export const socket = io(`${CONNECTION_TYPE}${HOSTSITE}`, {
     path: SYNC_PATH,
     transports: ['websocket','polling']

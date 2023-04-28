@@ -12,7 +12,7 @@
 
 .media-controls {
     cursor: pointer;
-    opacity: 1;
+    opacity: 0;
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -41,7 +41,7 @@
 
 .media-button-container {
     cursor: pointer;
-    color: #8C8C8C !important;
+    color: #cfcfcf !important;
     width: 40px;
     min-width: 40px;
 }
@@ -72,20 +72,24 @@
 
 .volume-button-container {
     cursor: pointer;
-    color: #8C8C8C !important;
+    color: #cfcfcf !important;
     max-width: 150px;
     width: 40px;
 }
 
 .media-button-extended-container {
     cursor: pointer;
-    color: #8C8C8C !important;
+    color: #cfcfcf !important;
     width: 100px;
 }
 
 .request-control-button {
     white-space: nowrap !important;
-    background-color: #8C8C8C !important;
+    background-color: #cfcfcf !important;
+}
+
+.title-color {
+    color: #cfcfcf !important;
 }
 
 .in-control-button {

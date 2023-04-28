@@ -41,7 +41,7 @@ export async function getLastPlayed(roomkey, setLastPlaylist, dispatch) {
         if (doc.data() === undefined) { 
             return [];
         }
-        dispatch(setLastPlaylist(doc.data().history))
+        dispatch(setLastPlaylist(doc.data().history.reverse()))
     });
 }
 

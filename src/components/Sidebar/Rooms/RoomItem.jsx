@@ -11,7 +11,7 @@ const RoomItem = ({roomkey, roomName, setCurrentRoom, userId, selected}) => {
     }
     
     return (
-        <div className="text-color-light room-item" onClick={() => {setCurrentRoomkey()}}>
+        <div className="text text-color-light room-item" onClick={() => {setCurrentRoomkey()}}>
             <div className="room-item-text">
                 { selected ?
                     <b>{roomName}</b>

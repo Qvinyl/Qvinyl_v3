@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import QueuedButton from '../../Basics/Button/QueuedButton';
 import { addToPlaylist } from '../../../features/queueService/Queuing/QueueServices';
 import '../../../css/Queue.css';
 
 const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url, currentRoomkey, displayName, queue}) => {
     var urls = queue.map((item) => item.url);
-    const [queued, setQueued] = useState(urls.includes(url))
-
 
     const addToRoomPlaylist = async () => {
         const element = {
@@ -15,12 +13,14 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url, currentRoomkey, 
             thumbnail: thumbnail,
             queuedBy: displayName
         }
-        
-        var results = await addToPlaylist(currentRoomkey, element);
-        if (results) {
-            setQueued(true);
-        }
+
+        await addToPlaylist(currentRoomkey, element);
     }
+
+    const isQueued = (url) => {
+        return urls.includes(url)
+    }
+    
 
     return (
         <div className="item">
@@ -35,7 +35,6 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url, currentRoomkey, 
                 </div>
                 {
                     queuedBy ?
-
                         <div className="queued-by-text text-color-light">
                             <br/>
                             Queued By {queuedBy}
@@ -43,7 +42,7 @@ const QueueItem = ({thumbnail, title, queuedBy, wasPlayed, url, currentRoomkey, 
                     :
                     <div>
                     { 
-                        queued ? 
+                        isQueued(url) ? 
                             <QueuedButton className="queued" disabled size="small">Queued</QueuedButton>
                         :
                             wasPlayed ? 
