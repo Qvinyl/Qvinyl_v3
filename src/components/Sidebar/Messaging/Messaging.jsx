@@ -20,6 +20,9 @@ const Messaging = ({currentRoomkey, userId, displayName}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if ( message === "\n" || message === "" ) {
+            return;
+        }
         var sendMessageObj = {
             userId: userId,
             displayName: displayName, 
@@ -35,8 +38,9 @@ const Messaging = ({currentRoomkey, userId, displayName}) => {
     }
 
     const keyPress = (e) => {
-        if (message !== "" || message !== "\n") {
+        if ( message !== "\n" || message !== "" ) {
             if(e.keyCode === 13){
+                e.preventDefault();
                 handleSubmit(e);
             }
         }

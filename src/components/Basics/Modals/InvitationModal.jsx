@@ -108,7 +108,6 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
                         <AccordionSummary>
                         <FormControl fullWidth>
                             <TextField
-                                error
                                 size="small"
                                 value={searchUser}
                                 label="Search users" 
