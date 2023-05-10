@@ -108,4 +108,26 @@
     text-align: right;
 }
 
+.message {
+    /* padding: 0px 16px 0px 16px !important; */
+    overflow: hidden;
+}
 
+.call-options {
+    margin: 0px 16px 0px 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.call-icon {
+    cursor: pointer;
+    padding: 10px;
+    color: #a2a2a2;
+}
+
+.call-icon:hover{
+    cursor: pointer;
+    padding: 10px;
+    color: #1976d2;
+}

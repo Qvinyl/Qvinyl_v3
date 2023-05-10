@@ -9,7 +9,8 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { setPlaylist, setLastPlayed } from '../../../store/actions/queueActions';
-import { getRoomPlaylist, getLastPlayed } from '../../../features/queueService/Queuing/QueueServices'; 
+import { getRoomPlaylist, getLastPlayed } from '../../../features/queueService/Queuing/QueueServices';
+import CustomTabs from '../../Basics/Tabs/CustomTabs'; 
 
 const PlaylistQueue = ({currentRoomkey, displayName}) => {
     const theme = useTheme();
@@ -39,32 +40,24 @@ const PlaylistQueue = ({currentRoomkey, displayName}) => {
 
     return (
         <div className="content-container queue">
-            <div className="queue-tabs component-tab">
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="inherit"
-                    variant="fullWidth">
-                    <Tab label="Queue" />
-                    <Tab label="Last 25 Played" />
-                </Tabs>
-            </div>
-            <SwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={value}
-                onChangeIndex={handleChangeIndex}>
-                    
-                <TabPanel value={value} index={0} dir={theme.direction}>
-                    <QueueList/>
-                </TabPanel>
-                <TabPanel value={value} index={1} dir={theme.direction}>
-                    <LastPlayedList
-                        currentRoomkey={currentRoomkey}
-                        displayName={displayName}
-                    />
-                </TabPanel>
-            </SwipeableViews>
+            <CustomTabs
+                tabs=
+                    {
+                        [
+                            {
+                                name: "Queue",
+                                component: <QueueList/>
+                            },
+                            {
+                                name: "Last 25 Played",
+                                component: 
+                                    <LastPlayedList
+                                        currentRoomkey={currentRoomkey}
+                                        displayName={displayName}/>
+                            }
+                        ]
+                    }
+                />
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Qvinyl from './components/Qvinyl';
 import Login from './pages/Login';
 import { useDispatch } from 'react-redux';
-import { setUser, setLoggedIn, setUserName} from './store/actions/userActions';
+import { setUser, setLoggedIn} from './store/actions/userActions';
 import './App.css';
 import { findOrCreateUser } from './features/userService/UserAdministration';
 
@@ -32,8 +32,7 @@ const App = () => {
 
   const getUser = async (auth) => {
     var userInfo = await findOrCreateUser(auth);
-    dispatch(setUserName(userInfo.display_name));
-    dispatch(setUser(userInfo));
+    dispatch(setUser(userInfo))
   }
 
   return (

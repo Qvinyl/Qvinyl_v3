@@ -15,8 +15,8 @@ const UserList = ({ currentRoomkey, userId }) => {
 
     const fetchAllRoomUsers = async (currentRoomkey) => {
         try {
-            const userList = await fetchUsersInRoom(currentRoomkey);
-            setRoomUsers(userList);
+            // const userList = await fetchUsersInRoom(currentRoomkey);
+            // setRoomUsers(userList);
         }
         catch (e) {
             console.log(e);
