@@ -4,7 +4,6 @@ import { CONNECTION_TYPE, HOSTSITE, NOT_PATH } from '../../config/db_config';
 //     path: NOT_PATH,
 //     transports: ['websocket','polling']
 // });
-
 export const notifications = io(`${CONNECTION_TYPE}${HOSTSITE}${NOT_PATH}`)
 notifications.on("connect");
 

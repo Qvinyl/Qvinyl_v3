@@ -5,7 +5,9 @@ import { CONNECTION_TYPE, HOSTSITE, SYNC_PATH } from '../../config/db_config';
 //     path: SYNC_PATH,
 //     transports: ['websocket','polling']
 // });
+
 export const socket = io(`${CONNECTION_TYPE}${HOSTSITE}${SYNC_PATH}`)
+
 
 export function connectSocket() {
     if (!socket.connected) {

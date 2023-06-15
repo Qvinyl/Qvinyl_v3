@@ -87,7 +87,6 @@ const Qvinyl = () => {
                 user={user}
             />
             }
-           
             
             <div className={sidebar ? "sidebar-wrapper" : "sidebar-wrapper-close"}>
                 <div className="slide">
