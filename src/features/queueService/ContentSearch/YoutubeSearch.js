@@ -1,7 +1,8 @@
 import { CONNECTION_TYPE, HOSTSITE, YTS_PATH } from "../../../config/db_config";
 
 export async function searchYouTube(searchTerm) {
-    var searchEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${YTS_PATH}`;
+    // var searchEndpoint = `${CONNECTION_TYPE}${HOSTSITE}${YTS_PATH}`;
+    var searchEndpoint = `http://localhost:9000/search`;
     var results = [];
     
     await fetch(searchEndpoint, {

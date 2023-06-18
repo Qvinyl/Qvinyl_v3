@@ -15,16 +15,15 @@ const MessageList = ({userId}) => {
     }
 
     return (
-        <div className="message">
-            <div className="list">
+        <div className="message-list">
             {
                 messageList.map((message, index) => 
                     <Message key={index} message={message} userId={userId}/>
                 )
             }
             <div ref={messagesEndRef} />
-            </div>
         </div>
+
     )
 }
 export default MessageList;
