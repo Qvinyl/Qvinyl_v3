@@ -14,6 +14,10 @@ export function connectMessagingSocket() {
 }
 
 export function joinMessageRoom(roomkey, user) {
+    var user = {
+        displayName: user.display_name,
+        userId: user.user_id
+    }
     hermes.emit('joinRoom', {roomkey, user});
 }
 
@@ -23,6 +27,10 @@ export function leaveMessageRoom(roomkey, user) {
 
 export function sendMessage(roomkey, message) {
     hermes.emit('message', {roomkey, message});
+}
+
+export function getUserList(roomkey) {
+    hermes.emit('userlist', {roomkey})
 }
 
 export function disconnectMessaging() {

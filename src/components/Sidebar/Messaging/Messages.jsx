@@ -53,7 +53,7 @@ const Messages = ({currentRoomkey, userId, displayName}) => {
 
     return (
         <div className="container">
-            <div className="box box-2">
+            <div className="box message-list-container">
                 <MessageList userId={userId}/>
             </div>
             

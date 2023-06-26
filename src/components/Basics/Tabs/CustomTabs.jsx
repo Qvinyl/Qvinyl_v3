@@ -29,7 +29,7 @@ const CustomTabs = ({tabs}) => {
                     variant="fullWidth">
                     {
                         tabs.map((tab, index) => 
-                            <Tab index={index} label={tab.name}/>
+                            <Tab key={index} index={index} label={tab.name}/>
                         )
                     }    
                 </Tabs>
@@ -43,6 +43,7 @@ const CustomTabs = ({tabs}) => {
                 {
                     tabs.map((tab, index) => 
                         <TabPanel 
+                            key={index}
                             value={value} 
                             index={index} 
                             dir={theme.direction}

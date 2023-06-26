@@ -17,8 +17,15 @@ socket.on("connect", () => {
     // console.log(socket.connected);
 });
 
-export function joinSocketRoom(roomkey) {
-    socket.emit('joinRoom', roomkey);
+export function joinSocketRoom(user, roomkey) {
+    var data = {
+        roomkey: roomkey,
+        user: {
+            displayName: user.display_name,
+            userId: user.user_id
+        }
+    }
+    socket.emit('joinRoom', data);
 }
 
 export function leaveSocketRoom(roomkey) {

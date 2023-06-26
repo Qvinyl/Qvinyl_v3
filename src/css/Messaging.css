@@ -48,16 +48,11 @@
     height: 60px;
 }
 
-.box-2 {
-    background-color: blue;
+.message-list-container {
     flex: 1;
     overflow: hidden;
     position: relative;
     height: 100%;
-}
-
-.box-3 {
-    background-color: red;
 }
 
 .message-container {
