@@ -6,7 +6,6 @@ const User = ({name, active}) => {
         <div className="user-container">
             <div className="user">{name}</div>
             {active && <div><CircleIcon className="active-badge"/></div>}
-            {/* <div className="role">Owner</div> */}
         </div>
     )
 }
