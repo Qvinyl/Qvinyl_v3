@@ -11,43 +11,36 @@ const UserList = ({ currentRoomkey, userId }) => {
     useEffect(() => {
         getActiveUserList(currentRoomkey);
         fetchAllRoomUsers(currentRoomkey);
-       
-        sortByActiveUser();
-    }, []);
+    }, [currentRoomkey]);
 
     const fetchAllRoomUsers = async (currentRoomkey) => {
         const userList = await fetchUsersInRoom(currentRoomkey);
         setRoomUsers(userList);
     };
 
-    const sortByActiveUser = (userIds = activeList) => {
-        roomUsers.forEach((user) => {
-            user.active = userIds.includes(user.user_id);
-        });
-        roomUsers.sort((a, b) => (a.active === b.active ? 0 : a.active ? -1 : 1));
+    const sortByActiveUser = () => {
+        const sortedUsers = roomUsers.map((user) => ({
+            ...user,
+            active: activeList.includes(user.user_id),
+        })).sort((a, b) => (a.active === b.active ? 0 : a.active ? -1 : 1));
+
         return (
             <div className="user-list">
-            {
-                roomUsers.map((user, index) => (
-                    <User
-                    active={user.active}
-                    key={index}
-                    name={user.name}
-                    />
-                ))
-            }
+                {
+                    sortedUsers.map((user, index) => (
+                        <User active={user.active} key={index} name={user.name} />
+                ))}
             </div>
         );
     };
 
-    hermes.on(`active-users-${currentRoomkey}`, (data) => {
-        setActiveList(data);
-        sortByActiveUser(data);
-    });
-    
-    return (
-        sortByActiveUser()
-    )
+    useEffect(() => {
+            hermes.off(`active-users-${currentRoomkey}`).on(`active-users-${currentRoomkey}`, (data) => {
+            setActiveList(data);
+        });
+    }, [currentRoomkey]);
+
+    return sortByActiveUser();
 };
 
 export default UserList;
