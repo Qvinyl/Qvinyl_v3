@@ -37,6 +37,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
             if (tab === VIRTUAL_ROOMS || tab === NOTIFICATIONS) {
                 setTab(tab)
             }
+            chooseTabs(2);
         }
     }, [tab])
 

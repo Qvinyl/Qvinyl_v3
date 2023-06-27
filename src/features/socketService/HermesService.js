@@ -29,8 +29,8 @@ export function sendMessage(roomkey, message) {
     hermes.emit('message', {roomkey, message});
 }
 
-export function getUserList(roomkey) {
-    hermes.emit('userlist', {roomkey})
+export function getActiveUserList(roomkey) {
+    hermes.emit('active-userlist', {roomkey})
 }
 
 export function disconnectMessaging() {

@@ -1,31 +1,53 @@
-import {React, useEffect, useState} from 'react';
-import { hermes, getUserList } from '../../../../features/socketService/HermesService';
+import React, { useEffect, useState } from 'react';
+import { fetchUsersInRoom } from '../../../../features/roomService/RoomService';
+import { hermes, getActiveUserList } from '../../../../features/socketService/HermesService';
 import User from './User';
-import './Users.css'
+import './Users.css';
 
-const UserList = ({currentRoomkey, userId}) => { 
-    const [userList, setUserList] = useState([]);
+const UserList = ({ currentRoomkey, userId }) => {
+    const [roomUsers, setRoomUsers] = useState([]);
+    const [activeList, setActiveList] = useState([]);
+
     useEffect(() => {
-        getUserList(currentRoomkey);
-    }, [])
+        getActiveUserList(currentRoomkey);
+        fetchAllRoomUsers(currentRoomkey);
+       
+        sortByActiveUser();
+    }, []);
 
-    hermes.on(`users-${currentRoomkey}`, (data) => {
-        setUserList(data);
-    });
+    const fetchAllRoomUsers = async (currentRoomkey) => {
+        const userList = await fetchUsersInRoom(currentRoomkey);
+        setRoomUsers(userList);
+    };
 
-    return (
-        <div className="user-list">
+    const sortByActiveUser = (userIds = activeList) => {
+        roomUsers.forEach((user) => {
+            user.active = userIds.includes(user.user_id);
+        });
+        roomUsers.sort((a, b) => (a.active === b.active ? 0 : a.active ? -1 : 1));
+        return (
+            <div className="user-list">
             {
-                userList.map((user, index) => (
+                roomUsers.map((user, index) => (
                     <User
-                        key={index}
-                        userId={userId}
-                        name={user.displayName}
-                        id={user.userId}
+                    active={user.active}
+                    key={index}
+                    name={user.name}
                     />
                 ))
             }
-        </div>
+            </div>
+        );
+    };
+
+    hermes.on(`active-users-${currentRoomkey}`, (data) => {
+        setActiveList(data);
+        sortByActiveUser(data);
+    });
+    
+    return (
+        sortByActiveUser()
     )
-}
+};
+
 export default UserList;
