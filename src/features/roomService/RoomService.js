@@ -50,3 +50,17 @@ export async function fetchUserRooms(user_id) {
     var rooms = await response.json();
     return await rooms;
 }
+
+export async function fetchUsersInRoom(roomkey) {
+    var getRoomUsersEndpoint = `${roomAPIEndpoint}/getAllRoomUsers/${roomkey}`
+
+    var response = await fetch(getRoomUsersEndpoint, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    });
+    var users = await response.json();
+    return await users;
+}

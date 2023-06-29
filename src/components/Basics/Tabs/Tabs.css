@@ -1,0 +1,16 @@
+.swipeable-view-container {
+    display: flex !important;
+    position: relative !important;
+    overflow: hidden !important;
+    flex-direction: column !important;
+    will-change: transform;
+    height: 100% !important;
+}
+/* element.style {
+    flex-direction: row;
+    transition: all 0s ease 0s;
+    direction: ltr;
+    display: flex;
+    will-change: transform;
+    transform: translate(-100%, 0px);
+} */

@@ -5,6 +5,7 @@ export const socket = io(`${CONNECTION_TYPE}${HOSTSITE}`, {
     path: SYNC_PATH,
     transports: ['websocket','polling']
 });
+// export const socket = io(`${CONNECTION_TYPE}${HOSTSITE}${SYNC_PATH}`)
 
 export function connectSocket() {
     if (!socket.connected) {
@@ -16,8 +17,15 @@ socket.on("connect", () => {
     // console.log(socket.connected);
 });
 
-export function joinSocketRoom(roomkey) {
-    socket.emit('joinRoom', roomkey);
+export function joinSocketRoom(user, roomkey) {
+    var data = {
+        roomkey: roomkey,
+        user: {
+            displayName: user.display_name,
+            userId: user.user_id
+        }
+    }
+    socket.emit('joinRoom', data);
 }
 
 export function leaveSocketRoom(roomkey) {
