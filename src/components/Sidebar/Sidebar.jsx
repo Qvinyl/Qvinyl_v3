@@ -37,7 +37,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
             if (tab === VIRTUAL_ROOMS || tab === NOTIFICATIONS) {
                 setTab(tab)
             }
-            chooseTabs(2);
+            chooseTabs(tab);
         }
     }, [tab])
 
@@ -62,7 +62,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
             case NOTIFICATIONS:
                 return <Profile displayName={user.display_name} userId={user.user_id} joinRoom={joinRoom}/>
             default: 
-                chooseTabs(0);
+                chooseTabs(2);
         }
     }
 
