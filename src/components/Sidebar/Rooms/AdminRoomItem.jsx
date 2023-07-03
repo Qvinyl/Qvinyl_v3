@@ -6,7 +6,7 @@ import RoomDeletionModal from '../../Basics/Modals/RoomDeletionModal';
 import RenameRoomModal from '../../Basics/Modals/RenameRoomModal';
 import InvitationModal from '../../Basics/Modals/InvitationModal';
 import ContentSlider from '../../Basics/ContentSlider/ContentSlider';
-import RoomOption from './RoomOption';
+import ActionIcon from '../../Basics/ActionIcons/ActionIcon';
 import Tooltip from '@mui/material/Tooltip';
 
 import { setUserCurrentRoomkey } from '../../../features/userService/UserAdministration';
@@ -70,7 +70,7 @@ const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setC
                             content={
                                 <div className="room-options-container">
                                     <div className="option-container">
-                                        <RoomOption
+                                        <ActionIcon
                                             action={handleRenameModalOpen}
                                             option="Rename Room" 
                                             icon={<EditIcon className="icon"/>}
@@ -78,7 +78,7 @@ const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setC
                                     </div> 
 
                                     <div className="option-container">
-                                        <RoomOption
+                                        <ActionIcon
                                             action={handleInvitationModalOpen}
                                             option="Invite People" 
                                             icon={<PersonAddIcon className="icon"/>}
@@ -86,7 +86,7 @@ const AdminRoomItem = ({displayName, roomId, roomkey, roomName, removeRoom, setC
                                     </div>
                                     
                                     <div className="option-container">
-                                        <RoomOption
+                                        <ActionIcon
                                             action={handleDeleteModalOpen}
                                             option="Delete Room" 
                                             icon={<DeleteOutlineIcon className="icon"/>}

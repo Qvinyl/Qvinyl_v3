@@ -30,11 +30,13 @@ const InvitationModal = ({roomId, invitationModalOpen, handleInvitationModalClos
     const sendInvitations = () => {
         if(invitationList.length > 0) {
             for (const invitee of invitationList) {
+                console.log(invitee);
                 var invite = {
                     user_id: invitee.user_id,
-                    display_name: displayName,
+                    inviter: displayName,
                     room_id: roomId,
-                    has_joined: false
+                    has_joined: false,
+                    invitee: invitee.display_name,
                 }
                 var results = createInvitation(invite);
                 if (results) {

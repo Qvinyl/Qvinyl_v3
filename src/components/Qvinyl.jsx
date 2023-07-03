@@ -60,8 +60,8 @@ const Qvinyl = () => {
     }
 
     const joinWebsocketsRooms = (user, roomkey) => {
-        joinSocketRoom(user, roomkey);
         syncUp(roomkey);
+        joinSocketRoom(user, roomkey);
         joinMessageRoom(roomkey, user);
     }
 

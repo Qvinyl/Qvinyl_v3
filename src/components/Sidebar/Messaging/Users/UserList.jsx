@@ -14,16 +14,28 @@ const UserList = ({ currentRoomkey, userId }) => {
     }, [currentRoomkey]);
 
     const fetchAllRoomUsers = async (currentRoomkey) => {
-        const userList = await fetchUsersInRoom(currentRoomkey);
-        setRoomUsers(userList);
+        try {
+            const userList = await fetchUsersInRoom(currentRoomkey);
+            setRoomUsers(userList);
+        }
+        catch (e) {
+            console.log(e);
+        }
+       
     };
 
     const sortByActiveUser = () => {
-        const sortedUsers = roomUsers.map((user) => ({
-            ...user,
-            active: activeList.includes(user.user_id),
-        })).sort((a, b) => (a.active === b.active ? 0 : a.active ? -1 : 1));
-
+        var sortedUsers = []
+        try {
+            sortedUsers = roomUsers.map((user) => ({
+                ...user,
+                active: activeList.includes(user.user_id),
+            })).sort((a, b) => (a.active === b.active ? 0 : a.active ? -1 : 1));
+        }
+        catch(e) {
+            sortedUsers = []
+        }
+    
         return (
             <div className="user-list">
                 {

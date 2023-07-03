@@ -6,7 +6,7 @@ const Profile = ({displayName, userId, joinRoom}) => {
 
     return (
         <div className="content notifications">
-            <Settings displayName={displayName}/>
+            <Settings displayName={displayName} userId={userId}/>
             <NotificationList userId={userId} joinRoom={joinRoom}/>
         </div>
     )

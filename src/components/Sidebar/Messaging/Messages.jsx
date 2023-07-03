@@ -4,6 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import MessageList from './MessageList';
 import { hermes, sendMessage } from '../../../features/socketService/HermesService';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { hasUnreadMessages } from '../../../store/actions/messagesActions';
 import { addMessage } from '../../../store/actions/messagesActions';
 import '../../../css/Messaging.css';
@@ -11,8 +12,10 @@ import '../../../css/Messaging.css';
 const Messages = ({currentRoomkey, userId, displayName}) => {
     const [message, setMessage] = useState("");
     const inputReference = useRef(null);
-
+    
     const dispatch = useDispatch();
+    const userName = useSelector((state) => state.userReducer.displayName);
+
 
     useEffect(() => {
         inputReference.current.focus();
@@ -25,7 +28,7 @@ const Messages = ({currentRoomkey, userId, displayName}) => {
         }
         var sendMessageObj = {
             userId: userId,
-            displayName: displayName, 
+            displayName: userName, 
             text: message
         }
         sendMessage(currentRoomkey, sendMessageObj)
