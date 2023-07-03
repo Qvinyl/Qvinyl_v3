@@ -53,7 +53,7 @@ export async function fetchUserRooms(user_id) {
 
 export async function fetchUsersInRoom(roomkey) {
     var getRoomUsersEndpoint = `${roomAPIEndpoint}/getAllRoomUsers/${roomkey}`
-
+    
     var response = await fetch(getRoomUsersEndpoint, {
         method: 'GET',
         headers: {
@@ -61,6 +61,9 @@ export async function fetchUsersInRoom(roomkey) {
             'Content-Type': 'application/json',
         }
     });
+    if (!response) {
+        return []
+    }
     var users = await response.json();
     return await users;
 }

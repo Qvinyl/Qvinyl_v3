@@ -1,10 +1,10 @@
 import io from 'socket.io-client';
 import { CONNECTION_TYPE, HOSTSITE, MSG_PATH } from '../../config/db_config';
-export const hermes = io(`${CONNECTION_TYPE}${HOSTSITE}`, {
-    path: MSG_PATH,
-    transports: ['websocket','polling']
-});
-// export const hermes = io(`${CONNECTION_TYPE}${HOSTSITE}${MSG_PATH}`);
+// export const hermes = io(`${CONNECTION_TYPE}${HOSTSITE}`, {
+//     path: MSG_PATH,
+//     transports: ['websocket','polling']
+// });
+export const hermes = io(`${CONNECTION_TYPE}${HOSTSITE}${MSG_PATH}`);
 hermes.on("connect");
 
 export function connectMessagingSocket() {

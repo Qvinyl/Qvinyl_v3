@@ -33,6 +33,7 @@ export async function acceptInvitation(invitationId) {
 }
 
 export async function createInvitation(invite) {
+    console.log(invite);
     var response = await fetch(InvitationAPIEndpoint, {
         method: 'POST',
         headers: {

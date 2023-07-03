@@ -1,0 +1,13 @@
+.display-name-container { 
+    display: flex;
+    flex-direction: row;
+}
+
+.display-name {
+    display: flex;
+    margin: auto 0 auto 0;
+}
+
+.accordion {
+    display: flex !important;
+}

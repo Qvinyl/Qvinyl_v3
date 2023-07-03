@@ -38,7 +38,7 @@ const NotificationList = ({userId, joinRoom}) => {
                                         invitationId={item.id}
                                         roomkey={item.roomkey}
                                         roomName={item.room_name}
-                                        inviter={item.display_name}
+                                        inviter={item.inviter}
                                     />
                                 </TableCell>
                             </TableRow>

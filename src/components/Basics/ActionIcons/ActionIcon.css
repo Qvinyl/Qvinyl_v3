@@ -1,0 +1,13 @@
+.icon-container {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.icon:hover {
+    color: #1976d2 !important;
+}
+
+.icon {
+    margin: auto;
+}

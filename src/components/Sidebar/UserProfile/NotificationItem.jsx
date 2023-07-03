@@ -23,7 +23,7 @@ const NotificationItem = ({invitationId, roomName, inviter, index, removeOnSucce
     return (
         <div className="notification-container">
             <div className="text text-color-light center">
-                <b>{inviter}</b> has invited to <b>{roomName}</b>
+                <b>{inviter}</b> has invited you to <b>{roomName}</b>
             </div>
             <div className="button-container">
                 <Button variant="contained" size="small" onClick={() => {acceptInvite(index)}}>

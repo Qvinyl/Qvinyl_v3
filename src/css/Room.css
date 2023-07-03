@@ -25,16 +25,6 @@
     padding: 5px;
 }
 
-.room-option-container {
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-}
-
-.option-container :hover {
-    color: #1976d2 !important;
-}
-
 .option-text {
     margin-top: auto;
     margin-bottom: auto;
