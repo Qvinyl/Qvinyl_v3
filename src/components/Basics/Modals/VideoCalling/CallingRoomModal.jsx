@@ -15,7 +15,7 @@ const CallingRoomModal = ({callingModalOpen, handleCallingModalClose}) => {
                 aria-describedby="alert-dialog-description">
 
                 <DialogTitle id="alert-dialog-title">
-                    Calling...
+                    Calling Room... 
                 </DialogTitle>
 
                 <DialogActions>

@@ -19,4 +19,5 @@
 .video-window {
     transform: rotateY(180deg);
     width: 100%;
+    border-radius: 25px;
 }

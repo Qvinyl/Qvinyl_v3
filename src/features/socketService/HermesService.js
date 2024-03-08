@@ -21,10 +21,6 @@ export function joinMessageRoom(roomkey, user) {
     hermes.emit('joinRoom', {roomkey, user});
 }
 
-export function leaveMessageRoom(roomkey, user) {
-    hermes.emit('leaveRoom', {roomkey, user});
-}
-
 export function sendMessage(roomkey, message) {
     hermes.emit('message', {roomkey, message});
 }
@@ -32,6 +28,35 @@ export function sendMessage(roomkey, message) {
 export function getActiveUserList(roomkey) {
     hermes.emit('active-userlist', {roomkey})
 }
+
+export function leaveMessageRoom(roomkey, user) {
+    hermes.emit('leaveRoom', {roomkey, user});
+}
+
+export function videoCallRoom(roomkey, user) {
+    hermes.emit('videoCallRoom', {roomkey, user});
+}
+
+export function joinCall(roomkey, user) {
+    hermes.emit('joinCall', {roomkey, user});
+}
+
+export function declineCall(roomkey, user) {
+    hermes.emit('joinCall', {roomkey, user});
+}
+
+export function cancelCall(roomkey, user) {
+    hermes.emit('joinCall', {roomkey, user});
+}
+
+export function acceptCall(roomkey, user) {
+    hermes.emit('joinCall', {roomkey, user});
+}
+
+
+// export function videoCall(roomkey, user) {
+//     hermes.emit('cancelVideoCall', {roomkey, user});
+// }
 
 export function disconnectMessaging() {
     hermes.disconnect();

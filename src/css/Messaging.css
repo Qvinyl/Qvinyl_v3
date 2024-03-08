@@ -131,3 +131,13 @@
     padding: 10px;
     color: #1976d2;
 }
+
+.end-call{
+    color: red;
+    margin: auto;
+}
+
+.chat-divider {
+    color: white;
+    padding: 10px;
+}

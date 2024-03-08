@@ -4,7 +4,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
-const ReceivingRoomModal = ({receivingCallModalOpen, handleReceivingCallModalClose, caller}) => {
+const ReceivingRoomModal = ({receivingCallModalOpen, handleReceivingCallModalClose, handleAcceptCall, caller}) => {
     return (
         <div>
             <Dialog
@@ -18,8 +18,8 @@ const ReceivingRoomModal = ({receivingCallModalOpen, handleReceivingCallModalClo
                 </DialogTitle>
 
                 <DialogActions>
+                    <Button onClick={handleAcceptCall}>Accept</Button>
                     <Button className="delete-button" onClick={handleReceivingCallModalClose}>Decline</Button>
-                    <Button>Accept</Button>
                 </DialogActions>
             </Dialog>    
         </div>
