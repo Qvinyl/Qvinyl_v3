@@ -100,7 +100,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
     }
 
     const toggleCamera = () => {
-        peerCon.toggleCamera();
+        peerCon.streamManager.toggleCamera();
     }
 
     const toggleMicrophone = () => {
@@ -117,7 +117,8 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             userId: userId,
             displayName: displayName
         }
-        videoCallRoom(currentRoomkey, userCalling);
+       
+       
         setVideoCalling(true);  
 
         await peerCon.openCamera();
@@ -125,6 +126,11 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             if (user !== userId) {
                 await peerCon.callUser(user);
             }
+        }
+
+        const stream = await peerCon.streamManager.getLocalStream();
+        if (stream) {
+            videoCallRoom(currentRoomkey, userCalling);
         }
     }
 
@@ -165,6 +171,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             // Update the list of users on the call
             setUsersOnCall(prevUsers => [...prevUsers, user]);
         }
+        peerCon.callUser(user.userId);
     });
 
     // Listen for when a user Leaves a call

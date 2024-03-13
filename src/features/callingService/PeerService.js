@@ -12,14 +12,10 @@ class PeerService {
     }
 
     async openCamera() {
-        console.log("Turning on Camera");
         try {
             const stream = await this.streamManager.getLocalStream();
             if (!stream) {
-                // Camera is not open, open it
                 await this.streamManager.openCamera();
-
-                // If there are existing calls, re-establish them with the new stream
                 await this.answerCalls();
             }
         } catch (error) {
@@ -27,34 +23,6 @@ class PeerService {
         }
     }
 
-    async toggleCamera() {
-        console.log("Toggle Camera");
-        try {
-            // Check if the camera is currently on
-            const stream = await this.streamManager.getLocalStream();
-            if (!stream) {
-                // Camera is on, turn it off
-                await this.openCamera();
-
-            } else {
-                // Camera is off, turn it on
-                await this.turnOffCamera();
-            }
-        } catch (error) {
-            console.error("Error toggling camera:", error);
-        }
-    }
-
-    async turnOffCamera() {
-        console.log("Turning off Camera");
-        try {
-            // Stop the video tracks in the local stream
-            this.streamManager.stopCamera();
-
-        } catch (error) {
-            console.error("Error turning off camera:", error);
-        }
-    }
 
     async callUser(userId) {
         // Ensure the camera is open before calling
@@ -116,12 +84,6 @@ class PeerService {
         return this.callList;
     }
 
-    async reestablishCalls() {
-        for (var call of this.callList) {
-            this.answerCall(call);
-        }
-    }
-
     async answerCalls() {
         for (var call of this.callList) {
             this.answerCall(call);
@@ -129,12 +91,11 @@ class PeerService {
     }
 
     async answerCall(call) {
-        console.log("calling: " + call.peer);
         const stream = await this.streamManager.getLocalStream();
+        
         if (!stream) {
             await this.streamManager.openCamera();
         }
-        console.log("Answering Call");
         
         call.answer(stream);
         const videoPromise = new Promise((resolve) => {
@@ -160,6 +121,10 @@ class PeerService {
                 video.onloadedmetadata = () => {
                     video.play();
                 };
+            });
+
+            call.on("close", () => {
+                video.remove();
             });
 
             call.on("close", () => {
