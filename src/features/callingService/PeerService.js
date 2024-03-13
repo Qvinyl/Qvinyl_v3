@@ -1,94 +1,160 @@
 import Peer from "peerjs";
+import StreamManager from "../../util/StreamManager";
 
 class PeerService {
     constructor(userId) {
         this.peer = new Peer(userId);
-        this.localStream = null;
-        
-        console.log(this.peer.id);
-        
+        this.streamManager = new StreamManager();
+        this.callList = [];
         this.peer.on("call", (call) => {
-            console.log("answering peerId: " + call.peer);
-            this.answerCall(call);
+            this.callList.push(call);
         });
     }
 
     async openCamera() {
+        console.log("Turning on Camera");
         try {
-            this.localStream = await navigator.mediaDevices.getUserMedia({
-                video: true,
-                audio: {
-                    mandatory: {
-                        googEchoCancellation: false,
-                        googAutoGainControl: false,
-                        googNoiseSuppression: false,
-                        googHighpassFilter: false,
-                    },
-                    optional: [],
-                },
-            });
+            const stream = await this.streamManager.getLocalStream();
+            if (!stream) {
+                // Camera is not open, open it
+                await this.streamManager.openCamera();
 
-            const video = document.getElementById("local-video");
-            if (video) {
-                video.muted = true;
-                video.srcObject = this.localStream;
-                video.onloadedmetadata = () => {
-                    video.play();
-                };
-            } else {
-                console.log("Local video element not found");
+                // If there are existing calls, re-establish them with the new stream
+                await this.answerCalls();
             }
         } catch (error) {
-            console.error("Error accessing media devices:", error);
+            console.error("Error opening camera:", error);
+        }
+    }
+
+    async toggleCamera() {
+        console.log("Toggle Camera");
+        try {
+            // Check if the camera is currently on
+            const stream = await this.streamManager.getLocalStream();
+            if (!stream) {
+                // Camera is on, turn it off
+                await this.openCamera();
+
+            } else {
+                // Camera is off, turn it on
+                await this.turnOffCamera();
+            }
+        } catch (error) {
+            console.error("Error toggling camera:", error);
+        }
+    }
+
+    async turnOffCamera() {
+        console.log("Turning off Camera");
+        try {
+            // Stop the video tracks in the local stream
+            this.streamManager.stopCamera();
+
+        } catch (error) {
+            console.error("Error turning off camera:", error);
         }
     }
 
     async callUser(userId) {
-        if (!this.localStream) {
-            console.log("Local stream not initialized");
-            return;
+        // Ensure the camera is open before calling
+        if (!this.streamManager.getLocalStream()) {
+            await this.openCamera();
         }
 
-        console.log("Call " + userId);
-
         try {
-            const stream = await new Promise((resolve, reject) => {
-                navigator.getUserMedia(
-                    { video: true, audio: true },
-                    (stream) => resolve(stream),
-                    (err) => reject(err)
-                );
-            });
+            // Get the local stream
+            const stream = await this.streamManager.getLocalStream();
 
+            // Call the user with the obtained stream
             const call = this.peer.call(userId, stream);
-            const video = document.getElementById(userId);
 
-            if (video) {
-                call.on("stream", (userVideoStream) => {
-                    video.srcObject = userVideoStream;
-                });
-
-                call.on("close", () => {
-                    video.remove();
-                });
-            } else {
-                console.log("Video element not found for user:", userId);
-            }
+            // Handle the call events
+            this.handleCallEvents(call);
         } catch (error) {
             console.error("Error accessing media devices:", error);
         }
     }
 
-    answerCall(call) {
-        if (!this.localStream) {
-            console.log("Local stream not initialized");
-            return;
+    handleCallEvents(call) {
+        const userId = call.peer;
+        const videoElementId = userId; // Assuming video element id is same as userId
+
+        // Resolve the video element for the call
+        const videoPromise = new Promise((resolve) => {
+            function checkVideoElement() {
+                const video = document.getElementById(videoElementId);
+                if (video) {
+                    resolve(video);
+                } else {
+                    setTimeout(checkVideoElement, 100);
+                }
+            }
+            checkVideoElement();
+        });
+
+        call.on("stream", async (userVideoStream) => {
+            const video = await videoPromise;
+            video.srcObject = userVideoStream;
+            video.onloadedmetadata = () => {
+                video.play();
+            };
+        });
+
+        // Handle close event
+        call.on("close", () => {
+            const video = document.getElementById(videoElementId);
+            if (video) {
+                video.srcObject = null;
+                video.remove();
+            }
+        });
+    }
+
+
+    getCallList() {
+        return this.callList;
+    }
+
+    async reestablishCalls() {
+        for (var call of this.callList) {
+            this.answerCall(call);
         }
+    }
 
-        call.answer(this.localStream);
-        const video = document.getElementById(call.peer);
+    async answerCalls() {
+        for (var call of this.callList) {
+            this.answerCall(call);
+        }
+    }
 
-        if (video) {
+    async answerCall(call) {
+        console.log("calling: " + call.peer);
+        const stream = await this.streamManager.getLocalStream();
+        if (!stream) {
+            await this.streamManager.openCamera();
+        }
+        console.log("Answering Call");
+        
+        call.answer(stream);
+        const videoPromise = new Promise((resolve) => {
+            // Function to check if the video element with the specified ID is available
+            function checkVideoElement() {
+                const video = document.getElementById(call.peer);
+                if (video) {
+                    resolve(video);
+                } else {
+                    // Retry after a short delay if the video element is not available yet
+                    setTimeout(checkVideoElement, 100);
+                }
+            }
+            // Start checking for the video element
+            checkVideoElement();
+        });
+
+        try {
+            const video = await videoPromise; // Await for the video element
+
             call.on("stream", (userVideoStream) => {
                 video.srcObject = userVideoStream;
                 video.onloadedmetadata = () => {
@@ -99,18 +165,25 @@ class PeerService {
             call.on("close", () => {
                 video.remove();
             });
-        } else {
-            console.log("Video element not found for user:", call.peer);
+        } catch (error) {
+            console.log("Answering Call, but video element not found for user:", call.peer);
         }
     }
 
     disconnect() {
-        if (this.localStream) {
-            this.localStream.getTracks().forEach((track) => track.stop());
-            this.localStream = null;
+        if (this.streamManager.getLocalStream()) {
+            this.streamManager.getLocalStream().getTracks().forEach((track) => track.stop());
         }
-
         this.peer.disconnect();
+    }
+
+    
+
+    disconnectCalls() {
+        // Hang up all existing calls
+        for (const call of this.callList) {
+            call.close();
+        }
     }
 }
 

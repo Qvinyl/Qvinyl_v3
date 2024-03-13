@@ -32,6 +32,7 @@ const Settings = ({userId}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const userName = useSelector((state) => state.userReducer.displayName);
+    console.log(userName);
     const [name, setName] = useState(userName);
     
     const loggingOut = () => {

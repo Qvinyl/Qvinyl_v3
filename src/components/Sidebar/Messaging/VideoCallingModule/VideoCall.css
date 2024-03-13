@@ -1,16 +1,14 @@
 .video-call-window {
+    position: relative;
     height: 100%;
     width: 100%;
-    /* background-color: white !important; */
     color: black !important;
-    padding: 5px !important;
-    /* border: 1px solid black; */
+    padding: 16px !important;
 }
 
 .window {
-    /* height: 100%;  */
-    /* width: 100%; */
     max-height: 50%;
+    position: relative;
     display: flex;
     justify-content: center;
     margin: auto;
@@ -20,4 +18,11 @@
     transform: rotateY(180deg);
     width: 100%;
     border-radius: 25px;
+}
+
+.displayName {
+    padding: 8px;
+    position: relative;
+    color: white;
+    font-weight: bold;
 }

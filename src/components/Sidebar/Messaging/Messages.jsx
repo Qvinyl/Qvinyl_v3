@@ -14,7 +14,6 @@ import { hermes, sendMessage, videoCallRoom, joinCall, getActiveUserList } from 
 import { useDispatch } from 'react-redux';
 import { hasUnreadMessages } from '../../../store/actions/messagesActions';
 import { addMessage } from '../../../store/actions/messagesActions';
-import { openConnection, turnOffVideo, turnOffMicrophone, endCall, connectToNewUser, receiveCallAndStreamVideo, callUser, openCamera } from '../../../features/callingService/videoCalling';
 import '../../../css/Messaging.css';
 import PeerService from '../../../features/callingService/PeerService'; // Update the path as needed
 
@@ -28,6 +27,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
     const [caller, setReceiveCaller] = useState({});
     const inputReference = useRef(null);
     const [usersOnCall, setUsersOnCall] = useState([]);
+    const [activeUserList, setActiveUserList] = useState([]);
 
     const dispatch = useDispatch();
 
@@ -52,12 +52,10 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
     };
 
     const handleAcceptCall = async () => {
-        console.log("Accept Call");
         var acceptingCallUser = {
             userId: userId,
             displayName: displayName
         };
-
 
         // Set videoCalling to true to indicate the call is accepted
         setVideoCalling(true);
@@ -68,7 +66,8 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
         // Close the receiving call modal
         handleReceivingCallModalClose();
         
-        await peerCon.openCamera(userId);
+        await peerCon.openCamera();
+        // peerCon.answerCalls();
     };
 
 
@@ -100,6 +99,14 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
         }
     }
 
+    const toggleCamera = () => {
+        peerCon.toggleCamera();
+    }
+
+    const toggleMicrophone = () => {
+        peerCon.streamManager.toggleMicrophone();
+    }
+
     const audioCall = () => {
         console.log("Audio call");
     }
@@ -111,10 +118,10 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             displayName: displayName
         }
         videoCallRoom(currentRoomkey, userCalling);
-        setVideoCalling(true);
+        setVideoCalling(true);  
 
-        await peerCon.openCamera(userId);
-        for (const user of usersOnCall) {
+        await peerCon.openCamera();
+        for (const user of activeUserList) {
             if (user !== userId) {
                 await peerCon.callUser(user);
             }
@@ -122,13 +129,13 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
     }
 
     const endVideoCall = () => {
-        endCall();
+        // endCall();
         setVideoCalling(false);
     }
 
     useEffect(() => {
         hermes.off(`active-users-${currentRoomkey}`).on(`active-users-${currentRoomkey}`, (data) => {
-            setUsersOnCall(data);
+            setActiveUserList(data);
         });
     }, [currentRoomkey]);
 
@@ -141,15 +148,16 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
 
     // Listen for general calls
     hermes.off(`videoCallRoom-${currentRoomkey}`).on(`videoCallRoom-${currentRoomkey}`, (data) => {
-        setReceiveCaller(data.user);
+        const { user } = data;
+        setReceiveCaller(user);
         if (data.user.userId != userId) {
             handleReceivingCallModalOpen();
+            setUsersOnCall(prevUsers => [...prevUsers, user]);
         }
     });
 
     // Listen for when a user Joins a Call
     hermes.off(`joinCall-${currentRoomkey}`).on(`joinCall-${currentRoomkey}`, (data) => {
-        console.log("New Users has joined the call");
         const { user } = data;
 
         // Check if the user joining the call is not the current user
@@ -193,12 +201,17 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             <div className={videoCalling ? "video-call-container" : "video-call-container closed"}>
                 {
                     videoCalling &&
-                    <VideoCall userId={userId} users={usersOnCall} />
+                    <VideoCall 
+                        userId={userId} 
+                        users={usersOnCall} 
+                        toggleCamera={toggleCamera}
+                        toggleMicrophone={toggleMicrophone}    
+                    />
                 }
             </div>
 
             <div className={`content-container ${videoCalling ? "messaging-container-shrunk" : "messaging-container"}`} >
-                <MessageList userId={userId} />
+                {/* <MessageList userId={userId} /> */}
                 <div className="input-field send">
                     <FormControl onSubmit={handleSubmit}>
                         <RoundedInputField

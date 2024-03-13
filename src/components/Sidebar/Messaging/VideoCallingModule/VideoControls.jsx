@@ -4,30 +4,30 @@ import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
-import { cameraToggle, microphoneToggle } from "../../../../features/callingService/videoCalling";
 
-const VideoControls = () => {
-    const[toggleCamera, setCamera] = useState(true)
-    const[toggleMicrophone, setMicrophone] = useState(true)
+const VideoControls = ({toggleCamera, toggleMicrophone}) => {
+    const [camera, setCamera] = useState(true);
+    const [mic, setMic] = useState(true);
+
     
-    const camToggle = () => {
-        cameraToggle(!toggleCamera);
-        setCamera(!toggleCamera)
+    const toggleCam = () => {
+        setCamera(!camera);
+        toggleCamera();
     }
 
-    const micToggle = () => {
-        microphoneToggle(!toggleMicrophone)
-        setMicrophone(!toggleMicrophone)
+    const toggleMic = () => {
+        setMic(!mic);
+        toggleMicrophone();
     }
 
     return (
         <div>
-            <Button onClick={() => camToggle()}>
-                {toggleCamera ? <VideocamIcon/> : <VideocamOffIcon/>}
+            <Button onClick={() =>  toggleCam()}>
+                {camera ? <VideocamIcon/> : <VideocamOffIcon/>}
             </Button>
 
-            <Button onClick={() => micToggle()}>
-                {toggleMicrophone ? <MicIcon/> : <MicOffIcon/>}
+            <Button onClick={() => toggleMic()}>
+                {mic ? <MicIcon/> : <MicOffIcon/>}
             </Button>
         </div>
      

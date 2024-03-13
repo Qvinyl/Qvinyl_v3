@@ -18,7 +18,7 @@ const ReceivingRoomModal = ({receivingCallModalOpen, handleReceivingCallModalClo
                 </DialogTitle>
 
                 <DialogActions>
-                    <Button onClick={handleAcceptCall}>Accept</Button>
+                    <Button onClick={handleAcceptCall}>Join</Button>
                     <Button className="delete-button" onClick={handleReceivingCallModalClose}>Decline</Button>
                 </DialogActions>
             </Dialog>    

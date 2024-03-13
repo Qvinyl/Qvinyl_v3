@@ -18,7 +18,7 @@ module.exports = {
     // ORM_PATH: "/data-sync/",
 
     SYNC_PATH: ":7777",
-    YTS_PATH: ":9000",
+    YTS_PATH: ":9000/search",
     MSG_PATH: ":9993",
     NOT_PATH: ":5240",
     ORM_PATH: ":3000/api/v1/",
