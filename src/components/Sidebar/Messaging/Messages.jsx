@@ -1,8 +1,6 @@
 import { React, useRef, useEffect, useState, useMemo } from 'react';
 import RoundedInputField from '../../Basics/InputField/RoundedInputField';
 import FormControl from '@mui/material/FormControl';
-import MessageList from './MessageList';
-// import CustomTabs from '../../Basics/Tabs/CustomTabs';
 import CallingRoomModal from '../../Basics/Modals/VideoCalling/CallingRoomModal';
 import ReceivingCallModal from '../../Basics/Modals/VideoCalling/ReceivingCallModal';
 import VideocamIcon from '@mui/icons-material/Videocam';
@@ -10,13 +8,12 @@ import CallIcon from '@mui/icons-material/Call';
 import VideoCall from './VideoCallingModule/VideoCall';
 import CallEndIcon from '@mui/icons-material/CallEnd';
 import { Button } from '@mui/material';
-import { hermes, sendMessage, videoCallRoom, joinCall, getActiveUserList } from '../../../features/socketService/HermesService';
+import { hermes, sendMessage, videoCallRoom, joinCall, leaveCall, getActiveUserList } from '../../../features/socketService/HermesService';
 import { useDispatch } from 'react-redux';
 import { hasUnreadMessages } from '../../../store/actions/messagesActions';
 import { addMessage } from '../../../store/actions/messagesActions';
 import '../../../css/Messaging.css';
 import PeerService from '../../../features/callingService/PeerService'; // Update the path as needed
-
 
 const Messaging = ({ currentRoomkey, userId, displayName }) => {
     const peerCon = useMemo(() => new PeerService(userId), [userId]); // Use useMemo to create peerCon only once
@@ -118,7 +115,6 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             displayName: displayName
         }
        
-       
         setVideoCalling(true);  
 
         await peerCon.openCamera();
@@ -134,9 +130,17 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
         }
     }
 
-    const endVideoCall = () => {
-        // endCall();
+    const endVideoCall = async () => {
+        peerCon.streamManager.disconnect();
+        await peerCon.disconnectCalls();
         setVideoCalling(false);
+
+        var user = {
+            userId: userId,
+            displayName: displayName
+        }
+
+        leaveCall(currentRoomkey, user);
     }
 
     useEffect(() => {
@@ -176,7 +180,8 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
 
     // Listen for when a user Leaves a call
     hermes.off(`leaveCall-${currentRoomkey}`).on(`leaveCall-${currentRoomkey}`, (data) => {
-        console.log()
+        const { user } = data;
+        setUsersOnCall(usersOnCall.filter((user) => user.userId !== user.userId));
     });
 
     // Listen for when a user declines a call
@@ -202,7 +207,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             {
                 videoCalling &&
                 <div style={{ color: "white", position: "relative", width: "100%" }}>
-                    <Button style={{ cursor: "pointer" }} onClick={() => endVideoCall()}> End Call &nbsp; <CallEndIcon className="end-call" /></Button>
+                    <Button style={{ cursor: "pointer" }} onClick={() => endVideoCall()}> Leave Call &nbsp; <CallEndIcon className="end-call" /></Button>
                 </div>
             }
             <div className={videoCalling ? "video-call-container" : "video-call-container closed"}>

@@ -42,15 +42,19 @@ export function joinCall(roomkey, user) {
 }
 
 export function declineCall(roomkey, user) {
-    hermes.emit('joinCall', {roomkey, user});
+    hermes.emit('declineCall', {roomkey, user});
+}
+
+export function leaveCall(roomkey, user) {
+    hermes.emit('leaveCall', {roomkey, user});
 }
 
 export function cancelCall(roomkey, user) {
-    hermes.emit('joinCall', {roomkey, user});
+    hermes.emit('cancelCall', {roomkey, user});
 }
 
 export function acceptCall(roomkey, user) {
-    hermes.emit('joinCall', {roomkey, user});
+    hermes.emit('acceptCall', {roomkey, user});
 }
 
 

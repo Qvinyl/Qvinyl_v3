@@ -126,29 +126,14 @@ class PeerService {
             call.on("close", () => {
                 video.remove();
             });
-
-            call.on("close", () => {
-                video.remove();
-            });
         } catch (error) {
             console.log("Answering Call, but video element not found for user:", call.peer);
         }
     }
 
-    disconnect() {
-        if (this.streamManager.getLocalStream()) {
-            this.streamManager.getLocalStream().getTracks().forEach((track) => track.stop());
-        }
-        this.peer.disconnect();
-    }
-
-    
-
-    disconnectCalls() {
-        // Hang up all existing calls
-        for (const call of this.callList) {
-            call.close();
-        }
+    async disconnectCalls() {
+        this.streamManager.disconnect();
+        this.peer.destroy();
     }
 }
 

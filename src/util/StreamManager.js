@@ -6,7 +6,6 @@ class StreamManager {
     }
 
     async openCamera() {
-        console.log("Opening Camera");
         try {
             this.localStream = await navigator.mediaDevices.getUserMedia({
                 video: true,
@@ -42,7 +41,7 @@ class StreamManager {
     }
 
 
-    async stopCamera() {
+    stopCamera() {
         this.videoStream.enabled = false;
     }
 
@@ -68,7 +67,6 @@ class StreamManager {
     }
     
 
-
     toggleMicrophone() {
         if (this.audioStream.enabled) {
             this.turnOffMicrophone();
@@ -86,10 +84,13 @@ class StreamManager {
     }
 
     disconnect() {
-        if (this.localStream) {
-            this.localStream.getTracks().forEach((track) => track.stop());
-            this.localStream = null;
-        }
+        this.stopCamera();
+        this.turnOffMicrophone();
+        setTimeout(() => {
+            this.videoStream.stop();
+            this.audioStream.stop();
+        }, 1000);
+       
     }
 }
 
