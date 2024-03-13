@@ -3,12 +3,13 @@ import RoundedInputField from '../../Basics/InputField/RoundedInputField';
 import FormControl from '@mui/material/FormControl';
 import CallingRoomModal from '../../Basics/Modals/VideoCalling/CallingRoomModal';
 import ReceivingCallModal from '../../Basics/Modals/VideoCalling/ReceivingCallModal';
+import MessageList from './MessageList';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import CallIcon from '@mui/icons-material/Call';
 import VideoCall from './VideoCallingModule/VideoCall';
 import CallEndIcon from '@mui/icons-material/CallEnd';
 import { Button } from '@mui/material';
-import { hermes, sendMessage, videoCallRoom, joinCall, leaveCall, getActiveUserList } from '../../../features/socketService/HermesService';
+import { hermes, sendMessage, videoCallRoom, joinCall, leaveCall } from '../../../features/socketService/HermesService';
 import { useDispatch } from 'react-redux';
 import { hasUnreadMessages } from '../../../store/actions/messagesActions';
 import { addMessage } from '../../../store/actions/messagesActions';
@@ -181,7 +182,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
     // Listen for when a user Leaves a call
     hermes.off(`leaveCall-${currentRoomkey}`).on(`leaveCall-${currentRoomkey}`, (data) => {
         const { user } = data;
-        setUsersOnCall(usersOnCall.filter((user) => user.userId !== user.userId));
+        setUsersOnCall(usersOnCall.filter((userOnCall) => userOnCall.userId !== user.userId));
     });
 
     // Listen for when a user declines a call
@@ -223,7 +224,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             </div>
 
             <div className={`content-container ${videoCalling ? "messaging-container-shrunk" : "messaging-container"}`} >
-                {/* <MessageList userId={userId} /> */}
+                <MessageList userId={userId} />
                 <div className="input-field send">
                     <FormControl onSubmit={handleSubmit}>
                         <RoundedInputField
