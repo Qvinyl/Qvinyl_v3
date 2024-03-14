@@ -7,9 +7,7 @@ const VideoCallWindow = ({user, userId, id, toggleCamera, toggleMicrophone}) => 
     return (
         <TableRow>
             <TableCell align="center" className="video-call-window"> 
-                <div className="window">
-                    <video className="video-window" id={id}/>
-                </div>
+                <video className="video-window" id={id}/>
                 <div className="displayName">{user?.displayName}</div>
                 <div className="video-controls">
                 {

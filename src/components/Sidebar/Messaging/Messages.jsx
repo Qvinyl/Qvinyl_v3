@@ -13,7 +13,7 @@ import { hermes, sendMessage, videoCallRoom, joinCall, leaveCall, cancelCall } f
 import { useDispatch } from 'react-redux';
 import { hasUnreadMessages } from '../../../store/actions/messagesActions';
 import { addMessage } from '../../../store/actions/messagesActions';
-import PeerService from '../../../features/callingService/PeerService';
+import PeerService from '../../../features/callingService/PeerService'; // Update the path as needed
 import '../../../css/Messaging.css';
 
 
@@ -56,17 +56,13 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             displayName: displayName
         };
 
-        // Set videoCalling to true to indicate the call is accepted
         setVideoCalling(true);
 
-        // Join the call with the accepting user
         joinCall(currentRoomkey, acceptingCallUser);
 
-        // Close the receiving call modal
         handleReceivingCallModalClose();
         
         await peerCon.openCamera();
-        // peerCon.answerCalls();
     };
 
     const handleCancelCall = async () => {
@@ -136,6 +132,10 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
         if (stream) {
             videoCallRoom(currentRoomkey, userCalling);
         }
+        
+        // setTimeout(() => {
+        //     handleCancelCall();
+        // }, 8000);
     }
 
     const endVideoCall = async () => {
@@ -194,9 +194,9 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
     });
 
     // Listen for when a user declines a call
-    hermes.off(`declineCall-${currentRoomkey}`).on(`declineCall-${currentRoomkey}`, (data) => {
-        console.log()
-    });
+    // hermes.off(`declineCall-${currentRoomkey}`).on(`declineCall-${currentRoomkey}`, (data) => {
+    //     console.log()
+    // });
 
     // Listen for when a user cancels a call
     hermes.off(`cancelCall-${currentRoomkey}`).on(`cancelCall-${currentRoomkey}`, async () => {
