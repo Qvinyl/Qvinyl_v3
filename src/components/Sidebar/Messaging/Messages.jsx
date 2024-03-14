@@ -9,12 +9,13 @@ import CallIcon from '@mui/icons-material/Call';
 import VideoCall from './VideoCallingModule/VideoCall';
 import CallEndIcon from '@mui/icons-material/CallEnd';
 import { Button } from '@mui/material';
-import { hermes, sendMessage, videoCallRoom, joinCall, leaveCall } from '../../../features/socketService/HermesService';
+import { hermes, sendMessage, videoCallRoom, joinCall, leaveCall, cancelCall } from '../../../features/socketService/HermesService';
 import { useDispatch } from 'react-redux';
 import { hasUnreadMessages } from '../../../store/actions/messagesActions';
 import { addMessage } from '../../../store/actions/messagesActions';
+import PeerService from '../../../features/callingService/PeerService';
 import '../../../css/Messaging.css';
-import PeerService from '../../../features/callingService/PeerService'; // Update the path as needed
+
 
 const Messaging = ({ currentRoomkey, userId, displayName }) => {
     const peerCon = useMemo(() => new PeerService(userId), [userId]); // Use useMemo to create peerCon only once
@@ -68,6 +69,12 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
         // peerCon.answerCalls();
     };
 
+    const handleCancelCall = async () => {
+        cancelCall(currentRoomkey);
+        peerCon.streamManager.disconnect();
+        await peerCon.disconnectCalls();
+        handleCallingModalClose();
+    }   
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -177,6 +184,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             setUsersOnCall(prevUsers => [...prevUsers, user]);
         }
         peerCon.callUser(user.userId);
+        handleCallingModalClose();
     });
 
     // Listen for when a user Leaves a call
@@ -191,8 +199,13 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
     });
 
     // Listen for when a user cancels a call
-    hermes.off(`cancelCall-${currentRoomkey}`).on(`cancelCall-${currentRoomkey}`, (data) => {
-        console.log()
+    hermes.off(`cancelCall-${currentRoomkey}`).on(`cancelCall-${currentRoomkey}`, async () => {
+        handleReceivingCallModalClose();
+        handleCallingModalClose();
+        peerCon.streamManager.disconnect();
+        await peerCon.disconnectCalls();
+        setVideoCalling(false);
+        setUsersOnCall([]);
     });
 
     return (
@@ -246,6 +259,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             />
 
             <CallingRoomModal
+                handleCancelCall={handleCancelCall}
                 callingModalOpen={callingModalOpen}
                 handleCallingModalClose={handleCallingModalClose}
             />

@@ -141,3 +141,12 @@
     color: white;
     padding: 10px;
 }
+
+.messaging-container-shrunk {
+    height: 60%;
+    margin-top: auto;
+}
+
+.messaging-container {
+    height: 100%;
+}

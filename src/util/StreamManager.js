@@ -90,6 +90,7 @@ class StreamManager {
             this.videoStream.stop();
             this.audioStream.stop();
         }, 1000);
+        this.localStream = null;
        
     }
 }

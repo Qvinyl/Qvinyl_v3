@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
-const CallingRoomModal = ({callingModalOpen, handleCallingModalClose}) => {
+const CallingRoomModal = ({callingModalOpen, handleCallingModalClose, handleCancelCall}) => {
     return (
         <div>
             <Dialog
@@ -19,7 +19,7 @@ const CallingRoomModal = ({callingModalOpen, handleCallingModalClose}) => {
                 </DialogTitle>
 
                 <DialogActions>
-                    <Button className="delete-button" onClick={handleCallingModalClose}>Cancel</Button>
+                    <Button className="delete-button" onClick={handleCancelCall}>Cancel</Button>
                 </DialogActions>
             </Dialog>    
         </div>

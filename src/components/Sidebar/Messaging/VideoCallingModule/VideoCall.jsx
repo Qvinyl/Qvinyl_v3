@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { Table, TableBody, TableRow, TableCell, Button} from "@mui/material";
 import VideoCallWindow from "./VideoCallWindow";
+import './VideoCall.css';
 
 const VideoCall = ({userId, users, toggleCamera, toggleMicrophone}) => {
     useEffect(()=> {
 
     }, [users])
     return (
-        <Table>
+        <Table className="video-call-container">
             <TableBody>
                 <VideoCallWindow 
                     userId={userId} 

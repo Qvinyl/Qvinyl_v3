@@ -53,11 +53,6 @@ export function cancelCall(roomkey, user) {
     hermes.emit('cancelCall', {roomkey, user});
 }
 
-export function acceptCall(roomkey, user) {
-    hermes.emit('acceptCall', {roomkey, user});
-}
-
-
 // export function videoCall(roomkey, user) {
 //     hermes.emit('cancelVideoCall', {roomkey, user});
 // }
