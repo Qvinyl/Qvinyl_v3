@@ -4,8 +4,10 @@ import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
+import CallEndIcon from '@mui/icons-material/CallEnd';
 
-const VideoControls = ({toggleCamera, toggleMicrophone}) => {
+
+const VideoControls = ({toggleCamera, toggleMicrophone, leaveVideoCall}) => {
     const [camera, setCamera] = useState(true);
     const [mic, setMic] = useState(true);
 
@@ -22,13 +24,18 @@ const VideoControls = ({toggleCamera, toggleMicrophone}) => {
 
     return (
         <div>
-            <Button onClick={() =>  toggleCam()}>
+            <Button style={{ cursor: "pointer" }} onClick={() =>  toggleCam()}>
                 {camera ? <VideocamIcon/> : <VideocamOffIcon/>}
             </Button>
 
-            <Button onClick={() => toggleMic()}>
+            <Button style={{ cursor: "pointer" }} onClick={() => toggleMic()}>
                 {mic ? <MicIcon/> : <MicOffIcon/>}
             </Button>
+
+            <Button style={{ cursor: "pointer" }} onClick={() => leaveVideoCall()}> 
+                <CallEndIcon className="end-call" />
+            </Button>
+
         </div>
      
     )

@@ -3,7 +3,7 @@ import { TableRow, TableCell, Button } from "@mui/material";
 import VideoControls from "./VideoControls";
 import './VideoCall.css'
 
-const VideoCallWindow = ({ user, userId, id, toggleCamera, toggleMicrophone }) => {
+const VideoCallWindow = ({ user, userId, id, toggleCamera, toggleMicrophone, leaveVideoCall }) => {
     return (
         <div className="video-call-window">
             <video className="video-window" id={id} />
@@ -14,6 +14,7 @@ const VideoCallWindow = ({ user, userId, id, toggleCamera, toggleMicrophone }) =
                 {
                     id === "local-video" &&
                     <VideoControls
+                        leaveVideoCall={leaveVideoCall}
                         toggleCamera={toggleCamera}
                         toggleMicrophone={toggleMicrophone}
                     />

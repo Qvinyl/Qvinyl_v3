@@ -6,7 +6,7 @@ import ReceivingCallModal from '../../Basics/Modals/VideoCalling/ReceivingCallMo
 import MessageList from './MessageList';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import CallIcon from '@mui/icons-material/Call';
-import VideoCall from './VideoCallingModule/VideoCall';
+import VideoCall from '../VideoCallingModule/VideoCall';
 import CallEndIcon from '@mui/icons-material/CallEnd';
 import { Button } from '@mui/material';
 import { hermes, sendMessage, videoCallRoom, joinCall, leaveCall, cancelCall } from '../../../features/socketService/HermesService';
@@ -210,14 +210,14 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
 
     return (
         <div className="content-container messaging">
-            {
+            {/* {
                 !videoCalling &&
 
                 <div className="call-options">
                     <CallIcon className='call-icon' onClick={() => audioCall()} />
                     <VideocamIcon className='call-icon' onClick={() => videoCall()} />
                 </div>
-            }
+            } */}
             {
                 videoCalling &&
                 <div style={{ color: "white", position: "relative", width: "100%" }}>

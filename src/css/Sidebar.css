@@ -10,7 +10,7 @@
     flex-direction: column;
     background-color: black;
     width: 100%;
-    border-left: 2px solid rgb(37, 37, 37, 0.5)
+    border-left: 2px solid rgba(128, 128, 128, 0.5)
 }
 
 .tab-group {
@@ -103,7 +103,7 @@
     display: flex;
     height: 10%;
     width: 20px;
-    background-color: rgb(37, 37, 37);
+    background-color: rgb(128, 128, 128);
     margin: auto;
     justify-content: space-around;
     cursor: pointer;
@@ -113,14 +113,14 @@
 
 .sidebar-lip:hover {
     opacity: 1 !important;
-    background-color: rgb(37, 37, 37);
+    background-color: rgb(200, 200, 200);
 }
 
 .sidebar-lip-icon {
     font-size: 20px !important;
     display: flex;
     justify-content: center !important;
-    color: #1976d2 !important;
+    color: #ffffff !important;
     margin: auto;
 }
 

@@ -6,13 +6,13 @@ import { getCurrentQueuedElement } from '../../features/queueService/Queuing/Que
 import { socket, onSeek, onPausePlayMedia, onMediaEnded, onSyncRoom } from '../../features/socketService/SyncService';
 import '../../css/Player.css'
 
-const PlayerContainer = ({user, roomData}) => {
+const PlayerContainer = ({user, roomData, contentPlay}) => {
     const [volume, setVolume] = useState(100);
     const [muted, setMute] = useState(false);
     const [playback, setPlayback] = useState(true);
     const [progress, setProgress] = useState(0);
     const [controlModalOpen, setControlModalOpen] = useState(false)
-    const [currentElement, setCurrentElement] = useState({});
+    const [currentElement, setCurrentElement] = useState('');
     const [requester, setRequester] = useState({});
     const [hasControl, setHasControl] = useState(true)
     const playerRef = useRef(null)  
@@ -51,6 +51,7 @@ const PlayerContainer = ({user, roomData}) => {
     }
 
     const handleOnReady = () => {
+        contentPlay(true);
         playerRef.current.seekTo(0);
     }
 
@@ -60,10 +61,13 @@ const PlayerContainer = ({user, roomData}) => {
 
     const handleOnVideoEnded = () => {
         onMediaEnded(currentRoomkey);
+        setTimeout(() => {
+            contentPlay(false);
+        }, 2000)
     }
 
     const getSongElement = async () => {
-        getCurrentQueuedElement(currentRoomkey, setCurrentElement);
+        getCurrentQueuedElement(currentRoomkey, setCurrentElement);       
     }
 
     socket.off(`seeking-${currentRoomkey}`).on(`seeking-${currentRoomkey}`, (data) => {

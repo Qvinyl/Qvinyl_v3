@@ -13,9 +13,8 @@ import { useSelector } from 'react-redux';
 import { unsubscribe } from '../features/queueService/Queuing/QueueServices';
 import { socket } from '../features/socketService/SyncService';
 import RefreshPageModal from './Basics/Modals/RefreshPageModal';
-import VideoCall from './Sidebar/Messaging/VideoCallingModule/VideoCall';
+import VideoCall from './Sidebar/VideoCallingModule/VideoCall';
 import { Button } from '@mui/material';
-import CallEndIcon from '@mui/icons-material/CallEnd';
 import '../css/Sidebar.css';
 import '../css/Main.css';
 
@@ -28,6 +27,8 @@ const Qvinyl = ({ }) => {
     const [roomId, setRoomId] = useState();
     const [activeUserList, setActiveUserList] = useState([]);
     const [usersOnCall, setUsersOnCall] = useState([]);
+    const [contentPlaying, setContentPlaying] = useState(false);
+
     const user = useSelector((state) => state.userReducer.user);
     const loggedIn = useSelector((state) => state.userReducer.loggedIn);
     const peerCon = useMemo(() => new PeerService(user.user_id), [user?.user_id]);
@@ -41,8 +42,8 @@ const Qvinyl = ({ }) => {
                 setRoomId(location.state.roomId)
                 connectSocketRooms();
                 setTimeout(() => {
-                    joinWebsocketsRooms(user, location.state.roomId);
-                }, 1500);
+                    joinWebsocketsRooms(location.state.roomId);
+                }, 2000);
             }
         }
         catch (e) {
@@ -77,10 +78,14 @@ const Qvinyl = ({ }) => {
     //     }
     // }
 
-    const joinWebsocketsRooms = async () => {
-        syncUp(roomId);
-        joinSocketRoom(user, roomId);
-        joinMessageRoom(user, roomId);
+    const contentPlay = (status) => {
+        setContentPlaying(status);
+    }
+
+    const joinWebsocketsRooms = async (roomkey) => {
+        syncUp(roomkey);
+        joinSocketRoom(user, roomkey);
+        joinMessageRoom(user, roomkey);
 
         var joiningUser = {
             userId: user.user_id,
@@ -136,50 +141,54 @@ const Qvinyl = ({ }) => {
                 await peerCon.callUser(joiningUser.userId);
             }
         }
-        await peerCon.answerCalls();
     });
 
     hermes.off(`leaveCall-${roomId}`).on(`leaveCall-${roomId}`, (data) => {
-        console.log(data)
         setUsersOnCall(usersOnCall.filter((userOnCall) => userOnCall.userId !== data.user.userId));
     });
 
-    useEffect(() => {
-        hermes.off(`active-users-${roomId}`).on(`active-users-${roomId}`, (data) => {
-            setActiveUserList(data);
-        });
-    }, [roomId]);
+    hermes.off(`active-users-${roomId}`).on(`active-users-${roomId}`, async (data) => {
+        console.dir(data);
+        setActiveUserList(data.filter((activeUser) => activeUser.userId !== user.user_id));
+        for (const userdata of activeUserList) {
+            await peerCon.callUser(userdata.userId);
+        }
+    });
 
     return (
         <div className="main">
             {
                 user &&
-                // <PlayerContainer
-                //     roomData={roomData}
-                //     user={user}
-                // />
-                <div style={{ width: "100%", display: "flex", overflow: "hidden"}}>
-                    <VideoCall
-                        userId={user.user_id}
-                        users={usersOnCall}
-                        toggleCamera={toggleCamera}
-                        toggleMicrophone={toggleMicrophone}
-                    />
-                    {/* <div style={{ color: "white", position: "relative", width: "100%" }}>
-                    <Button style={{ cursor: "pointer" }} onClick={() => leaveVideoCall()}> Leave Call &nbsp; <CallEndIcon className="end-call" /></Button>
-                </div> */}
-                </div>
+                <>
+                    <div style={{ width: contentPlaying ? "100%" : "1px", height: contentPlaying ? "100%" : "1px"}}>
+                        <PlayerContainer
+                            contentPlay={contentPlay}
+                            roomData={roomData}
+                            user={user}
+                        />
+                    </div>
+
+                    <div style={{ width: contentPlaying ? "28%" : "100%", display: "flex", overflow: "hidden", backgroundColor: contentPlaying ? "black" : "transparent" }}>
+                        <VideoCall
+                            userId={user.user_id}
+                            users={activeUserList}
+                            leaveVideoCall={leaveVideoCall}
+                            toggleCamera={toggleCamera}
+                            toggleMicrophone={toggleMicrophone}
+                        />
+                    </div>
+                </>
 
             }
 
             <div className={sidebar ? "sidebar-wrapper" : "sidebar-wrapper-close"}>
-                
+
                 <div className="slide">
-                    <Sidebar 
+                    <Sidebar
                         user={user}
                         isOpen={sidebar}
                         // joinRoom={joinRoom}
-                        handleOnClickSidebarLip={handleOnClickSidebarLip} 
+                        handleOnClickSidebarLip={handleOnClickSidebarLip}
                     />
                 </div>
             </div>

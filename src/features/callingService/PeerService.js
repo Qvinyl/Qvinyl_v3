@@ -81,7 +81,6 @@ class PeerService {
         });
     }
 
-
     getCallList() {
         return this.callList;
     }
@@ -100,7 +99,9 @@ class PeerService {
         }
         
         call.answer(stream);
+       
         console.log("Answering: " + call.peer);
+       
         const videoPromise = new Promise((resolve) => {
             // Function to check if the video element with the specified ID is available
             function checkVideoElement() {

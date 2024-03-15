@@ -3,9 +3,10 @@ import { Table, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import VideoCallWindow from "./VideoCallWindow";
 import './VideoCall.css';
 
-const VideoCall = ({ userId, users, toggleCamera, toggleMicrophone }) => {
-    useEffect(() => {
+const VideoCall = ({ userId, users, toggleCamera, toggleMicrophone, leaveVideoCall}) => {
 
+    useEffect(() => {
+        console.dir(users);
     }, [users]);
     
     return (
@@ -25,6 +26,7 @@ const VideoCall = ({ userId, users, toggleCamera, toggleMicrophone }) => {
                 <VideoCallWindow
                     userId={userId}
                     id={"local-video"}
+                    leaveVideoCall={leaveVideoCall}
                     toggleCamera={toggleCamera}
                     toggleMicrophone={toggleMicrophone}
                 />
