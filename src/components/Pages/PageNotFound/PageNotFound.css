@@ -1,0 +1,29 @@
+.page-not-found-container {
+    background-color: rgba(37, 37, 37) ;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 100vh;
+}
+
+.page-not-found-content {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.page-not-found-text {
+    margin: auto;
+    padding: 0px 20px 0px 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.mine-logo{
+    margin: 20px;
+}

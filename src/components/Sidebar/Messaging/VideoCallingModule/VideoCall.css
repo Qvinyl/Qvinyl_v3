@@ -1,24 +1,56 @@
+/* .video-call-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    gap: 10px;
+    
+} */
+
 .video-call-container {
-    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+}
+
+.video-call-container > * {
+    flex: 1 1 300px;
 }
 
 .video-call-window {
-    position: relative;
-    height: 100%;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     color: black !important;
-    padding: 16px !important;
 }
 
 .video-window {
+    background-color: black;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+#local-video {
     transform: rotateY(180deg);
-    width: 90%;
-    border-radius: 25px;
 }
 
 .displayName {
-    padding: 8px;
+    padding: 16px;
+    font-size: large;
     position: relative;
     color: white;
     font-weight: bold;
+}
+
+.local-feed {
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    padding: 16px;
+    max-width: 15%;
+    flex-basis: 100%;
 }

@@ -16,7 +16,6 @@ import { addMessage } from '../../../store/actions/messagesActions';
 import PeerService from '../../../features/callingService/PeerService'; // Update the path as needed
 import '../../../css/Messaging.css';
 
-
 const Messaging = ({ currentRoomkey, userId, displayName }) => {
     const peerCon = useMemo(() => new PeerService(userId), [userId]); // Use useMemo to create peerCon only once
     const [message, setMessage] = useState("");
@@ -24,15 +23,44 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
     const [callingModalOpen, setCallingModalOpen] = useState(false);
     const [receivingCallModalOpen, setReceivingCallModalOpen] = useState(false);
     const [caller, setReceiveCaller] = useState({});
-    const inputReference = useRef(null);
     const [usersOnCall, setUsersOnCall] = useState([]);
     const [activeUserList, setActiveUserList] = useState([]);
+
+    const inputReference = useRef(null);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         inputReference.current.focus();
     }, []);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (message === "\n" || message === "") {
+            return;
+        }
+        var sendMessageObj = {
+            userId: userId,
+            displayName: displayName,
+            text: message
+        }
+        sendMessage(currentRoomkey, sendMessageObj)
+        setMessage("");
+    };
+
+    const setMessageInput = (event) => {
+        const newValue = event.target.value;
+        setMessage(newValue);
+    }
+
+    const keyPress = (e) => {
+        if (message !== "\n" || message !== "") {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                handleSubmit(e);
+            }
+        }
+    }
 
     const handleCallingModalOpen = () => {
         setCallingModalOpen(true);
@@ -72,34 +100,6 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
         handleCallingModalClose();
     }   
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (message === "\n" || message === "") {
-            return;
-        }
-        var sendMessageObj = {
-            userId: userId,
-            displayName: displayName,
-            text: message
-        }
-        sendMessage(currentRoomkey, sendMessageObj)
-        setMessage("");
-    };
-
-    const setMessageInput = (event) => {
-        const newValue = event.target.value;
-        setMessage(newValue);
-    }
-
-    const keyPress = (e) => {
-        if (message !== "\n" || message !== "") {
-            if (e.keyCode === 13) {
-                e.preventDefault();
-                handleSubmit(e);
-            }
-        }
-    }
-
     const toggleCamera = () => {
         peerCon.streamManager.toggleCamera();
     }
@@ -138,7 +138,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
         // }, 8000);
     }
 
-    const endVideoCall = async () => {
+    const leaveVideoCall = async () => {
         peerCon.streamManager.disconnect();
         await peerCon.disconnectCalls();
         setVideoCalling(false);
@@ -221,7 +221,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
             {
                 videoCalling &&
                 <div style={{ color: "white", position: "relative", width: "100%" }}>
-                    <Button style={{ cursor: "pointer" }} onClick={() => endVideoCall()}> Leave Call &nbsp; <CallEndIcon className="end-call" /></Button>
+                    <Button style={{ cursor: "pointer" }} onClick={() => leaveVideoCall()}> Leave Call &nbsp; <CallEndIcon className="end-call" /></Button>
                 </div>
             }
             <div className={videoCalling ? "video-call-container" : "video-call-container closed"}>

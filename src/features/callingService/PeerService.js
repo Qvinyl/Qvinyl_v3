@@ -25,6 +25,7 @@ class PeerService {
 
 
     async callUser(userId) {
+        console.log("Call user: " + userId);
         // Ensure the camera is open before calling
         if (!this.streamManager.getLocalStream()) {
             await this.openCamera();
@@ -36,7 +37,7 @@ class PeerService {
 
             // Call the user with the obtained stream
             const call = this.peer.call(userId, stream);
-
+            
             // Handle the call events
             this.handleCallEvents(call);
         } catch (error) {
@@ -46,6 +47,7 @@ class PeerService {
 
     handleCallEvents(call) {
         const userId = call.peer;
+        console.log("Calling: " + userId);
         const videoElementId = userId; // Assuming video element id is same as userId
 
         // Resolve the video element for the call
@@ -98,6 +100,7 @@ class PeerService {
         }
         
         call.answer(stream);
+        console.log("Answering: " + call.peer);
         const videoPromise = new Promise((resolve) => {
             // Function to check if the video element with the specified ID is available
             function checkVideoElement() {

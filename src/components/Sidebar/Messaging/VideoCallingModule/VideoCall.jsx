@@ -1,33 +1,35 @@
 import React, { useEffect } from "react";
-import { Table, TableBody, TableRow, TableCell, Button} from "@mui/material";
+import { Table, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import VideoCallWindow from "./VideoCallWindow";
 import './VideoCall.css';
 
-const VideoCall = ({userId, users, toggleCamera, toggleMicrophone}) => {
-    useEffect(()=> {
+const VideoCall = ({ userId, users, toggleCamera, toggleMicrophone }) => {
+    useEffect(() => {
 
-    }, [users])
+    }, [users]);
+    
     return (
-        <Table className="video-call-container">
-            <TableBody>
-                <VideoCallWindow 
-                    userId={userId} 
-                    id={"local-video"} 
+        <div className="video-call-container">
+            {
+                users.map((user, index) =>
+                    <VideoCallWindow
+                        key={user?.userId}
+                        user={user}
+                        userId={userId}
+                        id={user?.userId}
+                    />
+                )
+            }
+
+            <div className="local-feed">
+                <VideoCallWindow
+                    userId={userId}
+                    id={"local-video"}
                     toggleCamera={toggleCamera}
-                    toggleMicrophone={toggleMicrophone} 
+                    toggleMicrophone={toggleMicrophone}
                 />
-                { 
-                    users.map((user, index) => 
-                        <VideoCallWindow 
-                            key={user?.userId} 
-                            user={user} 
-                            userId={userId} 
-                            id={user?.userId} 
-                        />
-                    )
-                }
-            </TableBody>               
-        </Table>    
+            </div>
+        </div>
     )
 }
 

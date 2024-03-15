@@ -13,7 +13,7 @@ export function connectMessagingSocket() {
     }
 }
 
-export function joinMessageRoom(roomkey, user) {
+export function joinMessageRoom(user, roomkey) {
     var user = {
         displayName: user.display_name,
         userId: user.user_id
