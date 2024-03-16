@@ -99,6 +99,7 @@ const PlayerContainer = ({user, roomData, contentPlay}) => {
         <div className="player">
             <div className="player-wrapper">
                 <Player
+                    contentPlay={contentPlay}
                     playerRef={playerRef}
                     setProgressValue={setProgressValue}
                     muted={muted}

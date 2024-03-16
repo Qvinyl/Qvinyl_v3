@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 
-const Player = ({handleOnReady, playback, volume, muted, setProgressValue, playerRef, url, handleOnVideoEnded}) => {
+const Player = ({handleOnReady, playback, volume, muted, setProgressValue, playerRef, url, handleOnVideoEnded, contentPlay}) => {
+    useEffect(() => {
+        if(url === undefined) {
+            contentPlay(false);
+        }
+    }, [url])
     const onProgress = (progress) => {
         setProgressValue((progress.played * 100));
     }
