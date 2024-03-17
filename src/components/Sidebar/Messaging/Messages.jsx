@@ -13,11 +13,11 @@ import { hermes, sendMessage, videoCallRoom, joinCall, leaveCall, cancelCall } f
 import { useDispatch } from 'react-redux';
 import { hasUnreadMessages } from '../../../store/actions/messagesActions';
 import { addMessage } from '../../../store/actions/messagesActions';
-import PeerService from '../../../features/callingService/PeerService'; // Update the path as needed
+// import PeerService from '../../../features/callingService/PeerService'; // Update the path as needed
 import '../../../css/Messaging.css';
 
 const Messaging = ({ currentRoomkey, userId, displayName }) => {
-    const peerCon = useMemo(() => new PeerService(userId), [userId]); // Use useMemo to create peerCon only once
+    // const peerCon = useMemo(() => new PeerService(userId), [userId]); // Use useMemo to create peerCon only once
     const [message, setMessage] = useState("");
     const [videoCalling, setVideoCalling] = useState(false);
     const [callingModalOpen, setCallingModalOpen] = useState(false);
@@ -62,136 +62,136 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
         }
     }
 
-    const handleCallingModalOpen = () => {
-        setCallingModalOpen(true);
-    };
+    // const handleCallingModalOpen = () => {
+    //     setCallingModalOpen(true);
+    // };
 
-    const handleCallingModalClose = () => {
-        setCallingModalOpen(false);
-    };
+    // const handleCallingModalClose = () => {
+    //     setCallingModalOpen(false);
+    // };
 
-    const handleReceivingCallModalOpen = () => {
-        setReceivingCallModalOpen(true);
-    };
+    // const handleReceivingCallModalOpen = () => {
+    //     setReceivingCallModalOpen(true);
+    // };
 
-    const handleReceivingCallModalClose = () => {
-        setReceivingCallModalOpen(false);
-    };
+    // const handleReceivingCallModalClose = () => {
+    //     setReceivingCallModalOpen(false);
+    // };
 
-    const handleAcceptCall = async () => {
-        var acceptingCallUser = {
-            userId: userId,
-            displayName: displayName
-        };
+    // const handleAcceptCall = async () => {
+    //     var acceptingCallUser = {
+    //         userId: userId,
+    //         displayName: displayName
+    //     };
 
-        setVideoCalling(true);
+    //     setVideoCalling(true);
 
-        joinCall(currentRoomkey, acceptingCallUser);
+    //     joinCall(currentRoomkey, acceptingCallUser);
 
-        handleReceivingCallModalClose();
+    //     handleReceivingCallModalClose();
         
-        await peerCon.openCamera();
-    };
+    //     await peerCon.openCamera();
+    // };
 
-    const handleCancelCall = async () => {
-        cancelCall(currentRoomkey);
-        peerCon.streamManager.disconnect();
-        await peerCon.disconnectCalls();
-        handleCallingModalClose();
-    }   
+    // const handleCancelCall = async () => {
+    //     cancelCall(currentRoomkey);
+    //     peerCon.streamManager.disconnect();
+    //     await peerCon.disconnectCalls();
+    //     handleCallingModalClose();
+    // }   
 
-    const toggleCamera = () => {
-        peerCon.streamManager.toggleCamera();
-    }
+    // const toggleCamera = () => {
+    //     peerCon.streamManager.toggleCamera();
+    // }
 
-    const toggleMicrophone = () => {
-        peerCon.streamManager.toggleMicrophone();
-    }
+    // const toggleMicrophone = () => {
+    //     peerCon.streamManager.toggleMicrophone();
+    // }
 
-    const audioCall = () => {
-        console.log("Audio call");
-    }
+    // const audioCall = () => {
+    //     console.log("Audio call");
+    // }
 
-    const videoCall = async () => {
-        handleCallingModalOpen();
-        var userCalling = {
-            userId: userId,
-            displayName: displayName
-        }
+    // const videoCall = async () => {
+    //     handleCallingModalOpen();
+    //     var userCalling = {
+    //         userId: userId,
+    //         displayName: displayName
+    //     }
        
-        setVideoCalling(true);  
+    //     setVideoCalling(true);  
 
-        await peerCon.openCamera();
-        for (const user of activeUserList) {
-            if (user !== userId) {
-                await peerCon.callUser(user);
-            }
-        }
+    //     await peerCon.openCamera();
+    //     for (const user of activeUserList) {
+    //         if (user !== userId) {
+    //             await peerCon.callUser(user);
+    //         }
+    //     }
 
-        const stream = await peerCon.streamManager.getLocalStream();
-        if (stream) {
-            videoCallRoom(currentRoomkey, userCalling);
-        }
+    //     const stream = await peerCon.streamManager.getLocalStream();
+    //     if (stream) {
+    //         videoCallRoom(currentRoomkey, userCalling);
+    //     }
         
-        // setTimeout(() => {
-        //     handleCancelCall();
-        // }, 8000);
-    }
+    //     // setTimeout(() => {
+    //     //     handleCancelCall();
+    //     // }, 8000);
+    // }
 
-    const leaveVideoCall = async () => {
-        peerCon.streamManager.disconnect();
-        await peerCon.disconnectCalls();
-        setVideoCalling(false);
+    // const leaveVideoCall = async () => {
+    //     peerCon.streamManager.disconnect();
+    //     await peerCon.disconnectCalls();
+    //     setVideoCalling(false);
 
-        var user = {
-            userId: userId,
-            displayName: displayName
-        }
+    //     var user = {
+    //         userId: userId,
+    //         displayName: displayName
+    //     }
 
-        leaveCall(currentRoomkey, user);
-    }
+    //     leaveCall(currentRoomkey, user);
+    // }
 
-    useEffect(() => {
-        hermes.off(`active-users-${currentRoomkey}`).on(`active-users-${currentRoomkey}`, (data) => {
-            setActiveUserList(data);
-        });
-    }, [currentRoomkey]);
+    // useEffect(() => {
+    //     hermes.off(`active-users-${currentRoomkey}`).on(`active-users-${currentRoomkey}`, (data) => {
+    //         setActiveUserList(data);
+    //     });
+    // }, [currentRoomkey]);
 
-    // Listen for new Messages
-    hermes.off(`message-${currentRoomkey}`).on(`message-${currentRoomkey}`, (data) => {
-        dispatch(hasUnreadMessages(true));
-        dispatch(addMessage(data));
-    });
+    // // Listen for new Messages
+    // hermes.off(`message-${currentRoomkey}`).on(`message-${currentRoomkey}`, (data) => {
+    //     dispatch(hasUnreadMessages(true));
+    //     dispatch(addMessage(data));
+    // });
 
 
-    // Listen for general calls
-    hermes.off(`videoCallRoom-${currentRoomkey}`).on(`videoCallRoom-${currentRoomkey}`, (data) => {
-        const { user } = data;
-        setReceiveCaller(user);
-        if (data.user.userId != userId) {
-            handleReceivingCallModalOpen();
-            setUsersOnCall(prevUsers => [...prevUsers, user]);
-        }
-    });
+    // // Listen for general calls
+    // hermes.off(`videoCallRoom-${currentRoomkey}`).on(`videoCallRoom-${currentRoomkey}`, (data) => {
+    //     const { user } = data;
+    //     setReceiveCaller(user);
+    //     if (data.user.userId != userId) {
+    //         handleReceivingCallModalOpen();
+    //         setUsersOnCall(prevUsers => [...prevUsers, user]);
+    //     }
+    // });
 
     // Listen for when a user Joins a Call
-    hermes.off(`joinCall-${currentRoomkey}`).on(`joinCall-${currentRoomkey}`, (data) => {
-        const { user } = data;
+    // hermes.off(`joinCall-${currentRoomkey}`).on(`joinCall-${currentRoomkey}`, (data) => {
+    //     const { user } = data;
 
-        // Check if the user joining the call is not the current user
-        if (userId !== user.userId) {
-            // Update the list of users on the call
-            setUsersOnCall(prevUsers => [...prevUsers, user]);
-        }
-        peerCon.callUser(user.userId);
-        handleCallingModalClose();
-    });
+    //     // Check if the user joining the call is not the current user
+    //     if (userId !== user.userId) {
+    //         // Update the list of users on the call
+    //         setUsersOnCall(prevUsers => [...prevUsers, user]);
+    //     }
+    //     peerCon.callUser(user.userId);
+    //     handleCallingModalClose();
+    // });
 
-    // Listen for when a user Leaves a call
-    hermes.off(`leaveCall-${currentRoomkey}`).on(`leaveCall-${currentRoomkey}`, (data) => {
-        const { user } = data;
-        setUsersOnCall(usersOnCall.filter((userOnCall) => userOnCall.userId !== user.userId));
-    });
+    // // Listen for when a user Leaves a call
+    // hermes.off(`leaveCall-${currentRoomkey}`).on(`leaveCall-${currentRoomkey}`, (data) => {
+    //     const { user } = data;
+    //     setUsersOnCall(usersOnCall.filter((userOnCall) => userOnCall.userId !== user.userId));
+    // });
 
     // Listen for when a user declines a call
     // hermes.off(`declineCall-${currentRoomkey}`).on(`declineCall-${currentRoomkey}`, (data) => {
@@ -199,14 +199,14 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
     // });
 
     // Listen for when a user cancels a call
-    hermes.off(`cancelCall-${currentRoomkey}`).on(`cancelCall-${currentRoomkey}`, async () => {
-        handleReceivingCallModalClose();
-        handleCallingModalClose();
-        peerCon.streamManager.disconnect();
-        await peerCon.disconnectCalls();
-        setVideoCalling(false);
-        setUsersOnCall([]);
-    });
+    // hermes.off(`cancelCall-${currentRoomkey}`).on(`cancelCall-${currentRoomkey}`, async () => {
+    //     handleReceivingCallModalClose();
+    //     handleCallingModalClose();
+    //     peerCon.streamManager.disconnect();
+    //     await peerCon.disconnectCalls();
+    //     setVideoCalling(false);
+    //     setUsersOnCall([]);
+    // });
 
     return (
         <div className="content-container messaging">
@@ -218,7 +218,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
                     <VideocamIcon className='call-icon' onClick={() => videoCall()} />
                 </div>
             } */}
-            {
+            {/* {
                 videoCalling &&
                 <div style={{ color: "white", position: "relative", width: "100%" }}>
                     <Button style={{ cursor: "pointer" }} onClick={() => leaveVideoCall()}> Leave Call &nbsp; <CallEndIcon className="end-call" /></Button>
@@ -234,7 +234,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
                         toggleMicrophone={toggleMicrophone}    
                     />
                 }
-            </div>
+            </div> */}
 
             <div className={`content-container ${videoCalling ? "messaging-container-shrunk" : "messaging-container"}`} >
                 <MessageList userId={userId} />
@@ -251,7 +251,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
                 </div>
             </div>
 
-            <ReceivingCallModal
+            {/* <ReceivingCallModal
                 caller={caller.displayName}
                 receivingCallModalOpen={receivingCallModalOpen}
                 handleAcceptCall={handleAcceptCall}
@@ -262,7 +262,7 @@ const Messaging = ({ currentRoomkey, userId, displayName }) => {
                 handleCancelCall={handleCancelCall}
                 callingModalOpen={callingModalOpen}
                 handleCallingModalClose={handleCallingModalClose}
-            />
+            /> */}
         </div>
     )
 }

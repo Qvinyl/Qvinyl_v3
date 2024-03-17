@@ -3,10 +3,20 @@ import StreamManager from "../../util/StreamManager";
 
 class PeerService {
     constructor(userId) {
-        this.peer = new Peer(userId);
-        while (this.peer.id != userId) {
-            this.peer = new Peer(userId);
-        }
+        this.peer = new Peer(userId, { debug: 1 });
+        this.peer.on('open', (peerId) => {
+            console.log('Initialized with peer ID: ' + peerId);
+            // Ensure that the peer ID matches the custom ID
+            if (peerId === userId) {
+                console.log('Peer initialized with the custom ID successfully.');
+            } else {
+                console.error('Peer initialization failed. Assigned ID does not match the custom ID.');
+                this.peer.disconnect();
+                this.peer = new Peer(userId, { debug: 1 });
+                // You may handle this case according to your application logic
+            }
+        });
+
         this.streamManager = new StreamManager();
         this.callList = [];
         this.peer.on("call", (call) => {
@@ -40,7 +50,7 @@ class PeerService {
 
             // Call the user with the obtained stream
             const call = this.peer.call(userId, stream);
-            
+
             // Handle the call events
             this.handleCallEvents(call);
         } catch (error) {
@@ -53,7 +63,7 @@ class PeerService {
             const userId = call.peer;
             console.log("Calling: " + userId);
             const videoElementId = userId; // Assuming video element id is same as userId
-    
+
             // Resolve the video element for the call
             const videoPromise = new Promise((resolve) => {
                 function checkVideoElement() {
@@ -66,7 +76,7 @@ class PeerService {
                 }
                 checkVideoElement();
             });
-    
+
             call.on("stream", async (userVideoStream) => {
                 const video = await videoPromise;
                 video.srcObject = userVideoStream;
@@ -74,7 +84,7 @@ class PeerService {
                     video.play();
                 };
             });
-    
+
             // Handle close event
             call.on("close", () => {
                 const video = document.getElementById(videoElementId);
@@ -99,11 +109,11 @@ class PeerService {
 
     async answerCall(call) {
         const stream = await this.streamManager.getLocalStream();
-        
+
         if (!stream) {
             await this.streamManager.openCamera();
         }
-        
+
         call.answer(stream);
         console.log("Answering: " + call.peer);
         const videoPromise = new Promise((resolve) => {
