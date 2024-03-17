@@ -21,20 +21,28 @@ export async function getAdminRooms(user_id, setRooms) {
 } 
 
 export async function getRoomDataByKey(roomkey) {
-    var getRoomDatabyKeyEndpoint = `${roomAPIEndpoint}/${roomkey}`
+    const getRoomDatabyKeyEndpoint = `${roomAPIEndpoint}/${roomkey}`;
 
-    var response = await fetch(getRoomDatabyKeyEndpoint, {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+    try {
+        const response = await fetch(getRoomDatabyKeyEndpoint, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch room data. Status: ${response.status}`);
         }
-    });
 
-    var roomData = await response.json();
-    return await roomData;
+        const roomData = await response.json();
+        return roomData;
+    } catch (error) {
+        console.error('Error fetching room data:', error);
+        throw error; // Re-throw the error to be handled by the caller
+    }
 }
-
 
 export async function fetchUserRooms(user_id) {
     var getUserRoomsEndpoint = `${roomAPIEndpoint}/getAllRooms/${user_id}`

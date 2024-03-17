@@ -39,11 +39,6 @@ const Qvinyl = ({ }) => {
         try {
             if (user && loggedIn) {
                 fetchRoomData(location.state.roomId);
-                setRoomId(location.state.roomId)
-                connectSocketRooms();
-                setTimeout(() => {
-                    joinWebsocketsRooms(location.state.roomId);
-                }, 2000);
             }
         }
         catch (e) {
@@ -58,13 +53,17 @@ const Qvinyl = ({ }) => {
 
     const fetchRoomData = async (roomId) => {
         try {
-            var fetchedRoomData = await getRoomDataByKey(roomId);
+            const fetchedRoomData = await getRoomDataByKey(roomId);
             if (fetchedRoomData) {
+                setRoomId(location.state.roomId)
                 setRoomData(fetchedRoomData);
+                connectSocketRooms();
+                setTimeout(() => {
+                    joinWebsocketsRooms(location.state.roomId);
+                }, 2000);
             }
-        }
-        catch (e) {
-            console.log(e, "no current room ID");
+        } catch (e) {
+            console.error(e, "no current room ID");
             navigate('/page-not-found');
         }
     }
@@ -96,10 +95,10 @@ const Qvinyl = ({ }) => {
         await peerCon.openCamera();
     }
 
-    const leaveSocketRooms = () => {
-        leaveSocketRoom(roomId);
-        leaveMessageRoom(roomId, user.display_name);
-    }
+    // const leaveSocketRooms = () => {
+    //     leaveSocketRoom(roomId);
+    //     leaveMessageRoom(roomId, user.display_name);
+    // }
 
     const connectSocketRooms = () => {
         connectSocket();
@@ -114,7 +113,6 @@ const Qvinyl = ({ }) => {
             userId: user.user_id,
             displayName: user.display_name
         }
-        // console.log(leavingUser);
         leaveCall(roomId, leavingUser);
     }
 
@@ -160,7 +158,7 @@ const Qvinyl = ({ }) => {
             {
                 user &&
                 <>
-                    <div style={{ width: contentPlaying ? "100%" : "1px", height: contentPlaying ? "100%" : "1px"}}>
+                    <div style={{ width: contentPlaying ? "100%" : "1px", height: contentPlaying ? "100%" : "1px", transition: "0.5s"}}>
                         <PlayerContainer
                             contentPlay={contentPlay}
                             roomData={roomData}
@@ -168,7 +166,7 @@ const Qvinyl = ({ }) => {
                         />
                     </div>
 
-                    <div style={{ width: contentPlaying ? "28%" : "100%", display: "flex", overflow: "hidden", backgroundColor: contentPlaying ? "black" : "transparent" }}>
+                    <div style={{ width: contentPlaying ? "28%" : "100%", display: "flex", overflow: "hidden", backgroundColor: contentPlaying ? "#212121" : "transparent", transition: "0.5s" }}>
                         <VideoCall
                             userId={user.user_id}
                             users={activeUserList}

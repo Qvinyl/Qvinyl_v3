@@ -4,7 +4,6 @@ import VideoCallWindow from "./VideoCallWindow";
 import './VideoCall.css';
 
 const VideoCall = ({ userId, users, toggleCamera, toggleMicrophone, leaveVideoCall}) => {
-
     useEffect(() => {
         console.dir(users);
     }, [users]);
@@ -14,7 +13,7 @@ const VideoCall = ({ userId, users, toggleCamera, toggleMicrophone, leaveVideoCa
             {
                 users.map((user, index) =>
                     <VideoCallWindow
-                        key={user?.userId}
+                        key={index}
                         user={user}
                         userId={userId}
                         id={user?.userId}

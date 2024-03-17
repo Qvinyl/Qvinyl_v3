@@ -36,14 +36,6 @@
     margin-left: -20px;
 }
 
-/* .sidebar-wrapper-close {
-    transition: 0.4s;
-    overflow: hidden;
-    margin-left: -350px;
-    width: 350px;
-    max-width: 350px;
-} */
-
 .slide {
     width: 100%;
     position: relative;
@@ -52,20 +44,6 @@
     transition: 0.4s;
 }
 
-/* 
-.sidebar-wrapper {
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-    width: 25%;
-    height: 100%;
-    min-width: 350px;
-    max-width: 350px;
-    transition: 0.4s;
-    margin-left: -20px;
-    right: 0;
-}
- */
 .sidebar-wrapper-close {
     transition: 0.4s;
     overflow: hidden;

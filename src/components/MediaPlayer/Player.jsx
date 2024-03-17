@@ -6,6 +6,9 @@ const Player = ({handleOnReady, playback, volume, muted, setProgressValue, playe
         if(url === undefined) {
             contentPlay(false);
         }
+        else {
+            contentPlay(true);
+        }
     }, [url])
     const onProgress = (progress) => {
         setProgressValue((progress.played * 100));

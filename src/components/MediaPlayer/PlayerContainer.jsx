@@ -61,9 +61,6 @@ const PlayerContainer = ({user, roomData, contentPlay}) => {
 
     const handleOnVideoEnded = () => {
         onMediaEnded(currentRoomkey);
-        setTimeout(() => {
-            contentPlay(false);
-        }, 2000)
     }
 
     const getSongElement = async () => {
