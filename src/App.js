@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocat
 import Qvinyl from './components/Qvinyl';
 import Login from './pages/Login';
 import { useDispatch } from 'react-redux';
-import { setUser, setLoggedIn} from './store/actions/userActions';
+import { setUser, setLoggedIn, setPeerConnection} from './store/actions/userActions';
 import './App.css';
 import { findOrCreateUser } from './features/userService/UserAdministration';
 import PageNotFound from './components/Pages/PageNotFound/PageNotFound';
+import WaitingRoom from './components/Pages/WaitingRoom/WaitingRoom';
+import PeerService from './features/callingService/PeerService';
 
 const auth = require('./config/constraints').firebaseAuth;
 
@@ -30,19 +32,21 @@ const App = () => {
         navigate("/login");
       }
     });
-  }, []);
+  }, [dispatch]);
 
   const getUser = async (auth) => {
     var userInfo = await findOrCreateUser(auth);
-    dispatch(setUser(userInfo))
+    dispatch(setUser(userInfo));
+    // const peerServiceInstance = new PeerService(userInfo?.user_id);
+    // dispatch(setPeerConnection(peerServiceInstance));
+
   }
 
   return (
     <div className="App">
         <Routes>
           <Route exact path="/login" element={<Login/>}/>
-          <Route path={`/:roomId`} element={<Qvinyl/>} />
-          {/* <Route path={`/waitingRoom`} element={<WaitingRoom/>}/> */}
+          <Route exact path={`/:roomId`} element={<WaitingRoom/>}/>
           <Route exact path="/page-not-found" element={ <PageNotFound /> } />
           <Route path="/*" element={ <Navigate to="/page-not-found" replace />} />
         </Routes>

@@ -5,7 +5,6 @@ import Sidebar from './Sidebar/Sidebar';
 import { useDispatch } from 'react-redux';
 import { getRoomDataByKey } from '../features/roomService/RoomService';
 import { joinSocketRoom, leaveSocketRoom, connectSocket, syncUp } from '../features/socketService/SyncService';
-import PeerService from '../features/callingService/PeerService';
 import { hermes, joinMessageRoom, leaveMessageRoom, connectMessagingSocket, videoCallRoom, joinCall, leaveCall } from '../features/socketService/HermesService';
 import { clearMessages } from '../store/actions/messagesActions';
 import { setUserCurrentRoomkey } from '../store/actions/userActions';
@@ -14,36 +13,29 @@ import { unsubscribe } from '../features/queueService/Queuing/QueueServices';
 import { socket } from '../features/socketService/SyncService';
 import RefreshPageModal from './Basics/Modals/RefreshPageModal';
 import VideoCall from './Sidebar/VideoCallingModule/VideoCall';
-import { Button } from '@mui/material';
 import '../css/Sidebar.css';
 import '../css/Main.css';
 
-const Qvinyl = ({ }) => {
-    const location = useLocation();
+const Qvinyl = ({peerService, roomId}) => {
     const navigate = useNavigate();
     const [sidebar, setSidebar] = useState(true);
     const [roomData, setRoomData] = useState({});
     const [refreshPageModalOpen, setRefreshPageModalOpen] = useState(false);
-    const [roomId, setRoomId] = useState();
     const [activeUserList, setActiveUserList] = useState([]);
     const [usersOnCall, setUsersOnCall] = useState([]);
-    const [contentPlaying, setContentPlaying] = useState(false);
-
+    const [contentPlaying, setContentPlaying] = useState(true);
     const user = useSelector((state) => state.userReducer.user);
     const loggedIn = useSelector((state) => state.userReducer.loggedIn);
-    const peerCon = useMemo(() => new PeerService(user.user_id), [user?.user_id]);
-
-    const dispatch = useDispatch();
 
     useEffect(() => {
         try {
             if (user && loggedIn) {
-                fetchRoomData(location.state.roomId);
+                fetchRoomData(roomId);
             }
         }
         catch (e) {
             console.log(e, "no current room ID");
-            navigate('/login');
+            navigate('login');
         }
     }, [user]);
 
@@ -55,16 +47,13 @@ const Qvinyl = ({ }) => {
         try {
             const fetchedRoomData = await getRoomDataByKey(roomId);
             if (fetchedRoomData) {
-                setRoomId(location.state.roomId)
                 setRoomData(fetchedRoomData);
                 connectSocketRooms();
-                setTimeout(() => {
-                    joinWebsocketsRooms(location.state.roomId);
-                }, 2000);
+                joinWebsocketsRooms(roomId);
             }
         } catch (e) {
             console.error(e, "no current room ID");
-            navigate('/page-not-found');
+            navigate('page-not-found');
         }
     }
 
@@ -92,7 +81,8 @@ const Qvinyl = ({ }) => {
         };
 
         joinCall(roomId, joiningUser);
-        await peerCon.openCamera();
+        await peerService.restartMedia();
+        console.log(peerService.peerId);
     }
 
     // const leaveSocketRooms = () => {
@@ -106,8 +96,8 @@ const Qvinyl = ({ }) => {
     }
 
     const leaveVideoCall = async () => {
-        peerCon.streamManager.disconnect();
-        await peerCon.disconnectCalls();
+        peerService.streamManager.disconnect();
+        await peerService.disconnectCalls();
 
         var leavingUser = {
             userId: user.user_id,
@@ -121,11 +111,11 @@ const Qvinyl = ({ }) => {
     });
 
     const toggleCamera = () => {
-        peerCon.streamManager.toggleCamera();
+        peerService.streamManager.toggleCamera();
     }
 
     const toggleMicrophone = () => {
-        peerCon.streamManager.toggleMicrophone();
+        peerService.streamManager.toggleMicrophone();
     }
 
     hermes.off(`joinCall-${roomId}`).on(`joinCall-${roomId}`, async (data) => {
@@ -134,9 +124,11 @@ const Qvinyl = ({ }) => {
         if (user.user_id !== joiningUser.userId) {
             // Update the list of users on the call
             setUsersOnCall(prevUsers => [...prevUsers, joiningUser]);
-            const stream = await peerCon.streamManager.getLocalStream();
+            const stream = await peerService.streamManager.getLocalStream();
             if (stream) {
-                await peerCon.callUser(joiningUser.userId);
+                setTimeout(async () => {
+                    await peerService.callUser(joiningUser.userId);
+                }, 3000);
             }
         }
     });
@@ -146,10 +138,9 @@ const Qvinyl = ({ }) => {
     });
 
     hermes.off(`active-users-${roomId}`).on(`active-users-${roomId}`, async (data) => {
-        console.dir(data);
         setActiveUserList(data.filter((activeUser) => activeUser.userId !== user.user_id));
         for (const userdata of activeUserList) {
-            await peerCon.callUser(userdata.userId);
+            await peerService.callUser(userdata.userId);
         }
     });
 
@@ -168,6 +159,7 @@ const Qvinyl = ({ }) => {
 
                     <div style={{ width: contentPlaying ? "28%" : "100%", display: "flex", overflow: "hidden", backgroundColor: contentPlaying ? "#212121" : "transparent", transition: "0.5s" }}>
                         <VideoCall
+                            contentPlaying={contentPlaying}
                             userId={user.user_id}
                             users={activeUserList}
                             leaveVideoCall={leaveVideoCall}

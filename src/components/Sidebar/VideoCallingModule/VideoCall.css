@@ -6,14 +6,22 @@
     
 } */
 
+
 .video-call-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    margin: auto;
     width: 100%;
+    padding: 16px;
 }
 
-.video-call-container > * {
+.video-call-container-full {
+    display: flex; 
+    flex-wrap: wrap;
+    margin: auto;
+    width: 100%;
+    padding: 16px;
+}
+
+.video-call-container-full > * {
     flex: 1 1 300px;
 }
 
@@ -22,15 +30,16 @@
     flex-direction: column;
     justify-content: center;
     color: black !important;
+    outline: none;
 }
 
 .video-window {
     background-color: black;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 75%;
     max-height: 80vh;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 20px;
 }
 

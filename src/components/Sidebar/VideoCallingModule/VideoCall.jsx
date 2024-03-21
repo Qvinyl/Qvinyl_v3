@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { Table, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import VideoCallWindow from "./VideoCallWindow";
 import './VideoCall.css';
 
-const VideoCall = ({ userId, users, toggleCamera, toggleMicrophone, leaveVideoCall}) => {
+const VideoCall = ({ userId, users, toggleCamera, toggleMicrophone, leaveVideoCall, contentPlaying}) => {
     useEffect(() => {
         console.dir(users);
     }, [users]);
     
     return (
-        <div className="video-call-container">
+        <div className={ contentPlaying ?  "video-call-container" : "video-call-container-full"}>
+        {/* <div className={"video-call-container"}> */}
             {
                 users.map((user, index) =>
                     <VideoCallWindow

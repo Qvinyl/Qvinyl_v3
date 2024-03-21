@@ -57,7 +57,7 @@
 
 .message-container {
     color: white;
-    margin-bottom: 10px;
+    margin-top: 5px;
 }
 
 .system-message-container {
@@ -74,7 +74,7 @@
 
 .sent {
     margin-left: auto;
-    margin-right: 16px;
+    margin-right: 8px;
     padding: 10px;
     width: fit-content;
     border-radius: 10px 10px 0px 10px;
@@ -90,7 +90,7 @@
 
 .received {
     margin-right: auto;
-    margin-left: 16px;
+    margin-left: 8px;
     padding: 10px;
     width: fit-content;
     border-radius: 10px 10px 10px 0px;

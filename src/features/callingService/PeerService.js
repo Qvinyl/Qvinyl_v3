@@ -2,61 +2,74 @@ import Peer from "peerjs";
 import StreamManager from "../../util/StreamManager";
 
 class PeerService {
-    constructor(userId) {
-        this.peer = new Peer(userId, { debug: 1 });
-        this.peer.on('open', (peerId) => {
-            console.log('Initialized with peer ID: ' + peerId);
-            // Ensure that the peer ID matches the custom ID
-            if (peerId === userId) {
-                console.log('Peer initialized with the custom ID successfully.');
-            } else {
-                console.error('Peer initialization failed. Assigned ID does not match the custom ID.');
-                this.peer.disconnect();
-                this.peer = new Peer(userId, { debug: 1 });
-                // You may handle this case according to your application logic
-            }
-        });
-
+    constructor() {
+        this.peer = null;
+        this.peerId = null;
         this.streamManager = new StreamManager();
         this.callList = [];
-        this.peer.on("call", (call) => {
-            this.callList.push(call);
+    }
+
+    connect(userId) {
+        this.peer = new Peer(userId);
+
+        this.peer.on('open', id => {
+            this.peerId = id;
+            this.error = null;
+        });
+
+        this.peer.on("call", async (call) => {
+            // console.log(call);
+            // this.callList.push(call);
+            await this.answerCall(call);
         });
     }
 
+    isConnected() {
+        return this.peer && !this.peer.disconnected && !this.peer.destroyed;
+    }
+
+    async restartMedia() {
+        this.streamManager = new StreamManager();
+        this.openCamera();
+    }
+
     async openCamera() {
+        console.log("Opening Camera");
         try {
             const stream = await this.streamManager.getLocalStream();
             if (!stream) {
                 await this.streamManager.openCamera();
-                await this.answerCalls();
+               
             }
+            await this.answerCalls();
         } catch (error) {
             console.error("Error opening camera:", error);
         }
     }
 
-
     async callUser(userId) {
-        console.log("Call user: " + userId);
-        // Ensure the camera is open before calling
-        if (!this.streamManager.getLocalStream()) {
-            await this.openCamera();
-        }
+        if (userId) {
+            console.log("Call user: " + userId);
+            // Ensure the camera is open before calling
+            if (!this.streamManager.getLocalStream()) {
+                await this.openCamera();
+            }
 
-        try {
-            // Get the local stream
-            const stream = await this.streamManager.getLocalStream();
+            try {
+                // Get the local stream
+                const stream = await this.streamManager.getLocalStream();
 
-            // Call the user with the obtained stream
-            const call = this.peer.call(userId, stream);
+                // Call the user with the obtained stream
+                const call = this.peer.call(userId, stream);
 
-            // Handle the call events
-            this.handleCallEvents(call);
-        } catch (error) {
-            console.error("Error accessing media devices:", error);
+                // Handle the call events
+                this.handleCallEvents(call);
+            } catch (error) {
+                console.error("Error accessing media devices:", error);
+            }
         }
     }
+
 
     handleCallEvents(call) {
         if (call) {

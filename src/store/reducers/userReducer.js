@@ -1,10 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setUser, setUserName, setUserCurrentRoomkey, setLoggedIn } from "../actions/userActions";
+import { setUser, setUserName, setUserCurrentRoomkey, setLoggedIn, setPeerConnection} from "../actions/userActions";
 
 const initialState = {
     user: {},
     displayName: "",
-    loggedIn: false
+    loggedIn: false,
+    peerCon: null
  };
 
 
@@ -27,6 +28,11 @@ const userReducer = createReducer(initialState, (builder) => {
 
         .addCase(setLoggedIn, (state, action) => { 
             state.loggedIn = action.payload;
+        })
+
+        .addCase(setPeerConnection, (state, action) => {
+            console.log(action.payload.PeerConnection);
+            state.peerCon = action.payload;
         });
 });
   

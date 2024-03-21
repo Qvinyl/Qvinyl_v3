@@ -8,10 +8,10 @@ class StreamManager {
     async openCamera() {
         try {
             this.localStream = await navigator.mediaDevices.getUserMedia({
-                video: true,
+                video: {width: 320, height: 180, facingMode: "user"},
                 audio: {
                     mandatory: {
-                        googEchoCancellation: false,
+                        googEchoCancellation: true,
                         googAutoGainControl: false,
                         googNoiseSuppression: false,
                         googHighpassFilter: false,
