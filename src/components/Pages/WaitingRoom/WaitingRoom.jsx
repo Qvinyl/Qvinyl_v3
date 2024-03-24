@@ -10,14 +10,15 @@ const WaitingRoom = () => {
     const location = useLocation();
     const user = useSelector((state) => state.userReducer.user);
     const [peerService, setPeerService] = useState(new PeerService());
-    const [roomId, setRoomId] = useState();
+    const [roomId, setRoomId] = useState(location.pathname.replace("/", ""));
     const [joinedCall, setJoinedCall] = useState(false);
     const [loading, setLoading] = useState(true);
 
+
     useEffect(() => {
         turnOnCamera();
-        setRoomId(location.state.roomId);
-    }, []);
+        setRoomId(location.pathname.replace("/", ""));
+    }, [roomId]);
 
 
     const turnOnCamera = () => {

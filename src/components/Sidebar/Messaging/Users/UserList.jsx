@@ -46,11 +46,11 @@ const UserList = ({ currentRoomkey, userId }) => {
         );
     };
 
-    useEffect(() => {
-            hermes.off(`active-users-${currentRoomkey}`).on(`active-users-${currentRoomkey}`, (data) => {
-            setActiveList(data);
-        });
-    }, [currentRoomkey]);
+    // useEffect(() => {
+    //         hermes.off(`active-users-${currentRoomkey}`).on(`active-users-${currentRoomkey}`, (data) => {
+    //         setActiveList(data);
+    //     });
+    // }, [currentRoomkey]);
 
     return sortByActiveUser();
 };

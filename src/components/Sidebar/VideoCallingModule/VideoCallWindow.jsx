@@ -8,10 +8,17 @@ const VideoCallWindow = ({ user, id, toggleCamera, toggleMicrophone, leaveVideoC
         <>
             {id &&
                 <div className="video-call-window">
-                    <video className="video-window" id={id} />
-                    {user?.displayName &&
-                        <div className="displayName">{user?.displayName}</div>
-                    }
+                    <div style={{ position: 'relative', display: 'inline-block' }}>
+                        <video className="video-window" id={id}>
+                            {/* Video content */}
+                        </video>
+                        {user?.displayName && (
+                            <div className="displayName">
+                                {user.displayName}
+                            </div>
+                        )}
+                    </div>
+
                     <div className="video-controls">
                         {
                             id === "local-video" &&

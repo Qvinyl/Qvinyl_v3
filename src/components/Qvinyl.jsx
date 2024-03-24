@@ -120,15 +120,13 @@ const Qvinyl = ({peerService, roomId}) => {
 
     hermes.off(`joinCall-${roomId}`).on(`joinCall-${roomId}`, async (data) => {
         const joiningUser = data.user;
-        // Check if the user joining the call is not the current user
         if (user.user_id !== joiningUser.userId) {
-            // Update the list of users on the call
             setUsersOnCall(prevUsers => [...prevUsers, joiningUser]);
             const stream = await peerService.streamManager.getLocalStream();
             if (stream) {
                 setTimeout(async () => {
                     await peerService.callUser(joiningUser.userId);
-                }, 3000);
+                }, 2000);
             }
         }
     });

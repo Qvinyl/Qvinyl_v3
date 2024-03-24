@@ -94,7 +94,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                             <QueueMusicIcon className={tab === MUSIC_QUEUE ? "active" : "inactive"}/> 
                         </Button>
                     }
-                    {/* <Button className={tab === VIRTUAL_ROOMS ? "active-tab" : "tab"} onClick={() => chooseTabs(VIRTUAL_ROOMS)}>
+                    <Button className={tab === VIRTUAL_ROOMS ? "active-tab" : "tab"} onClick={() => chooseTabs(VIRTUAL_ROOMS)}>
                         <WeekendIcon className={tab === VIRTUAL_ROOMS ? "active" : "inactive"}/>
                     </Button>
 
@@ -107,7 +107,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                             :
                             <NotificationsIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
                         }
-                    </Button>    */}
+                    </Button>   
                 </ButtonGroup>
                 <div className="content">
                     {getComponent()}

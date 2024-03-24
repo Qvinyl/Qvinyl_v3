@@ -11,6 +11,7 @@
     margin: auto;
     width: 100%;
     padding: 16px;
+    overflow-y: auto;
 }
 
 .video-call-container-full {
@@ -37,22 +38,36 @@
     background-color: black;
     margin-left: auto;
     margin-right: auto;
-    width: 75%;
+    /* width: 75%;  */
+    width: 95%;
     max-height: 80vh;
     object-fit: contain;
     border-radius: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #local-video {
     transform: rotateY(180deg);
+    max-width: 75%;
 }
 
-.displayName {
+.displayName { 
+    /* overlay name on video */
     padding: 16px;
     font-size: large;
     position: relative;
     color: white;
     font-weight: bold;
+    position: absolute;
+    margin: 10px; 
+    color: white; 
+    bottom: 5px;
+    right: 2%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    padding: 5px;
+    border-radius: 5px;
+   
 }
 
 .local-feed {
@@ -60,6 +75,6 @@
     display: flex;
     bottom: 0;
     padding: 16px;
-    max-width: 15%;
+    max-width: 12%;
     flex-basis: 100%;
 }

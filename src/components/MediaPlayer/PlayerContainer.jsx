@@ -21,7 +21,7 @@ const PlayerContainer = ({user, roomData, contentPlay}) => {
     useEffect(() => {  
         if (currentRoomkey) {
             getSongElement();
-            setHasControl(roomData.admin === user.user_id);
+            // setHasControl(roomData.admin === user.user_id);
         }
     }, [roomData, user.user_id]);
     

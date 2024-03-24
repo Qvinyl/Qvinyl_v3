@@ -37,16 +37,13 @@ const App = () => {
   const getUser = async (auth) => {
     var userInfo = await findOrCreateUser(auth);
     dispatch(setUser(userInfo));
-    // const peerServiceInstance = new PeerService(userInfo?.user_id);
-    // dispatch(setPeerConnection(peerServiceInstance));
-
   }
 
   return (
     <div className="App">
         <Routes>
           <Route exact path="/login" element={<Login/>}/>
-          <Route exact path={`/:roomId`} element={<WaitingRoom/>}/>
+          <Route exact path={`:roomId`} element={<WaitingRoom/>}/>
           <Route exact path="/page-not-found" element={ <PageNotFound /> } />
           <Route path="/*" element={ <Navigate to="/page-not-found" replace />} />
         </Routes>

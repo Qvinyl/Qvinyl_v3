@@ -1,4 +1,5 @@
 import Peer from "peerjs";
+import { PEER_CONFIG } from "../../config/db_config";
 import StreamManager from "../../util/StreamManager";
 
 class PeerService {
@@ -10,7 +11,7 @@ class PeerService {
     }
 
     connect(userId) {
-        this.peer = new Peer(userId);
+        this.peer = new Peer(userId, PEER_CONFIG);
 
         this.peer.on('open', id => {
             this.peerId = id;
