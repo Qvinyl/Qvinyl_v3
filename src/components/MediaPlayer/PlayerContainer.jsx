@@ -6,7 +6,7 @@ import { getCurrentQueuedElement } from '../../features/queueService/Queuing/Que
 import { socket, onSeek, onPausePlayMedia, onMediaEnded, onSyncRoom } from '../../features/socketService/SyncService';
 import '../../css/Player.css'
 
-const PlayerContainer = ({user, roomData, contentPlay}) => {
+const PlayerContainer = ({user, roomId, contentPlay}) => {
     const [volume, setVolume] = useState(100);
     const [muted, setMute] = useState(false);
     const [playback, setPlayback] = useState(true);
@@ -16,14 +16,14 @@ const PlayerContainer = ({user, roomData, contentPlay}) => {
     const [requester, setRequester] = useState({});
     const [hasControl, setHasControl] = useState(true)
     const playerRef = useRef(null)  
-    const currentRoomkey = user.current_room_id;
+    const currentRoomkey = roomId;
 
     useEffect(() => {  
         if (currentRoomkey) {
             getSongElement();
             // setHasControl(roomData.admin === user.user_id);
         }
-    }, [roomData, user.user_id]);
+    }, [roomId, user.user_id]);
     
     const setVolumeLevel = (level) => {
         setVolume(level);

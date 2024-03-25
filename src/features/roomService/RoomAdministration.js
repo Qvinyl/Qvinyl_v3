@@ -44,7 +44,6 @@ async function addRoomToFireStore(roomkey) {
     } 
     catch (e) {
         console.log("Error adding document: ", e);
-        return false;
     }
 }
 

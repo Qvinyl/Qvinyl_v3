@@ -150,7 +150,7 @@ const Qvinyl = ({peerService, roomId}) => {
                     <div style={{ width: contentPlaying ? "100%" : "1px", height: contentPlaying ? "100%" : "1px", transition: "0.5s"}}>
                         <PlayerContainer
                             contentPlay={contentPlay}
-                            roomData={roomData}
+                            roomId={roomId}
                             user={user}
                         />
                     </div>
