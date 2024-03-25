@@ -1,5 +1,6 @@
 // const HOSTSITE =  "184.169.149.49";
 const HOSTSITE = "vbox.api.qvinyl.app";
+const CON_PATH = "/conference/",
 
 
 module.exports = {
@@ -21,7 +22,7 @@ module.exports = {
     YTS_PATH: "/youtubeSearch/",
     MSG_PATH: "/messaging/",
     NOT_PATH: "/notifications/",
-    CON_PATH: "/conference/",
+    CON_PATH: CON_PATH,
     ORM_PATH: "/data-sync/",
 
 
