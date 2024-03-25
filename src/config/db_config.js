@@ -39,7 +39,7 @@ module.exports = {
 
     PEER_CONFIG: {
         host: `${HOSTSITE}`,
-        path: "CON_PATH",
+        path: `${CON_PATH}`,
     }
 };
 
