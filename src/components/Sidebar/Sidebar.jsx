@@ -25,7 +25,7 @@ const VIRTUAL_ROOMS = 2;
 const NOTIFICATIONS = 3;
 
 
-const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
+const Sidebar = ({ isOpen, handleOnClickSidebarLip, joinRoom, user }) => {
     const [tab, setTab] = useState();
     const [readNotifications, setReadNotifications] = useState()
     const newMessages = useSelector((state) => state.messagesReducer.hasUnreadNessages);
@@ -44,24 +44,24 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
     const chooseTabs = (index) => {
         if (index === NOTIFICATIONS) {
             setReadNotifications(false);
-        }    
+        }
         if (tab === MESSAGING) {
             dispatch(hasUnreadMessages(false));
-        }     
+        }
         setTab(index);
     }
-    
+
     const getComponent = () => {
-        switch(tab) {
+        switch (tab) {
             case MESSAGING:
-                return <Messaging currentRoomkey={user.current_room_id} userId={user.user_id} displayName={user.display_name}/>
+                return <Messaging currentRoomkey={user.current_room_id} userId={user.user_id} displayName={user.display_name} />
             case MUSIC_QUEUE:
-                return <Queue displayName={user.display_name} currentRoomkey={user.current_room_id}/>
+                return <Queue displayName={user.display_name} currentRoomkey={user.current_room_id} />
             case VIRTUAL_ROOMS:
-                return <Rooms displayName={user.display_name} userId={user.user_id} currentRoomkey={user.current_room_id} joinRoom={joinRoom}/>
+                return <Rooms displayName={user.display_name} userId={user.user_id} currentRoomkey={user.current_room_id} joinRoom={joinRoom} />
             case NOTIFICATIONS:
-                return <Profile displayName={user.display_name} userId={user.user_id} joinRoom={joinRoom}/>
-            default: 
+                return <Profile displayName={user.display_name} userId={user.user_id} joinRoom={joinRoom} />
+            default:
                 chooseTabs(0);
         }
     }
@@ -69,32 +69,29 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
     notifications.on(`notify-${user.user_id}`, (data) => {
         setReadNotifications(data.notification);
     });
-   
+
     return (
         <div className="sidebar-container">
-            <SidebarLip 
+            <SidebarLip
                 isOpen={isOpen}
-                handleOnClickSidebarLip={handleOnClickSidebarLip}/>
+                handleOnClickSidebarLip={handleOnClickSidebarLip} />
             <div className="sidebar">
                 <ButtonGroup className="tab-group tabs" variant="contained" aria-label="outlined primary button group">
-                    { user.current_room_id && 
-                        <Button className={tab === MESSAGING ? "active-tab" : "tab"} onClick={() => chooseTabs(MESSAGING)}>
-                            {
-                                newMessages && tab !== MESSAGING ?
-                                <Badge color="error" overlap="circular" variant="dot"> 
-                                    <ChatIcon className="inactive"/>
+                    <Button className={tab === MESSAGING ? "active-tab" : "tab"} onClick={() => chooseTabs(MESSAGING)}>
+                        {
+                            newMessages && tab !== MESSAGING ?
+                                <Badge color="error" overlap="circular" variant="dot">
+                                    <ChatIcon className="inactive" />
                                 </Badge>
                                 :
-                                <ChatIcon className={tab === MESSAGING ? "active" : "inactive"}/>
-                            }
-                        </Button>
-                    } 
-                    { user.current_room_id &&   
-                        <Button className={tab === MUSIC_QUEUE ? "active-tab" : "tab"} onClick={() => chooseTabs(MUSIC_QUEUE)}>
-                            <QueueMusicIcon className={tab === MUSIC_QUEUE ? "active" : "inactive"}/> 
-                        </Button>
-                    }
-                    <Button className={tab === VIRTUAL_ROOMS ? "active-tab" : "tab"} onClick={() => chooseTabs(VIRTUAL_ROOMS)}>
+                                <ChatIcon className={tab === MESSAGING ? "active" : "inactive"} />
+                        }
+                    </Button>
+                    <Button className={tab === MUSIC_QUEUE ? "active-tab" : "tab"} onClick={() => chooseTabs(MUSIC_QUEUE)}>
+                        <QueueMusicIcon className={tab === MUSIC_QUEUE ? "active" : "inactive"} />
+                    </Button>
+
+                    {/* <Button className={tab === VIRTUAL_ROOMS ? "active-tab" : "tab"} onClick={() => chooseTabs(VIRTUAL_ROOMS)}>
                         <WeekendIcon className={tab === VIRTUAL_ROOMS ? "active" : "inactive"}/>
                     </Button>
 
@@ -107,7 +104,7 @@ const Sidebar = ({isOpen, handleOnClickSidebarLip, joinRoom, user}) => {
                             :
                             <NotificationsIcon className={tab === NOTIFICATIONS ? "active" : "inactive"}/>
                         }
-                    </Button>   
+                    </Button>    */}
                 </ButtonGroup>
                 <div className="content">
                     {getComponent()}
