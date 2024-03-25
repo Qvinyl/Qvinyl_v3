@@ -11,7 +11,7 @@ module.exports = {
     FB_MESSAGING_SENDER_ID: "1095197449779",
     FB_APP_ID: "1:1095197449779:web:7efbd809f751e285800d46",
 
-    CONNECTION_TYPE: "http://",
+    CONNECTION_TYPE: "https://",
     // HOSTSITE: "localhost",
     // HOSTSITE_2: "34.82.95.65",
     // HOSTSITE: "api.staging1.qvinyl.app",
