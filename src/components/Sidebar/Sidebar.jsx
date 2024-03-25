@@ -57,10 +57,10 @@ const Sidebar = ({ isOpen, handleOnClickSidebarLip, roomId, user }) => {
                 return <Messaging currentRoomkey={roomId} userId={user.user_id} displayName={user.display_name} />
             case MUSIC_QUEUE:
                 return <Queue displayName={user.display_name} currentRoomkey={roomId} />
-            case VIRTUAL_ROOMS:
-                return <Rooms displayName={user.display_name} userId={user.user_id} currentRoomkey={roomId} joinRoom={joinRoom} />
-            case NOTIFICATIONS:
-                return <Profile displayName={user.display_name} userId={user.user_id} joinRoom={joinRoom} />
+            // case VIRTUAL_ROOMS:
+            //     return <Rooms displayName={user.display_name} userId={user.user_id} currentRoomkey={roomId} joinRoom={joinRoom} />
+            // case NOTIFICATIONS:
+            //     return <Profile displayName={user.display_name} userId={user.user_id} joinRoom={joinRoom} />
             default:
                 chooseTabs(0);
         }
