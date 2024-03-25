@@ -1,7 +1,7 @@
 // const HOSTSITE =  "localhost";
 const HOSTSITE = "vbox.api.qvinyl.app";
-// const CON_PATH = "/conference/";
-const CON_PATH = "/callMeAPI";
+const CON_PATH = "/conference/";
+// const CON_PATH = "/callMeAPI";
 
 
 module.exports = {
@@ -20,12 +20,12 @@ module.exports = {
     // HOSTSITE: "api.staging1.qvinyl.app",
     // HOSTSITE: "vbox.api.qvinyl.app",
     HOSTSITE: `${HOSTSITE}`,
-    // SYNC_PATH: "/syncing/",
-    // YTS_PATH: "/youtubeSearch/",
-    // MSG_PATH: "/messaging/",
-    // NOT_PATH: "/notifications/",
-    // CON_PATH: CON_PATH,
-    // ORM_PATH: "/data-sync/",
+    SYNC_PATH: "/syncing/",
+    YTS_PATH: "/youtubeSearch/",
+    MSG_PATH: "/messaging/",
+    NOT_PATH: "/notifications/",
+    CON_PATH: CON_PATH,
+    ORM_PATH: "/data-sync/",
 
 
     // SYNC_PATH: ":7777",
