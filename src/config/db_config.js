@@ -14,7 +14,7 @@ module.exports = {
     FB_APP_ID: "1:1095197449779:web:7efbd809f751e285800d46",
 
     // CONNECTION_TYPE: "https://",
-    CONNECTION_TYPE: "http://",
+    CONNECTION_TYPE: "https://",
     // HOSTSITE: "localhost",
     // HOSTSITE_2: "34.82.95.65",
     // HOSTSITE: "api.staging1.qvinyl.app",
@@ -32,7 +32,7 @@ module.exports = {
     // YTS_PATH: ":9000/search",
     // MSG_PATH: ":9993",
     // NOT_PATH: ":5240",
-    ORM_PATH: ":3000/api/v1/",
+    // ORM_PATH: ":3000/api/v1/",
 
     // PEER_CONFIG: {
     //     host: `${HOSTSITE}`,
