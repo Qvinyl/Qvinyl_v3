@@ -4,7 +4,6 @@ import './VideoCall.css';
 
 const VideoCall = ({ userId, users, toggleCamera, toggleMicrophone, leaveVideoCall, contentPlaying}) => {
     useEffect(() => {
-        console.dir(users);
     }, [users]);
     
     return (

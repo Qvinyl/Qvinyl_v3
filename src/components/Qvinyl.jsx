@@ -82,7 +82,6 @@ const Qvinyl = ({peerService, roomId}) => {
 
         joinCall(roomId, joiningUser);
         await peerService.restartMedia();
-        console.log(peerService.peerId);
     }
 
     // const leaveSocketRooms = () => {

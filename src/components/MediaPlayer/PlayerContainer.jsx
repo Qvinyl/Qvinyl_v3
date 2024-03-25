@@ -81,12 +81,12 @@ const PlayerContainer = ({user, roomId, contentPlay}) => {
         setRequester(data.user);
     });
 
-    socket.on(`granted-control-${currentRoomkey}`, (data) => {
-        setHasControl(data.user === user.user_id)
-        if (roomData.admin === user.user_id) {
-            setHasControl(roomData.admin === user.user_id);
-        }
-    });
+    // socket.on(`granted-control-${currentRoomkey}`, (data) => {
+    //     setHasControl(data.user === user.user_id)
+    //     if (roomData.admin === user.user_id) {
+    //         setHasControl(roomData.admin === user.user_id);
+    //     }
+    // });
 
     socket.off(`sync-up-${currentRoomkey}`).on(`sync-up-${currentRoomkey}`, () => {
         onSyncRoom(currentRoomkey, progress/100);
