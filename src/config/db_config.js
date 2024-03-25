@@ -21,8 +21,9 @@ module.exports = {
     YTS_PATH: "/youtubeSearch/",
     MSG_PATH: "/messaging/",
     NOT_PATH: "/notifications/",
-    CON_PATH: "/notifications/",
+    CON_PATH: "/conference/",
     ORM_PATH: "/data-sync/",
+
 
     // SYNC_PATH: ":7777",
     // YTS_PATH: ":9000/search",
@@ -32,8 +33,7 @@ module.exports = {
 
     PEER_CONFIG: {
         host: `${HOSTSITE}`,
-        port: 8878,
-        path: "/callMeAPI",
+        path: "CON_PATH",
     }
 };
 
