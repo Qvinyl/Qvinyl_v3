@@ -175,6 +175,7 @@ const Qvinyl = ({peerService, roomId}) => {
                     <Sidebar
                         user={user}
                         isOpen={sidebar}
+                        roomId={roomId}
                         // joinRoom={joinRoom}
                         handleOnClickSidebarLip={handleOnClickSidebarLip}
                     />

@@ -25,7 +25,7 @@ const VIRTUAL_ROOMS = 2;
 const NOTIFICATIONS = 3;
 
 
-const Sidebar = ({ isOpen, handleOnClickSidebarLip, joinRoom, user }) => {
+const Sidebar = ({ isOpen, handleOnClickSidebarLip, roomId, user }) => {
     const [tab, setTab] = useState();
     const [readNotifications, setReadNotifications] = useState()
     const newMessages = useSelector((state) => state.messagesReducer.hasUnreadNessages);
@@ -33,7 +33,7 @@ const Sidebar = ({ isOpen, handleOnClickSidebarLip, joinRoom, user }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user.current_room_id === "") {
+        if (roomId === "") {
             if (tab === VIRTUAL_ROOMS || tab === NOTIFICATIONS) {
                 setTab(tab)
                 chooseTabs(tab);
@@ -54,11 +54,11 @@ const Sidebar = ({ isOpen, handleOnClickSidebarLip, joinRoom, user }) => {
     const getComponent = () => {
         switch (tab) {
             case MESSAGING:
-                return <Messaging currentRoomkey={user.current_room_id} userId={user.user_id} displayName={user.display_name} />
+                return <Messaging currentRoomkey={roomId} userId={user.user_id} displayName={user.display_name} />
             case MUSIC_QUEUE:
-                return <Queue displayName={user.display_name} currentRoomkey={user.current_room_id} />
+                return <Queue displayName={user.display_name} currentRoomkey={roomId} />
             case VIRTUAL_ROOMS:
-                return <Rooms displayName={user.display_name} userId={user.user_id} currentRoomkey={user.current_room_id} joinRoom={joinRoom} />
+                return <Rooms displayName={user.display_name} userId={user.user_id} currentRoomkey={roomId} joinRoom={joinRoom} />
             case NOTIFICATIONS:
                 return <Profile displayName={user.display_name} userId={user.user_id} joinRoom={joinRoom} />
             default:
