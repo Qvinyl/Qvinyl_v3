@@ -31,6 +31,12 @@ module.exports = {
     // NOT_PATH: ":5240",
     // ORM_PATH: ":3000/api/v1/",
 
+    // PEER_CONFIG: {
+    //     host: `${HOSTSITE}`,
+    //     port: 8878,
+    //     path: "/callMeAPI",
+    // }
+
     PEER_CONFIG: {
         host: `${HOSTSITE}`,
         path: "CON_PATH",
