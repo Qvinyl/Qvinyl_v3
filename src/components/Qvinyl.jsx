@@ -16,14 +16,14 @@ import VideoCall from './Sidebar/VideoCallingModule/VideoCall';
 import '../css/Sidebar.css';
 import '../css/Main.css';
 
-const Qvinyl = ({peerService, roomId}) => {
+const Qvinyl = ({ peerService, roomId }) => {
     const navigate = useNavigate();
     const [sidebar, setSidebar] = useState(true);
     const [roomData, setRoomData] = useState({});
     const [refreshPageModalOpen, setRefreshPageModalOpen] = useState(false);
     const [activeUserList, setActiveUserList] = useState([]);
     const [usersOnCall, setUsersOnCall] = useState([]);
-    const [contentPlaying, setContentPlaying] = useState(true);
+    const [contentPlaying, setContentPlaying] = useState(false);
     const user = useSelector((state) => state.userReducer.user);
     const loggedIn = useSelector((state) => state.userReducer.loggedIn);
 
@@ -145,16 +145,8 @@ const Qvinyl = ({peerService, roomId}) => {
         <div className="main">
             {
                 user &&
-                <>
-                    <div style={{ width: contentPlaying ? "100%" : "1px", height: contentPlaying ? "100%" : "1px", transition: "0.5s"}}>
-                        <PlayerContainer
-                            contentPlay={contentPlay}
-                            roomId={roomId}
-                            user={user}
-                        />
-                    </div>
-
-                    <div style={{ width: contentPlaying ? "28%" : "100%", display: "flex", overflow: "hidden", backgroundColor: contentPlaying ? "#212121" : "transparent", transition: "0.5s" }}>
+                <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+                    <div style={{ height: contentPlaying ? "20%" : "100%", display: "flex", overflow: "hidden", backgroundColor: contentPlaying ? "#212121" : "transparent", transition: "0.5s" }}>
                         <VideoCall
                             contentPlaying={contentPlaying}
                             userId={user.user_id}
@@ -164,7 +156,14 @@ const Qvinyl = ({peerService, roomId}) => {
                             toggleMicrophone={toggleMicrophone}
                         />
                     </div>
-                </>
+                    <div style={{ width: contentPlaying ? "100%" : "1px", height: contentPlaying ? "100%" : "1px", transition: "0.5s" }}>
+                        <PlayerContainer
+                            contentPlay={contentPlay}
+                            roomId={roomId}
+                            user={user}
+                        />
+                    </div>
+                </div>
 
             }
 
