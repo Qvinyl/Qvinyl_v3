@@ -30,14 +30,8 @@ module.exports = {
 
     PEER_CONFIG: {
         host: `${HOSTSITE}`,
-        port: 8878,
-        path: "/callMeAPI",
+        path: `${CON_PATH}`,
+        secure: true
     }
-
-    // PEER_CONFIG: {
-    //     host: `${HOSTSITE}`,
-    //     path: `${CON_PATH}`,
-    //     secure: false
-    // }
 };
 
