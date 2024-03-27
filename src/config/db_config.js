@@ -1,5 +1,5 @@
-// const HOSTSITE =  "localhost";
-const HOSTSITE = "vbox.api.qvinyl.app";
+const HOSTSITE =  "localhost";
+// const HOSTSITE = "vbox.api.qvinyl.app";
 // const HOSTSITE = "localhost"
 const CON_PATH = "/conference/";
 
