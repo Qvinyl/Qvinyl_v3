@@ -13,7 +13,7 @@ module.exports = {
     FB_MESSAGING_SENDER_ID: "1095197449779",
     FB_APP_ID: "1:1095197449779:web:7efbd809f751e285800d46",
 
-    CONNECTION_TYPE: "http://",
+    CONNECTION_TYPE: "https://",
     HOSTSITE: `${HOSTSITE}`,
     SYNC_PATH: "/syncing/",
     YTS_PATH: "/youtubeSearch/",
